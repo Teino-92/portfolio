@@ -12,6 +12,7 @@ const statusConfig = {
   production: { label: "En production", color: "#2D9B5A", bg: "rgba(45,155,90,0.12)" },
   prototype: { label: "Prototype", color: "#F2A622", bg: "rgba(242,166,34,0.12)" },
   archived: { label: "Archivé", color: "#7A7870", bg: "rgba(122,120,112,0.12)" },
+  development: { label: "En développement", color: "#4A90D9", bg: "rgba(74,144,217,0.12)" },
 };
 
 function ProjectCard({

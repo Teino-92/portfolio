@@ -9,7 +9,7 @@ export type Project = {
   github?: string;
   image?: string;
   featured: boolean;
-  status: "production" | "prototype" | "archived";
+  status: "production" | "prototype" | "archived" | "development";
   problem: string;
   metrics: string[];
   decisions: {
@@ -156,7 +156,7 @@ export async function getProductsByCategory(
     tags: ["Next.js", "TypeScript", "Framer Motion"],
     year: 2026,
     featured: false,
-    status: "prototype",
+    status: "development",
     problem:
       "Une make-up artiste de ce niveau mérite une vitrine digitale à la hauteur de son travail — pas un PDF envoyé par email. L'enjeu : présenter des visuels forts dans un environnement qui ne leur fait pas concurrence.",
     metrics: [
