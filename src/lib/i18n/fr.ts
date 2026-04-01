@@ -26,7 +26,7 @@ export const fr = {
 
   // Hero (homepage)
   hero: {
-    lines: ["Bâtisseur", "d'applications", "qui ont du sens.", "Web & SaaS."],
+    lines: ["Bâtisseur", "d'apps", "qui ont du sens.", "Web & SaaS."],
     sub1: "Rails · Next.js · Solidity · IA — de l'idée au produit.",
     sub2: "3 SaaS lancés, des centaines d'utilisateurs, zéro template.",
     ctaProjects: "Voir les projets",

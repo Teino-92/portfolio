@@ -28,7 +28,7 @@ export const en: Translations = {
 
   // Hero (homepage)
   hero: {
-    lines: ["Builder", "of applications", "that make sense.", "Web & SaaS."],
+    lines: ["Builder", "of apps", "that make sense.", "Web & SaaS."],
     sub1: "Rails · Next.js · Solidity · AI — from idea to product.",
     sub2: "3 SaaS launched, hundreds of users, zero template.",
     ctaProjects: "View projects",
