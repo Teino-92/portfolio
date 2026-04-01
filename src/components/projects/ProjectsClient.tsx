@@ -213,10 +213,14 @@ export default function ProjectsClient() {
     return Array.from(tagSet);
   }, []);
 
-  // Filter projects
+  // Filter projects — archived always last
   const filtered = useMemo(() => {
-    if (activeFilter === "Tous") return projects;
-    return projects.filter((p) => p.tags.includes(activeFilter));
+    const list = activeFilter === "Tous" ? projects : projects.filter((p) => p.tags.includes(activeFilter));
+    return [...list].sort((a, b) => {
+      if (a.status === "archived" && b.status !== "archived") return 1;
+      if (a.status !== "archived" && b.status === "archived") return -1;
+      return 0;
+    });
   }, [activeFilter]);
 
   return (
