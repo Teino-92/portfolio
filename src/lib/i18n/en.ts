@@ -94,7 +94,8 @@ export const en: Translations = {
     available: "Available for a mission — Q2 2026",
     lookingTitle: "What I'm looking for.",
     items: [
-      "Freelance Web3 or SaaS missions with real product stakes",
+      "Freelance Web or SaaS missions with real product stakes",
+      "SMEs that want to get organized — stop stacking useless SaaS tools and build their own",
       "Projects where operational rigor and code intersect",
       "Teams that build seriously, without bullshit",
     ],

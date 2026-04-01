@@ -92,7 +92,8 @@ export const fr = {
     available: "Disponible pour une mission — Q2 2026",
     lookingTitle: "Ce que je cherche.",
     items: [
-      "Des missions freelance Web3 ou SaaS avec un vrai enjeu produit",
+      "Des missions freelance Web ou SaaS avec un vrai enjeu produit",
+      "Des PME qui veulent remettre de l'ordre — arrêter d'empiler des SaaS inutiles et construire leurs propres outils",
       "Des projets où la rigueur opérationnelle et le code se croisent",
       "Des équipes qui construisent sérieusement, sans bullshit",
     ],
