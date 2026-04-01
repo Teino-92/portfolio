@@ -303,13 +303,13 @@ export default function AboutStory() {
 
           {/* Mobile — ghost line */}
           <div
-            className="lg:hidden absolute left-[4px] top-0 bottom-0"
+            className="lg:hidden absolute left-[4px] top-[8px] bottom-0"
             style={{ width: "1px", backgroundColor: "var(--color-border)" }}
           />
           {/* Mobile — animated red progress line */}
           <div
             ref={lineMobileRef}
-            className="lg:hidden absolute left-[4px] top-0 bottom-0"
+            className="lg:hidden absolute left-[4px] top-[8px] bottom-0"
             style={{
               width: "2px",
               backgroundColor: "var(--color-red)",
