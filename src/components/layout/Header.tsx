@@ -92,7 +92,7 @@ export default function Header() {
           {/* Logo */}
           <a
             href="/"
-            aria-label={t.header.ariaHome}
+            aria-label="MG — Retour à l'accueil"
             style={{
               fontFamily: "var(--font-display)",
               fontWeight: 800,

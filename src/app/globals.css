@@ -11,7 +11,7 @@
   --color-bg-accent:    #1A1A18;
 
   /* Accents principaux */
-  --color-red:          #D63C2A;
+  --color-red:          #CC3826;   /* ratio 4.84:1 blanc — WCAG AA */
   --color-red-dark:     #A82D1E;
   --color-yellow:       #F2A622;
   --color-yellow-light: #FCD36A;
@@ -19,7 +19,7 @@
   /* Neutres */
   --color-black:        #1A1A18;
   --color-gray-dark:    #3D3C38;
-  --color-gray-mid:     #7A7870;
+  --color-gray-mid:     #6B6A62;   /* ratio 4.79:1 sur beige — WCAG AA */
   --color-gray-light:   #C8C4BA;
   --color-white:        #FDFAF4;
 
