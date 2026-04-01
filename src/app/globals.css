@@ -1,27 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Backgrounds */
+  --color-bg-primary:   #F5F0E8;
+  --color-bg-secondary: #EDE8DE;
+  --color-bg-accent:    #1A1A18;
+
+  /* Accents principaux */
+  --color-red:          #D63C2A;
+  --color-red-dark:     #A82D1E;
+  --color-yellow:       #F2A622;
+  --color-yellow-light: #FCD36A;
+
+  /* Neutres */
+  --color-black:        #1A1A18;
+  --color-gray-dark:    #3D3C38;
+  --color-gray-mid:     #7A7870;
+  --color-gray-light:   #C8C4BA;
+  --color-white:        #FDFAF4;
+
+  /* Sémantiques */
+  --color-text-primary:   var(--color-black);
+  --color-text-secondary: var(--color-gray-dark);
+  --color-text-muted:     var(--color-gray-mid);
+  --color-border:         rgba(26, 26, 24, 0.12);
+  --color-border-strong:  rgba(26, 26, 24, 0.25);
+
+  /* Typographie */
+  --font-display: 'Syne', sans-serif;
+  --font-serif:   'DM Serif Display', serif;
+  --font-mono:    'IBM Plex Mono', monospace;
+  --font-body:    system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
-}
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  body {
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    line-height: 1.65;
+    font-size: 1rem;
+  }
+
+  ::selection {
+    background-color: var(--color-yellow);
+    color: var(--color-black);
   }
 }
