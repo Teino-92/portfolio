@@ -56,7 +56,7 @@ export default function Hero() {
       <div className="relative z-10 flex flex-col justify-center h-full px-6 md:px-16 lg:px-24 max-w-[1400px] mx-auto">
 
         {/* Titre principal */}
-        <h1 className="mb-8" aria-label={t.hero.lines.join(" ")}>
+        <h1 className="mb-8">
           {t.hero.lines.map((line, i) => (
             <AnimatedText
               key={`${lang}-${line}`}
