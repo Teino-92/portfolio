@@ -31,10 +31,10 @@ function Globe() {
     <Points ref={ref} positions={positions}>
       <PointMaterial
         color="#D63C2A"
-        size={0.018}
+        size={0.028}
         sizeAttenuation
         transparent
-        opacity={0.65}
+        opacity={0.9}
       />
     </Points>
   );
