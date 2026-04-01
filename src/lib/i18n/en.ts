@@ -39,7 +39,7 @@ export const en: Translations = {
   aboutSection: {
     label: "04 — About",
     stat1Label: "SaaS launched",
-    stat2Value: "3 Years",
+    stat2Value: "3 yrs",
     stat2Label: "of product experience",
     title: "I build products from A to Z.",
     body: "Full-stack developer with a strong product sense, I've been working on Web3 and SaaS projects for 3 years. I love well-thought-out products, interfaces that don't apologize for existing, and code that lasts.",
