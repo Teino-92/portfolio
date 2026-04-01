@@ -53,7 +53,7 @@ export default function AboutPersonal() {
           initial={prefersReducedMotion ? false : "hidden"}
           animate={isInView ? "visible" : "hidden"}
           variants={staggerContainer}
-          className="grid grid-cols-2 gap-4"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-4"
         >
           {t.aboutPersonal.cards.map((card) => (
             <motion.div
