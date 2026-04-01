@@ -14,7 +14,7 @@ const ParticleGlobe = dynamic(
 
 export default function Hero() {
   const prefersReducedMotion = useReducedMotion();
-  const { t } = useLang();
+  const { t, lang } = useLang();
 
   const motionProps = (i: number) =>
     prefersReducedMotion
@@ -59,7 +59,7 @@ export default function Hero() {
         <h1 className="mb-8" aria-label={t.hero.lines.join(" ")}>
           {t.hero.lines.map((line, i) => (
             <AnimatedText
-              key={line}
+              key={`${lang}-${line}`}
               text={line}
               el="span"
               delay={0.15 + i * 0.18}

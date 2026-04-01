@@ -65,7 +65,7 @@ export const projects: Project[] = [
     tagline: "SIRH SaaS pour PME françaises",
     tagline_en: "HRIS SaaS for French SMEs",
     description:
-      "Plateforme HRIS manager-centric intégrant les logiciels de paie existants. Gestion des congés, notes de frais, onboarding. Cible 30–300 collaborateurs.",
+      "Plateforme SIRH manager-centric intégrant les logiciels de paie existants. Gestion des congés, notes de frais, onboarding. Cible 30–300 collaborateurs.",
     description_en:
       "Manager-centric HRIS platform integrating existing payroll software. Leave management, expense reports, onboarding. Targets 30–300 employees.",
     tags: ["Rails 7", "Hotwire", "Tailwind", "SaaS", "B2B"],
