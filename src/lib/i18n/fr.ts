@@ -164,7 +164,7 @@ export const fr = {
         period: "2019 — 2025",
         title: "Welcome at Work",
         location: "Paris, France",
-        body: "Six ans à pousser des limites. De Welcome Manager Senior à Operating Manager : des équipes, des process, du COPIL, de la data. Un terrain de jeu où j'ai pu combiner tout ce que j'avais appris — l'humain de l'hôtellerie, la rigueur du retail, l'ambition du business. +10%/an en moyen de CA Btob sur mon périmètre. Et la conviction que la technologie pouvait aller beaucoup plus loin.",
+        body: "Six ans à pousser des limites. De Welcome Manager Senior à Operating Manager : des équipes, des process, du COPIL, de la data. Un terrain de jeu où j'ai pu combiner tout ce que j'avais appris — l'humain de l'hôtellerie, la rigueur du retail, l'ambition du business. +10%/an en moyen de CA Btob sur mon périmètre. Et la conviction que la technologie pouvait aller beaucoup plus loin. C'est là que j'ai commencé à coder en autodidacte — les soirs et les week-ends — avant de tout formaliser.",
       },
       {
         period: "2025 — aujourd'hui",

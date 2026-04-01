@@ -166,7 +166,7 @@ export const en: Translations = {
         period: "2019 — 2025",
         title: "Welcome at Work",
         location: "Paris, France",
-        body: "Six years pushing limits. From Senior Welcome Manager to Operating Manager: teams, processes, steering committees, data. A playground where I combined everything I'd learned — hospitality's humanity, retail's rigor, business ambition. +10%/year average B2B revenue on my scope. And conviction that technology could go much further.",
+        body: "Six years pushing limits. From Senior Welcome Manager to Operating Manager: teams, processes, steering committees, data. A playground where I combined everything I'd learned — hospitality's humanity, retail's rigor, business ambition. +10%/year average B2B revenue on my scope. And conviction that technology could go much further. That's when I started teaching myself to code — evenings and weekends — before making it official.",
       },
       {
         period: "2025 — today",
