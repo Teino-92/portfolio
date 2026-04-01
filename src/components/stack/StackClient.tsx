@@ -2,8 +2,8 @@
 
 import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, useInView, useReducedMotion, AnimatePresence } from "framer-motion";
-// useInView used in StackClient hero
 import { fadeUp, staggerContainer } from "@/lib/animations";
+import { useLang } from "@/lib/i18n/context";
 
 type Skill = {
   label: string;
@@ -288,8 +288,16 @@ export default function StackClient() {
   const heroRef = useRef<HTMLDivElement>(null);
   const isHeroInView = useInView(heroRef, { once: true });
   const prefersReducedMotion = useReducedMotion();
+  const { t } = useLang();
 
-  const activeDomainData = DOMAINS.find((d) => d.id === activeDomain) ?? DOMAINS[0];
+  // Use translated domains
+  const domains: Domain[] = t.stackDomains.map((d, i) => ({
+    ...DOMAINS[i],
+    label: d.label,
+    skills: [...d.skills],
+  }));
+
+  const activeDomainData = domains.find((d) => d.id === activeDomain) ?? domains[0];
 
   // On hover-in: switch domain. On hover-out: keep last hovered (ignore null).
   const handleHover = useCallback((id: string | null) => {
@@ -324,7 +332,7 @@ export default function StackClient() {
               marginBottom: "16px",
             }}
           >
-            <span style={{ color: "var(--color-red)" }}>●</span> Stack technique
+            <span style={{ color: "var(--color-red)" }}>●</span> {t.stackPage.label.replace("● ", "")}
           </motion.p>
           <motion.h1
             variants={prefersReducedMotion ? undefined : fadeUp}
@@ -338,7 +346,7 @@ export default function StackClient() {
               letterSpacing: "-0.02em",
             }}
           >
-            L&apos;outillage.
+            {t.stackPage.title}
           </motion.h1>
           <motion.p
             variants={prefersReducedMotion ? undefined : fadeUp}
@@ -348,7 +356,7 @@ export default function StackClient() {
               color: "var(--color-gray-mid)",
             }}
           >
-            Survolez les axes du radar pour explorer chaque domaine.
+            {t.stackPage.subtitle}
           </motion.p>
         </motion.div>
       </section>
@@ -361,7 +369,7 @@ export default function StackClient() {
             {/* Left — Radar */}
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "32px" }}>
               <RadarChart
-                domains={DOMAINS}
+                domains={domains}
                 activeDomain={activeDomain}
                 onHover={handleHover}
               />
@@ -370,7 +378,7 @@ export default function StackClient() {
               <div
                 className="flex flex-wrap gap-2 justify-center lg:hidden"
               >
-                {DOMAINS.map((d) => (
+                {domains.map((d) => (
                   <button
                     key={d.id}
                     onClick={() => setActiveDomain(d.id)}
@@ -403,7 +411,7 @@ export default function StackClient() {
                 <motion.span
                   animate={{ color: activeDomainData.color }}
                   transition={{ duration: 0.3 }}
-                >●</motion.span> core stack
+                >●</motion.span> {t.stackPage.coreStack}
               </p>
             </div>
 
@@ -431,7 +439,7 @@ export default function StackClient() {
                       letterSpacing: "0.1em",
                       marginBottom: "6px",
                     }}>
-                      Domaine
+                      {t.stackPage.domainLabel}
                     </p>
                     <h2 style={{
                       fontFamily: "var(--font-serif)",

@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer } from "@/lib/animations";
+import { useLang } from "@/lib/i18n/context";
 
 type SocialLink = {
   label: string;
@@ -18,6 +19,7 @@ export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-10% 0px" });
   const prefersReducedMotion = useReducedMotion();
+  const { t } = useLang();
 
   const containerVariants = prefersReducedMotion ? { hidden: {}, visible: {} } : staggerContainer;
   const itemVariants = prefersReducedMotion ? { hidden: {}, visible: {} } : fadeUp;
@@ -45,7 +47,7 @@ export default function Contact() {
           }}
           className="mb-8"
         >
-          05 — Contact
+          {t.contactSection.label}
         </motion.p>
 
         {/* Heading */}
@@ -63,7 +65,7 @@ export default function Contact() {
           }}
           className="mb-6"
         >
-          Démarrons quelque chose.
+          {t.contactSection.title}
         </motion.h2>
 
         {/* Subtext */}
@@ -80,7 +82,7 @@ export default function Contact() {
           }}
           className="mb-12"
         >
-          Freelance · Remote · Disponible maintenant
+          {t.contactSection.subtitle}
         </motion.p>
 
         {/* CTA */}
@@ -112,7 +114,7 @@ export default function Contact() {
               (e.currentTarget as HTMLAnchorElement).style.backgroundColor = "var(--color-white)";
             }}
           >
-            Envoyer un message
+            {t.contactSection.cta}
           </a>
         </motion.div>
 

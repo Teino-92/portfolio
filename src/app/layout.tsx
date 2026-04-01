@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
+import { LangProvider } from "@/lib/i18n/context";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
@@ -38,13 +39,15 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
-        <SmoothScrollProvider>
-          <Header />
-          <div style={{ paddingTop: "64px" }}>
-            {children}
-          </div>
-          <Footer />
-        </SmoothScrollProvider>
+        <LangProvider>
+          <SmoothScrollProvider>
+            <Header />
+            <div style={{ paddingTop: "64px" }}>
+              {children}
+            </div>
+            <Footer />
+          </SmoothScrollProvider>
+        </LangProvider>
       </body>
     </html>
   );

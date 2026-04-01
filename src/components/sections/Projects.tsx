@@ -5,12 +5,14 @@ import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-mot
 import { staggerContainer, fadeUp } from "@/lib/animations";
 import { projects, type Project } from "@/lib/data/projects";
 import Tag from "@/components/ui/Tag";
+import { useLang } from "@/lib/i18n/context";
 
 export default function Projects() {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const prefersReducedMotion = useReducedMotion();
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const { t } = useLang();
 
   const animate = !prefersReducedMotion && isInView ? "visible" : prefersReducedMotion ? "visible" : "hidden";
   // Homepage selection: izi-rh (large), merci-murphy + metrik as small cards
@@ -37,7 +39,7 @@ export default function Projects() {
             className="mb-4 text-xs tracking-[0.22em] uppercase"
             style={{ fontFamily: "var(--font-mono)", color: "var(--color-gray-mid)" }}
           >
-            <span style={{ color: "var(--color-red)" }}>●</span> 02 — Projets sélectionnés
+            <span style={{ color: "var(--color-red)" }}>●</span> {t.projectsSection.label}
           </motion.p>
 
           {/* Titre */}
@@ -54,7 +56,7 @@ export default function Projects() {
               lineHeight: 1.1,
             }}
           >
-            Ce que j&apos;ai construit
+            {t.projectsSection.title}
           </motion.h2>
 
           {/* Grille */}
@@ -70,6 +72,7 @@ export default function Projects() {
                   project={featured}
                   large
                   onSelect={setSelectedId}
+                  details={t.projectsSection.details}
                 />
               </motion.div>
             )}
@@ -80,6 +83,7 @@ export default function Projects() {
                   <ProjectCard
                     project={project}
                     onSelect={setSelectedId}
+                    details={t.projectsSection.details}
                   />
                 </motion.div>
               ))}
@@ -90,6 +94,7 @@ export default function Projects() {
                 <ProjectCard
                   project={project}
                   onSelect={setSelectedId}
+                  details={t.projectsSection.details}
                 />
               </motion.div>
             ))}
@@ -153,7 +158,7 @@ export default function Projects() {
                 {/* Close button */}
                 <button
                   onClick={() => setSelectedId(null)}
-                  aria-label="Fermer"
+                  aria-label={t.projectsSection.close}
                   style={{
                     position: "absolute",
                     top: "20px",
@@ -255,7 +260,7 @@ export default function Projects() {
                         padding: "10px 20px",
                       }}
                     >
-                      Voir le site →
+                      {t.projectsSection.viewSite}
                     </a>
                   )}
                   {selectedProject.github && (
@@ -291,10 +296,12 @@ function ProjectCard({
   project,
   large = false,
   onSelect,
+  details,
 }: {
   project: Project;
   large?: boolean;
   onSelect: (id: string) => void;
+  details: string;
 }) {
   const linkHref = project.url ?? project.github ?? "#";
 
@@ -369,7 +376,7 @@ function ProjectCard({
             padding: 0,
           }}
         >
-          Détails →
+          {details}
         </button>
 
         {linkHref !== "#" && (

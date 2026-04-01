@@ -5,61 +5,25 @@ import { useInView, useReducedMotion, motion } from "framer-motion";
 import { fadeUp } from "@/lib/animations";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLang } from "@/lib/i18n/context";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type SkillDomain = {
-  title: string;
-  accent: string;
-  skills: string[];
-};
-
-const DOMAINS: SkillDomain[] = [
-  {
-    title: "Opérations",
-    accent: "var(--color-red)",
-    skills: [
-      "Leadership & management senior",
-      "Pilotage stratégique & P&L",
-      "KPIs & culture data",
-      "Gestion de crise",
-      "Amélioration continue",
-      "Gouvernance & COPIL",
-      "Process design",
-    ],
-  },
-  {
-    title: "Tech & Produit",
-    accent: "var(--color-yellow)",
-    skills: [
-      "Ruby on Rails",
-      "Next.js / React",
-      "TypeScript / JavaScript",
-      "SQL / PostgreSQL",
-      "Solidity / Web3",
-      "Figma",
-      "AWS · Stripe · GitHub",
-    ],
-  },
-  {
-    title: "Humain & Transversal",
-    accent: "var(--color-gray-light)",
-    skills: [
-      "Stakeholder management",
-      "Conduite du changement",
-      "4 langues courantes",
-      "Pédagogie & mentorat",
-      "Coordination multisites",
-      "Esprit entrepreneurial",
-      "Adaptabilité culturelle",
-    ],
-  },
-];
+const ACCENTS = [
+  "var(--color-red)",
+  "var(--color-yellow)",
+  "var(--color-gray-light)",
+] as const;
 
 export default function AboutSkills() {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const prefersReducedMotion = useReducedMotion();
+  const { t } = useLang();
+  const DOMAINS = t.aboutSkills.domains.map((d, i) => ({
+    ...d,
+    accent: ACCENTS[i] ?? "var(--color-gray-light)",
+  }));
   const itemsRef = useRef<HTMLElement[]>([]);
 
   const addToRefs = (el: HTMLElement | null) => {
@@ -117,7 +81,7 @@ export default function AboutSkills() {
           className="mb-4 text-xs tracking-[0.22em] uppercase"
           style={{ fontFamily: "var(--font-mono)", color: "var(--color-gray-mid)" }}
         >
-          <span style={{ color: "var(--color-red)" }}>●</span> 04 — Compétences
+          <span style={{ color: "var(--color-red)" }}>●</span> {t.aboutSkills.label}
         </motion.p>
 
         {/* Title */}
@@ -134,7 +98,7 @@ export default function AboutSkills() {
             lineHeight: 1.1,
           }}
         >
-          Opérations × Tech × Humain.
+          {t.aboutSkills.title}
         </motion.h2>
 
         {/* Three columns */}

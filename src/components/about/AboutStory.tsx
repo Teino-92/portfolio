@@ -5,8 +5,11 @@ import { motion, useInView, useReducedMotion } from "framer-motion";
 import { fadeUp } from "@/lib/animations";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLang } from "@/lib/i18n/context";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const EMOJIS = ["🇮🇹", "🏝️", "🌊", "🏖️", "🏪", "🏢", "💻"] as const;
 
 type TimelineItem = {
   period: string;
@@ -15,65 +18,6 @@ type TimelineItem = {
   location: string;
   description: string;
 };
-
-const TIMELINE: TimelineItem[] = [
-  {
-    period: "Les origines",
-    emoji: "🇮🇹",
-    title: "Milan, point de départ",
-    location: "Milan, Italie",
-    description:
-      "100% italien, né à Milan. Lycée commerce et langues — français, anglais — dans une ville qui t'apprend que l'esthétique et la rigueur ne sont pas opposées. À 18 ans, valise bouclée, cap sur la Grèce.",
-  },
-  {
-    period: "2010 — 2012",
-    emoji: "🏝️",
-    title: "Rhodes & Crète",
-    location: "Grèce",
-    description:
-      "Presque trois ans dans l'hôtellerie grecque, entre Rhodes et la Crète. Immersion totale dans le service haut de gamme : gérer des clients exigeants sous 40°C forge une forme de calme opérationnel qu'aucune école ne t'enseigne.",
-  },
-  {
-    period: "Fin 2012 — 2014",
-    emoji: "🌊",
-    title: "Stavanger, cap au nord",
-    location: "Norvège",
-    description:
-      "L'envie de voir autre chose. Un billet pour la Norvège, une ville pétrolière au bord du fjord, un restaurant. Premier vrai pas seul dans le grand froid — au sens propre comme au figuré. J'ai appris que l'excellence opérationnelle commence par l'humain.",
-  },
-  {
-    period: "2014",
-    emoji: "🏖️",
-    title: "Punta Cana — et la rencontre",
-    location: "République Dominicaine",
-    description:
-      "Soleil, animation, coordination de 15 personnes, 200+ clients par semaine. Et surtout : la rencontre avec celle qui allait devenir ma femme. Depuis ce jour, Paris est devenu home.",
-  },
-  {
-    period: "2014 — 2019",
-    emoji: "🏪",
-    title: "Des Petits Hauts",
-    location: "Paris, France",
-    description:
-      "Cogérant d'une boutique mode à Paris avec ma femme. 700K€/an de CA, 100% de rétention client. La P&L, le recrutement, la fidélisation, les stocks — le vrai business, les mains dans le cambouis. J'ai compris là que les détails comptent et que la constance, avec des clients exigeants, n'est pas négociable.",
-  },
-  {
-    period: "2019 — 2025",
-    emoji: "🏢",
-    title: "Welcome at Work",
-    location: "Paris, France",
-    description:
-      "Six ans à pousser des limites. De Welcome Manager Senior à Operating Manager : des équipes, des process, du COPIL, de la data. Un terrain de jeu où j'ai pu combiner tout ce que j'avais appris — l'humain de l'hôtellerie, la rigueur du retail, l'ambition du business. +10%/an en moyen de CA Btob sur mon périmètre. Et la conviction que la technologie pouvait aller beaucoup plus loin.",
-  },
-  {
-    period: "2025 — aujourd'hui",
-    emoji: "💻",
-    title: "Le Wagon → Freelance",
-    location: "Paris, France",
-    description:
-      "Le déclic tech. Bootcamp intensif : Rails, JavaScript, SQL, Git. Et maintenant je code ce que j'imagine. Trois SaaS, des projets Web3, une façon de travailler qui n'a jamais été aussi alignée avec qui je suis. Dix ans d'opérations. Un ingénieur en plus.",
-  },
-];
 
 function TimelineItem({
   item,
@@ -229,6 +173,14 @@ export default function AboutStory() {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const prefersReducedMotion = useReducedMotion();
+  const { t } = useLang();
+  const TIMELINE: TimelineItem[] = t.aboutStory.items.map((item, i) => ({
+    period: item.period,
+    emoji: EMOJIS[i] ?? "📍",
+    title: item.title,
+    location: item.location,
+    description: item.body,
+  }));
 
   // Refs for the animated progress lines
   const timelineContainerRef = useRef<HTMLDivElement>(null);
@@ -300,7 +252,7 @@ export default function AboutStory() {
           className="mb-4 text-xs tracking-[0.22em] uppercase"
           style={{ fontFamily: "var(--font-mono)", color: "var(--color-gray-mid)" }}
         >
-          <span style={{ color: "var(--color-red)" }}>●</span> 02 — Le parcours
+          <span style={{ color: "var(--color-red)" }}>●</span> {t.aboutStory.label}
         </motion.p>
 
         {/* Title */}
@@ -317,7 +269,7 @@ export default function AboutStory() {
             lineHeight: 1.1,
           }}
         >
-          Une trajectoire atypique.
+          {t.aboutStory.title}
         </motion.h2>
 
         {/* Timeline */}

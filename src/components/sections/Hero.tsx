@@ -4,17 +4,17 @@ import dynamic from "next/dynamic";
 import { motion, useReducedMotion } from "framer-motion";
 import { heroVariants } from "@/lib/animations";
 import AnimatedText from "@/components/ui/AnimatedText";
+import { useLang } from "@/lib/i18n/context";
 
 const ParticleGlobe = dynamic(
   () => import("@/components/three/ParticleGlobe"),
   { ssr: false }
 );
 
-const HEADLINE_LINES = ["Bâtisseur", "d'applications", "qui ont du sens.", "Web & SaaS."];
-
 
 export default function Hero() {
   const prefersReducedMotion = useReducedMotion();
+  const { t } = useLang();
 
   const motionProps = (i: number) =>
     prefersReducedMotion
@@ -56,8 +56,8 @@ export default function Hero() {
       <div className="relative z-10 flex flex-col justify-center h-full px-6 md:px-16 lg:px-24 max-w-[1400px] mx-auto">
 
         {/* Titre principal */}
-        <h1 className="mb-8" aria-label={HEADLINE_LINES.join(" ")}>
-          {HEADLINE_LINES.map((line, i) => (
+        <h1 className="mb-8" aria-label={t.hero.lines.join(" ")}>
+          {t.hero.lines.map((line, i) => (
             <AnimatedText
               key={line}
               text={line}
@@ -87,9 +87,9 @@ export default function Hero() {
             color: "var(--color-gray-mid)",
           }}
         >
-          Rails · Next.js · Solidity · IA — de l&apos;idée au produit.
+          {t.hero.sub1}
           <br />
-          3 SaaS lancés, des centaines d&apos;utilisateurs, zéro template.
+          {t.hero.sub2}
         </motion.p>
 
         {/* CTAs */}
@@ -110,7 +110,7 @@ export default function Hero() {
               textDecoration: "none",
             }}
           >
-            <span className="relative z-10">Voir les projets</span>
+            <span className="relative z-10">{t.hero.ctaProjects}</span>
             <span
               className="relative z-10 transition-transform duration-300 group-hover:translate-x-1"
               aria-hidden="true"
@@ -151,7 +151,7 @@ export default function Hero() {
                 "var(--color-gray-dark)";
             }}
           >
-            Démarrer une conversation
+            {t.hero.ctaContact}
           </a>
         </motion.div>
       </div>

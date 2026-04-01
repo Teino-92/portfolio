@@ -1,6 +1,7 @@
 "use client";
 
-import { useReducedMotion, motion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
+import { useLang } from "@/lib/i18n/context";
 
 interface Props {
   tags: string[];
@@ -10,6 +11,7 @@ interface Props {
 
 export default function ProjectsFilter({ tags, active, onChange }: Props) {
   const prefersReducedMotion = useReducedMotion();
+  const { t } = useLang();
 
   return (
     <div
@@ -44,14 +46,14 @@ export default function ProjectsFilter({ tags, active, onChange }: Props) {
             marginRight: "8px",
           }}
         >
-          Filtrer
+          Filter
         </span>
-        {["Tous", ...tags].map((tag) => {
-          const isActive = active === tag;
+        {[{ key: "all", label: t.projectsPage.filterAll }, ...tags.map((tag) => ({ key: tag, label: tag }))].map(({ key, label }) => {
+          const isActive = active === key;
           return (
             <button
-              key={tag}
-              onClick={() => onChange(tag)}
+              key={key}
+              onClick={() => onChange(key)}
               style={{
                 fontFamily: "var(--font-mono)",
                 fontSize: "11px",
@@ -81,7 +83,7 @@ export default function ProjectsFilter({ tags, active, onChange }: Props) {
                 }
               }}
             >
-              {tag}
+              {label}
             </button>
           );
         })}

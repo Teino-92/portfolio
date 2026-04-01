@@ -3,16 +3,18 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import type { Project } from "@/lib/data/projects";
+import { useLang } from "@/lib/i18n/context";
 
 interface Props {
   project: Project | null;
   onClose: () => void;
 }
 
-const statusConfig = {
-  production: { label: "En production", color: "#2D9B5A", bg: "rgba(45,155,90,0.12)" },
-  prototype: { label: "Prototype", color: "#F2A622", bg: "rgba(242,166,34,0.12)" },
-  archived: { label: "Archivé", color: "#7A7870", bg: "rgba(122,120,112,0.12)" },
+const statusColors = {
+  production: { color: "#2D9B5A", bg: "rgba(45,155,90,0.12)" },
+  prototype: { color: "#F2A622", bg: "rgba(242,166,34,0.12)" },
+  archived: { color: "#7A7870", bg: "rgba(122,120,112,0.12)" },
+  development: { color: "#4A90D9", bg: "rgba(74,144,217,0.12)" },
 };
 
 type Tab = "business" | "tech" | "code";
@@ -92,6 +94,7 @@ function Tooltip({ text, children }: { text: string; children: React.ReactNode }
 
 function CodeBlock({ code, language, caption }: { code: string; language: string; caption: string }) {
   const [copied, setCopied] = useState(false);
+  const { t } = useLang();
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
     setCopied(true);
@@ -139,7 +142,7 @@ function CodeBlock({ code, language, caption }: { code: string; language: string
               transition: "color 0.2s ease",
             }}
           >
-            {copied ? "Copié ✓" : "Copier"}
+            {copied ? t.projectDeepDive.codeCopied : t.projectDeepDive.copyCode}
           </button>
         </div>
         {/* Code */}
@@ -176,6 +179,13 @@ export default function ProjectDeepDive({ project, onClose }: Props) {
   const prefersReducedMotion = useReducedMotion();
   const [activeTab, setActiveTab] = useState<Tab>("business");
   const panelRef = useRef<HTMLDivElement>(null);
+  const { t } = useLang();
+  const statusConfig = {
+    production:  { label: t.status.production,  ...statusColors.production },
+    prototype:   { label: t.status.prototype,   ...statusColors.prototype },
+    archived:    { label: t.status.archived,    ...statusColors.archived },
+    development: { label: t.status.development, ...statusColors.development },
+  };
 
   // Reset tab when project changes
   useEffect(() => {
@@ -196,9 +206,9 @@ export default function ProjectDeepDive({ project, onClose }: Props) {
   const status = statusConfig[project.status];
 
   const tabs: { id: Tab; label: string }[] = [
-    { id: "business", label: "Vue d'ensemble" },
-    { id: "tech", label: "Stack & Décisions" },
-    { id: "code", label: "Code" },
+    { id: "business", label: t.projectDeepDive.tabOverview },
+    { id: "tech", label: t.projectDeepDive.tabTech },
+    { id: "code", label: t.projectDeepDive.tabCode },
   ];
 
   return (
@@ -324,7 +334,7 @@ export default function ProjectDeepDive({ project, onClose }: Props) {
                 </div>
                 <button
                   onClick={onClose}
-                  aria-label="Fermer"
+                  aria-label={t.projectDeepDive.ariaClose}
                   style={{
                     background: "none",
                     border: "1px solid var(--color-border)",

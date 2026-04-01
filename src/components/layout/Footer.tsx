@@ -1,23 +1,8 @@
 "use client";
 
-type NavLink = {
-  label: string;
-  href: string;
-};
+import { useLang } from "@/lib/i18n/context";
 
-type ExternalLink = {
-  label: string;
-  href: string;
-};
-
-const navLinks: NavLink[] = [
-  { label: "Projets", href: "/projects" },
-  { label: "Stack", href: "/stack" },
-  { label: "À propos", href: "/about" },
-  { label: "Contact", href: "/contact" },
-];
-
-const externalLinks: ExternalLink[] = [
+const externalLinks = [
   { label: "GitHub", href: "https://github.com/Teino-92" },
   { label: "LinkedIn", href: "https://linkedin.com/in/m-garbugli" },
 ];
@@ -32,10 +17,19 @@ const linkStyle: React.CSSProperties = {
 };
 
 export default function Footer() {
+  const { t } = useLang();
+
+  const navLinks = [
+    { label: t.header.nav.projects, href: "/projects" },
+    { label: t.header.nav.stack, href: "/stack" },
+    { label: t.header.nav.about, href: "/about" },
+    { label: t.header.nav.contact, href: "/contact" },
+  ];
+
   return (
     <footer
       style={{ backgroundColor: "var(--color-bg-accent)" }}
-      aria-label="Pied de page"
+      aria-label={t.footer.aria}
     >
       <div
         className="px-6 md:px-16 lg:px-24 grid grid-cols-1 md:grid-cols-2 gap-12 py-16"
@@ -65,7 +59,7 @@ export default function Footer() {
               letterSpacing: "0.04em",
             }}
           >
-            Développeur Web &amp; SaaS · Freelance
+            {t.footer.tagline}
           </p>
         </div>
 
@@ -82,7 +76,7 @@ export default function Footer() {
                 marginBottom: "1rem",
               }}
             >
-              Navigation
+              {t.footer.nav}
             </p>
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
               {navLinks.map((link) => (
@@ -115,7 +109,7 @@ export default function Footer() {
                 marginBottom: "1rem",
               }}
             >
-              Liens
+              {t.footer.links}
             </p>
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
               {externalLinks.map((link) => (
@@ -150,23 +144,11 @@ export default function Footer() {
           borderTop: "1px solid rgba(253, 250, 244, 0.08)",
         }}
       >
-        <p
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.6875rem",
-            color: "var(--color-gray-mid)",
-          }}
-        >
-          © 2025 — Tous droits réservés
+        <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.6875rem", color: "var(--color-gray-mid)" }}>
+          {t.footer.rights}
         </p>
-        <p
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "0.6875rem",
-            color: "var(--color-gray-mid)",
-          }}
-        >
-          Conçu &amp; développé avec soin.
+        <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.6875rem", color: "var(--color-gray-mid)" }}>
+          {t.footer.made}
         </p>
       </div>
     </footer>

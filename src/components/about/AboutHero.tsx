@@ -4,16 +4,11 @@ import { useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 import AnimatedText from "@/components/ui/AnimatedText";
-
-const STATS = [
-  { value: "10+", label: "ans d'ops" },
-  { value: "4",   label: "langues" },
-  { value: "3",   label: "SaaS lancés" },
-  { value: "2",   label: "enfants (priorité #1)" },
-] as const;
+import { useLang } from "@/lib/i18n/context";
 
 export default function AboutHero() {
   const prefersReducedMotion = useReducedMotion();
+  const { t } = useLang();
 
   const motionProps = (delay = 0) =>
     prefersReducedMotion
@@ -56,13 +51,13 @@ export default function AboutHero() {
           style={{ fontFamily: "var(--font-mono)", color: "var(--color-gray-mid)" }}
         >
           <span style={{ color: "var(--color-red)" }}>●</span>{" "}
-          01 — Qui suis-je
+          {t.aboutHero.label}
         </motion.p>
 
         {/* Headline */}
         <div className="mb-16 max-w-4xl">
           <AnimatedText
-            text="Dix ans à piloter des opérations."
+            text={t.aboutHero.headline1}
             el="h1"
             delay={0.2}
             style={{
@@ -76,7 +71,7 @@ export default function AboutHero() {
             }}
           />
           <AnimatedText
-            text="Un déclic. Maintenant je construis."
+            text={t.aboutHero.headline2}
             el="span"
             delay={0.55}
             style={{
@@ -103,15 +98,7 @@ export default function AboutHero() {
               maxWidth: "520px",
             }}
           >
-            Né à Milan, adopté par Paris depuis 2014. Avant le code, il y a eu
-            les hôtels grecs, les fjords norvégiens, Punta Cana — et la rencontre
-            qui a tout changé. Des années à co-diriger une boutique exigeante,
-            puis à pousser les limites chez Welcome at Work. Puis un jour,
-            j&apos;ai voulu comprendre comment les outils que j&apos;utilisais
-            étaient faits — et j&apos;ai décidé de les construire moi-même.
-            Aujourd&apos;hui : trois SaaS, des projets Web3, et une conviction
-            que le meilleur produit naît au croisement de la rigueur
-            opérationnelle et de la créativité technique.
+            {t.aboutHero.bio}
           </motion.p>
 
           {/* Right — stats */}
@@ -121,7 +108,7 @@ export default function AboutHero() {
             variants={staggerContainer}
             className="grid grid-cols-2 gap-6"
           >
-            {STATS.map((stat) => (
+            {t.aboutHero.stats.map((stat) => (
               <motion.div
                 key={stat.label}
                 variants={prefersReducedMotion ? undefined : fadeUp}

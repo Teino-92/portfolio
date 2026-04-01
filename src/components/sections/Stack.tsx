@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { useReducedMotion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLang } from "@/lib/i18n/context";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -67,6 +68,7 @@ const domains: DomainGroup[] = [
 
 export default function Stack() {
   const shouldReduceMotion = useReducedMotion();
+  const { t } = useLang();
   const itemsRef = useRef<HTMLElement[]>([]);
 
   const addToRefs = (el: HTMLElement | null) => {
@@ -118,7 +120,7 @@ export default function Stack() {
       id="stack"
       style={{ backgroundColor: "var(--color-bg-primary)" }}
       className="py-24 px-6 md:px-16 lg:px-24"
-      aria-label="Stack technique"
+      aria-label={t.stackSection.label}
     >
       <div
         className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-16 lg:gap-24"
@@ -139,7 +141,7 @@ export default function Stack() {
             }}
           >
             <span style={{ color: "var(--color-red)" }} aria-hidden="true">●</span>
-            03 — Stack technique
+            {t.stackSection.label}
           </span>
 
           <h2
@@ -151,7 +153,7 @@ export default function Stack() {
               fontStyle: "italic",
             }}
           >
-            Outils &amp; maîtrises
+            {t.stackSection.title}
           </h2>
 
           <p
@@ -163,8 +165,7 @@ export default function Stack() {
               maxWidth: "28ch",
             }}
           >
-            Une stack choisie pour sa cohérence — pas pour sa longueur.
-            Les points rouges marquent les outils du quotidien.
+            {t.stackSection.subtitle}
           </p>
         </div>
 

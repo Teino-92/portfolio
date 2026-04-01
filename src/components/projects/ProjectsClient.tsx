@@ -7,12 +7,13 @@ import type { Project } from "@/lib/data/projects";
 import ProjectsFilter from "./ProjectsFilter";
 import ProjectDeepDive from "./ProjectDeepDive";
 import { fadeUp, staggerContainer } from "@/lib/animations";
+import { useLang } from "@/lib/i18n/context";
 
-const statusConfig = {
-  production: { label: "En production", color: "#2D9B5A", bg: "rgba(45,155,90,0.12)" },
-  prototype: { label: "Prototype", color: "#F2A622", bg: "rgba(242,166,34,0.12)" },
-  archived: { label: "Archivé", color: "#7A7870", bg: "rgba(122,120,112,0.12)" },
-  development: { label: "En développement", color: "#4A90D9", bg: "rgba(74,144,217,0.12)" },
+const statusColors = {
+  production: { color: "#2D9B5A", bg: "rgba(45,155,90,0.12)" },
+  prototype:  { color: "#F2A622", bg: "rgba(242,166,34,0.12)" },
+  archived:   { color: "#7A7870", bg: "rgba(122,120,112,0.12)" },
+  development:{ color: "#4A90D9", bg: "rgba(74,144,217,0.12)" },
 };
 
 function ProjectCard({
@@ -28,6 +29,13 @@ function ProjectCard({
   const isInView = useInView(ref, { once: true, margin: "-60px" });
   const prefersReducedMotion = useReducedMotion();
   const [hovered, setHovered] = useState(false);
+  const { t } = useLang();
+  const statusConfig = {
+    production:  { label: t.status.production,  ...statusColors.production },
+    prototype:   { label: t.status.prototype,   ...statusColors.prototype },
+    archived:    { label: t.status.archived,    ...statusColors.archived },
+    development: { label: t.status.development, ...statusColors.development },
+  };
   const status = statusConfig[project.status];
 
   return (
@@ -201,11 +209,12 @@ function ProjectCard({
 }
 
 export default function ProjectsClient() {
-  const [activeFilter, setActiveFilter] = useState("Tous");
+  const [activeFilter, setActiveFilter] = useState("all");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const prefersReducedMotion = useReducedMotion();
   const heroRef = useRef<HTMLDivElement>(null);
   const isHeroInView = useInView(heroRef, { once: true });
+  const { t } = useLang();
 
   // Collect all unique tags
   const allTags = useMemo(() => {
@@ -216,7 +225,7 @@ export default function ProjectsClient() {
 
   // Filter projects — archived always last
   const filtered = useMemo(() => {
-    const list = activeFilter === "Tous" ? projects : projects.filter((p) => p.tags.includes(activeFilter));
+    const list = activeFilter === "all" ? projects : projects.filter((p) => p.tags.includes(activeFilter));
     return [...list].sort((a, b) => {
       if (a.status === "archived" && b.status !== "archived") return 1;
       if (a.status !== "archived" && b.status === "archived") return -1;
@@ -254,7 +263,7 @@ export default function ProjectsClient() {
               marginBottom: "16px",
             }}
           >
-            <span style={{ color: "var(--color-red)" }}>●</span> Portfolio
+            {t.projectsPage.label}
           </motion.p>
 
           <motion.h1
@@ -269,7 +278,7 @@ export default function ProjectsClient() {
               letterSpacing: "-0.02em",
             }}
           >
-            Ce que j&apos;ai construit.
+            {t.projectsPage.title}
           </motion.h1>
 
           <motion.p
@@ -281,8 +290,7 @@ export default function ProjectsClient() {
               letterSpacing: "0.04em",
             }}
           >
-            {projects.length.toString().padStart(2, "0")} projets · 2023–2025 ·{" "}
-            <span style={{ color: "var(--color-black)" }}>Cliquez sur un projet pour explorer</span>
+            {projects.length.toString().padStart(2, "0")} {t.projectsPage.subtitle}
           </motion.p>
         </motion.div>
       </section>
@@ -338,7 +346,7 @@ export default function ProjectsClient() {
                   padding: "64px 0",
                 }}
               >
-                Aucun projet avec ce filtre.
+                {t.projectsPage.empty}
               </motion.p>
             )}
           </AnimatePresence>

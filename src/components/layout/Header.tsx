@@ -3,18 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { fadeIn } from "@/lib/animations";
+import { useLang } from "@/lib/i18n/context";
 
 interface NavLink {
   label: string;
   href: string;
 }
-
-const NAV_LINKS: NavLink[] = [
-  { label: "Projets", href: "/projects" },
-  { label: "Stack", href: "/stack" },
-  { label: "À propos", href: "/about" },
-  { label: "Contact", href: "/contact" },
-];
 
 export default function Header() {
   const [scrolled, setScrolled] = useState<boolean>(false);
@@ -22,6 +16,14 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const shouldReduceMotion = useReducedMotion();
   const rafRef = useRef<number | null>(null);
+  const { lang, t, toggleLang } = useLang();
+
+  const NAV_LINKS: NavLink[] = [
+    { label: t.header.nav.projects, href: "/projects" },
+    { label: t.header.nav.stack, href: "/stack" },
+    { label: t.header.nav.about, href: "/about" },
+    { label: t.header.nav.contact, href: "/contact" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -90,7 +92,7 @@ export default function Header() {
           {/* Logo */}
           <a
             href="/"
-            aria-label="Retour à l'accueil"
+            aria-label={t.header.ariaHome}
             style={{
               fontFamily: "var(--font-display)",
               fontWeight: 800,
@@ -105,7 +107,7 @@ export default function Header() {
           </a>
 
           {/* Desktop nav */}
-          <nav aria-label="Navigation principale" className="hidden md:block">
+          <nav aria-label={t.header.ariaNav} className="hidden md:flex items-center gap-10">
             <ul
               style={{
                 display: "flex",
@@ -122,13 +124,39 @@ export default function Header() {
                 </li>
               ))}
             </ul>
+            {/* Language toggle */}
+            <button
+              onClick={toggleLang}
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.7rem",
+                letterSpacing: "0.1em",
+                color: "var(--color-gray-mid)",
+                background: "none",
+                border: "1px solid var(--color-border-strong)",
+                cursor: "pointer",
+                padding: "4px 10px",
+                transition: "color 0.2s, border-color 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.color = "var(--color-black)";
+                (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--color-black)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.color = "var(--color-gray-mid)";
+                (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--color-border-strong)";
+              }}
+              aria-label={lang === "fr" ? "Switch to English" : "Passer en français"}
+            >
+              {lang === "fr" ? "EN" : "FR"}
+            </button>
           </nav>
 
           {/* Hamburger button — mobile only */}
           <button
             className="md:hidden"
             onClick={() => setMenuOpen((v) => !v)}
-            aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-label={menuOpen ? t.header.ariaClose : t.header.ariaOpen}
             aria-expanded={menuOpen}
             style={{
               background: "none",
@@ -180,7 +208,7 @@ export default function Header() {
           aria-valuenow={Math.round(scrollProgress * 100)}
           aria-valuemin={0}
           aria-valuemax={100}
-          aria-label="Progression de lecture"
+          aria-label={t.header.ariaProgress}
           style={{
             position: "absolute",
             bottom: 0,
@@ -248,6 +276,22 @@ export default function Header() {
                 {label}
               </a>
             ))}
+            <button
+              onClick={() => { toggleLang(); closeMenu(); }}
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.75rem",
+                letterSpacing: "0.1em",
+                color: "var(--color-gray-mid)",
+                background: "none",
+                border: "1px solid var(--color-border-strong)",
+                cursor: "pointer",
+                padding: "8px 20px",
+                marginTop: "8px",
+              }}
+            >
+              {lang === "fr" ? "EN" : "FR"}
+            </button>
           </motion.div>
         )}
       </AnimatePresence>

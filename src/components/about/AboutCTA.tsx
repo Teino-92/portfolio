@@ -3,11 +3,13 @@
 import { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer } from "@/lib/animations";
+import { useLang } from "@/lib/i18n/context";
 
 export default function AboutCTA() {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const prefersReducedMotion = useReducedMotion();
+  const { t } = useLang();
 
   return (
     <section
@@ -33,8 +35,7 @@ export default function AboutCTA() {
             margin: 0,
           }}
         >
-          &ldquo;Je ne cherche pas un poste. Je cherche un projet qui mérite
-          d&apos;être construit.&rdquo;
+          &ldquo;{t.aboutCTA.quote}&rdquo;
         </motion.blockquote>
 
         {/* Divider */}
@@ -76,7 +77,7 @@ export default function AboutCTA() {
               el.style.backgroundColor = "var(--color-white)";
             }}
           >
-            Voir mes projets →
+            {t.aboutCTA.ctaProjects}
           </a>
 
           <a
@@ -102,7 +103,7 @@ export default function AboutCTA() {
               (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(253,250,244,0.5)";
             }}
           >
-            Me contacter
+            {t.aboutCTA.ctaContact}
           </a>
         </motion.div>
       </motion.div>

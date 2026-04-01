@@ -5,6 +5,7 @@ import { motion, useInView, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 import AnimatedText from "@/components/ui/AnimatedText";
 import type { Variants, Transition } from "framer-motion";
+import { useLang } from "@/lib/i18n/context";
 
 const statVariants: Variants = {
   hidden: { opacity: 0, y: 50 },
@@ -26,13 +27,13 @@ const textStagger: Variants = {
   },
 };
 
-const STATS = [
-  { value: "3", label: "SaaS lancés" },
-  { value: "3 ans", label: "d'expérience produit" },
-] as const;
-
 export default function About() {
   const shouldReduceMotion = useReducedMotion();
+  const { t } = useLang();
+  const STATS = [
+    { value: "3", label: t.aboutSection.stat1Label },
+    { value: "3 ans", label: t.aboutSection.stat2Label },
+  ];
   const sectionRef = useRef<HTMLElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
@@ -71,7 +72,7 @@ export default function About() {
           }}
         >
           <span aria-hidden="true">●</span>
-          04 — À propos
+          {t.aboutSection.label}
         </span>
       </motion.div>
 
@@ -129,7 +130,7 @@ export default function About() {
             className="flex flex-col justify-center gap-8"
           >
             <AnimatedText
-              text="Je construis des produits de A à Z."
+              text={t.aboutSection.title}
               el="p"
               delay={0.2}
               style={{
@@ -150,10 +151,7 @@ export default function About() {
                 color: "rgba(253, 250, 244, 0.7)",
               }}
             >
-              Développeur full-stack avec une sensibilité produit forte, je
-              travaille sur des projets Web3 et SaaS depuis 3 ans. J&apos;aime
-              les produits bien pensés, les interfaces qui ne s&apos;excusent
-              pas d&apos;exister, et le code qui dure.
+              {t.aboutSection.body}
             </motion.p>
 
             <motion.p
@@ -165,8 +163,7 @@ export default function About() {
                 color: "rgba(253, 250, 244, 0.7)",
               }}
             >
-              Disponible pour des missions freelance ambitieuses — de la
-              conception à la mise en production.
+              {t.aboutSection.cta}
             </motion.p>
           </motion.div>
         </div>

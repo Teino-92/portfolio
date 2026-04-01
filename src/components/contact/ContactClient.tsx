@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, useInView, useReducedMotion, AnimatePresence } from "framer-motion";
 import { fadeUp, staggerContainer } from "@/lib/animations";
+import { useLang } from "@/lib/i18n/context";
 
 const SOCIAL_LINKS = [
   { label: "GitHub", href: "https://github.com/Teino-92" },
@@ -15,6 +16,7 @@ function ContactForm() {
   const [state, setState] = useState<FormState>("idle");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const prefersReducedMotion = useReducedMotion();
+  const { t } = useLang();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -62,7 +64,7 @@ function ContactForm() {
         letterSpacing: "0.1em",
         marginBottom: "24px",
       }}>
-        ● Ou écrivez-moi directement
+        {t.contactPage.formLabel}
       </p>
 
       <AnimatePresence mode="wait">
@@ -86,14 +88,14 @@ function ContactForm() {
               color: "var(--color-black)",
               marginBottom: "8px",
             }}>
-              Message reçu.
+              {t.contactPage.formSuccessTitle}
             </p>
             <p style={{
               fontFamily: "var(--font-mono)",
               fontSize: "12px",
               color: "var(--color-gray-mid)",
             }}>
-              Je vous réponds sous 24h — en général beaucoup moins.
+              {t.contactPage.formSuccessBody}
             </p>
           </motion.div>
         ) : (
@@ -106,7 +108,7 @@ function ContactForm() {
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="name" style={labelStyle}>Nom</label>
+                <label htmlFor="name" style={labelStyle}>{t.contactPage.formName}</label>
                 <input
                   id="name"
                   name="name"
@@ -114,14 +116,14 @@ function ContactForm() {
                   required
                   value={form.name}
                   onChange={handleChange}
-                  placeholder="Votre nom"
+                  placeholder={t.contactPage.formNamePlaceholder}
                   style={inputStyle}
                   onFocus={(e) => (e.currentTarget.style.borderColor = "var(--color-black)")}
                   onBlur={(e) => (e.currentTarget.style.borderColor = "var(--color-border-strong)")}
                 />
               </div>
               <div>
-                <label htmlFor="email" style={labelStyle}>Email</label>
+                <label htmlFor="email" style={labelStyle}>{t.contactPage.formEmail}</label>
                 <input
                   id="email"
                   name="email"
@@ -129,7 +131,7 @@ function ContactForm() {
                   required
                   value={form.email}
                   onChange={handleChange}
-                  placeholder="votre@email.com"
+                  placeholder={t.contactPage.formEmailPlaceholder}
                   style={inputStyle}
                   onFocus={(e) => (e.currentTarget.style.borderColor = "var(--color-black)")}
                   onBlur={(e) => (e.currentTarget.style.borderColor = "var(--color-border-strong)")}
@@ -138,7 +140,7 @@ function ContactForm() {
             </div>
 
             <div>
-              <label htmlFor="message" style={labelStyle}>Message</label>
+              <label htmlFor="message" style={labelStyle}>{t.contactPage.formMessage}</label>
               <textarea
                 id="message"
                 name="message"
@@ -146,7 +148,7 @@ function ContactForm() {
                 rows={5}
                 value={form.message}
                 onChange={handleChange}
-                placeholder="Décrivez votre projet, votre besoin, ou juste dites bonjour."
+                placeholder={t.contactPage.formMessagePlaceholder}
                 style={{ ...inputStyle, resize: "vertical", minHeight: "120px" }}
                 onFocus={(e) => (e.currentTarget.style.borderColor = "var(--color-black)")}
                 onBlur={(e) => (e.currentTarget.style.borderColor = "var(--color-border-strong)")}
@@ -178,7 +180,7 @@ function ContactForm() {
                   (e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--color-red)";
               }}
             >
-              {state === "sending" ? "Envoi en cours…" : "Envoyer →"}
+              {state === "sending" ? t.contactPage.formSending : t.contactPage.formSubmit}
             </button>
           </motion.form>
         )}
@@ -193,6 +195,7 @@ export default function ContactClient() {
   const isHeroInView = useInView(heroRef, { once: true });
   const formRef = useRef<HTMLElement>(null);
   const isFormInView = useInView(formRef, { once: true, margin: "-60px" });
+  const { t } = useLang();
 
   return (
     <>
@@ -223,7 +226,7 @@ export default function ContactClient() {
               marginBottom: "24px",
             }}
           >
-            ● Travaillons ensemble
+            {t.contactPage.label}
           </motion.p>
 
           <motion.h1
@@ -239,7 +242,7 @@ export default function ContactClient() {
               maxWidth: "14ch",
             }}
           >
-            Démarrons une conversation.
+            {t.contactPage.title}
           </motion.h1>
 
           <motion.div
@@ -320,7 +323,7 @@ export default function ContactClient() {
               textTransform: "uppercase",
               letterSpacing: "0.08em",
             }}>
-              Disponible pour une mission — Q2 2026
+              {t.contactPage.available}
             </span>
           </motion.div>
         </div>
@@ -350,14 +353,10 @@ export default function ContactClient() {
                 lineHeight: 1.1,
                 marginBottom: "24px",
               }}>
-                Ce que je cherche.
+                {t.contactPage.lookingTitle}
               </h2>
               <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                {[
-                  { icon: "→", text: "Des missions freelance Web3 ou SaaS avec un vrai enjeu produit" },
-                  { icon: "→", text: "Des projets où la rigueur opérationnelle et le code se croisent" },
-                  { icon: "→", text: "Des équipes qui construisent sérieusement, sans bullshit" },
-                ].map((item, i) => (
+                {t.contactPage.items.map((text, i) => (
                   <div key={i} style={{ display: "flex", gap: "14px", alignItems: "flex-start" }}>
                     <span style={{
                       fontFamily: "var(--font-mono)",
@@ -366,7 +365,7 @@ export default function ContactClient() {
                       flexShrink: 0,
                       marginTop: "1px",
                     }}>
-                      {item.icon}
+                      →
                     </span>
                     <p style={{
                       fontFamily: "var(--font-body)",
@@ -374,7 +373,7 @@ export default function ContactClient() {
                       lineHeight: 1.65,
                       color: "var(--color-text-secondary)",
                     }}>
-                      {item.text}
+                      {text}
                     </p>
                   </div>
                 ))}
@@ -395,7 +394,7 @@ export default function ContactClient() {
                   letterSpacing: "0.08em",
                   marginBottom: "6px",
                 }}>
-                  Localisation
+                  {t.contactPage.locationLabel}
                 </p>
                 <p style={{
                   fontFamily: "var(--font-body)",
@@ -403,7 +402,7 @@ export default function ContactClient() {
                   color: "var(--color-text-secondary)",
                   lineHeight: 1.6,
                 }}>
-                  Basé à Paris — remote-first, déplacements possibles.
+                  {t.contactPage.locationBody}
                 </p>
               </div>
             </motion.div>
