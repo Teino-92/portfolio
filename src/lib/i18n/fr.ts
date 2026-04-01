@@ -37,7 +37,7 @@ export const fr = {
   aboutSection: {
     label: "04 — À propos",
     stat1Label: "SaaS lancés",
-    stat2Value: "3 ans",
+    stat2Value: "3 Ans",
     stat2Label: "d'expérience produit",
     title: "Je construis des produits de A à Z.",
     body: "Développeur full-stack avec une sensibilité produit forte, je travaille sur des projets Web3 et SaaS depuis 3 ans. J'aime les produits bien pensés, les interfaces qui ne s'excusent pas d'exister, et le code qui dure.",
