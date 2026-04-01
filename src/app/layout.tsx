@@ -5,24 +5,24 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "Portfolio — Développeur Web3 & SaaS",
+  title: "Portfolio — Développeur Web & SaaS",
   description:
-    "Développeur full-stack spécialisé Web3 & SaaS. Rails, Next.js, Solidity. Disponible pour missions freelance.",
-  keywords: ["développeur", "web3", "saas", "freelance", "rails", "nextjs", "solidity"],
+    "Développeur full-stack spécialisé Web & SaaS. Rails, Next.js, Solidity. Disponible pour missions freelance.",
+  keywords: ["développeur", "web", "saas", "freelance", "rails", "nextjs", "solidity"],
   authors: [{ name: "MG" }],
   openGraph: {
-    title: "Portfolio — Développeur Web3 & SaaS",
+    title: "Portfolio — Développeur Web & SaaS",
     description:
-      "Développeur full-stack spécialisé Web3 & SaaS. Rails, Next.js, Solidity.",
+      "Développeur full-stack spécialisé Web & SaaS. Rails, Next.js, Solidity.",
     type: "website",
     locale: "fr_FR",
     siteName: "Portfolio MG",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Portfolio — Développeur Web3 & SaaS",
+    title: "Portfolio — Développeur Web & SaaS",
     description:
-      "Développeur full-stack spécialisé Web3 & SaaS. Rails, Next.js, Solidity.",
+      "Développeur full-stack spécialisé Web & SaaS. Rails, Next.js, Solidity.",
   },
   robots: {
     index: true,
