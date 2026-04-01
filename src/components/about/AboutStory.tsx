@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState, type MutableRefObject } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { fadeUp } from "@/lib/animations";
 import gsap from "gsap";
@@ -23,41 +23,28 @@ function TimelineItem({
   item,
   index,
   dotRef,
+  active,
 }: {
   item: TimelineItem;
   index: number;
   dotRef: (el: HTMLDivElement | null) => void;
+  active: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
   const prefersReducedMotion = useReducedMotion();
   const isRight = index % 2 === 1;
-  const [dotActive, setDotActive] = useState(false);
-  const dotElRef = useRef<HTMLDivElement>(null) as MutableRefObject<HTMLDivElement | null>;
-
-  // Observe dot visibility to "light it up"
-  useEffect(() => {
-    if (prefersReducedMotion) { setDotActive(true); return; }
-    const el = dotElRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setDotActive(true); observer.disconnect(); } },
-      { threshold: 0.5 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [prefersReducedMotion]);
 
   const dotStyle = {
     width: "14px",
     height: "14px",
     borderRadius: "50%",
-    backgroundColor: dotActive ? "var(--color-red)" : "var(--color-border-strong)",
+    backgroundColor: active ? "var(--color-red)" : "var(--color-border-strong)",
     border: `2px solid var(--color-bg-secondary)`,
     flexShrink: 0 as const,
     marginTop: "8px",
     transition: "background-color 0.3s ease, box-shadow 0.3s ease",
-    boxShadow: dotActive ? "0 0 0 4px rgba(214,60,42,0.15)" : "none",
+    boxShadow: active ? "0 0 0 4px rgba(214,60,42,0.15)" : "none",
     zIndex: 2,
     position: "relative" as const,
   };
@@ -84,7 +71,7 @@ function TimelineItem({
         style={{ order: 1 }}
       >
         <div
-          ref={(el) => { dotElRef.current = el; dotRef(el); }}
+          ref={dotRef}
           style={dotStyle}
         />
       </div>
@@ -106,7 +93,7 @@ function TimelineItem({
             width: "10px",
             height: "10px",
             borderRadius: "50%",
-            backgroundColor: dotActive ? "var(--color-red)" : "var(--color-border-strong)",
+            backgroundColor: active ? "var(--color-red)" : "var(--color-border-strong)",
             transition: "background-color 0.3s ease",
           }}
         />
@@ -182,20 +169,23 @@ export default function AboutStory() {
     description: item.body,
   }));
 
-  // Refs for the animated progress lines
   const timelineContainerRef = useRef<HTMLDivElement>(null);
   const lineDesktopRef = useRef<HTMLDivElement>(null);
   const lineMobileRef = useRef<HTMLDivElement>(null);
-  const dotRefs = useRef<HTMLDivElement[]>([]);
+  const dotRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeFlags, setActiveFlags] = useState<boolean[]>(() =>
+    Array(TIMELINE.length).fill(false)
+  );
 
-  const addDotRef = (el: HTMLDivElement | null) => {
-    if (el && !dotRefs.current.includes(el)) {
-      dotRefs.current.push(el);
-    }
-  };
+  const addDotRef = useCallback((el: HTMLDivElement | null, index: number) => {
+    dotRefs.current[index] = el;
+  }, []);
 
   useEffect(() => {
-    if (prefersReducedMotion) return;
+    if (prefersReducedMotion) {
+      setActiveFlags(Array(TIMELINE.length).fill(true));
+      return;
+    }
     const container = timelineContainerRef.current;
     const lineDesktop = lineDesktopRef.current;
     const lineMobile = lineMobileRef.current;
@@ -203,38 +193,56 @@ export default function AboutStory() {
 
     const triggers: ScrollTrigger[] = [];
 
-    // Animate the desktop progress line
+    const updateDots = (progress: number) => {
+      const containerRect = container.getBoundingClientRect();
+      const containerTop = containerRect.top + window.scrollY;
+      const containerHeight = containerRect.height;
+      const lineY = containerTop + progress * containerHeight;
+
+      setActiveFlags((prev) => {
+        const next = [...prev];
+        dotRefs.current.forEach((dot, i) => {
+          if (!dot) return;
+          const dotRect = dot.getBoundingClientRect();
+          const dotY = dotRect.top + window.scrollY + dotRect.height / 2;
+          if (!next[i] && dotY <= lineY) next[i] = true;
+        });
+        return next;
+      });
+    };
+
     if (lineDesktop) {
       gsap.set(lineDesktop, { scaleY: 0, transformOrigin: "top center" });
-      const t = ScrollTrigger.create({
+      const trig = ScrollTrigger.create({
         trigger: container,
         start: "top 70%",
         end: "bottom 70%",
         scrub: 0.8,
         onUpdate: (self) => {
           gsap.set(lineDesktop, { scaleY: self.progress });
+          updateDots(self.progress);
         },
       });
-      triggers.push(t);
+      triggers.push(trig);
     }
 
-    // Animate the mobile progress line
     if (lineMobile) {
       gsap.set(lineMobile, { scaleY: 0, transformOrigin: "top center" });
-      const t = ScrollTrigger.create({
+      const trig = ScrollTrigger.create({
         trigger: container,
         start: "top 70%",
         end: "bottom 70%",
         scrub: 0.8,
         onUpdate: (self) => {
           gsap.set(lineMobile, { scaleY: self.progress });
+          updateDots(self.progress);
         },
       });
-      triggers.push(t);
+      triggers.push(trig);
     }
 
     return () => triggers.forEach((t) => t.kill());
-  }, [prefersReducedMotion]);
+  }, [prefersReducedMotion, TIMELINE.length]);
 
   return (
     <section
@@ -275,7 +283,7 @@ export default function AboutStory() {
         {/* Timeline */}
         <div className="relative" ref={timelineContainerRef}>
 
-          {/* Desktop — ghost line (always visible, faint) */}
+          {/* Desktop — ghost line */}
           <div
             className="hidden lg:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2"
             style={{ width: "1px", backgroundColor: "var(--color-border)" }}
@@ -312,7 +320,13 @@ export default function AboutStory() {
           />
 
           {TIMELINE.map((item, index) => (
-            <TimelineItem key={item.title} item={item} index={index} dotRef={addDotRef} />
+            <TimelineItem
+              key={item.title}
+              item={item}
+              index={index}
+              dotRef={(el) => addDotRef(el, index)}
+              active={activeFlags[index]}
+            />
           ))}
         </div>
       </div>

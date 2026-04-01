@@ -224,8 +224,8 @@ export default function Header() {
               backgroundColor: "var(--color-red)",
               transform: `scaleX(${scrollProgress})`,
               transformOrigin: "left center",
-              transition: shouldReduceMotion ? "none" : "transform 0.1s linear",
               willChange: "transform",
+              backfaceVisibility: "hidden",
             }}
           />
         </div>
