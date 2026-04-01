@@ -22,7 +22,7 @@ export const en: Translations = {
     tagline: "Web & SaaS Developer · Freelance",
     nav: "Navigation",
     links: "Links",
-    rights: "© 2025 — All rights reserved",
+    rights: "© 2026 — All rights reserved",
     made: "Designed & developed with care.",
   },
 
@@ -39,6 +39,7 @@ export const en: Translations = {
   aboutSection: {
     label: "04 — About",
     stat1Label: "SaaS launched",
+    stat2Value: "3 yrs",
     stat2Label: "of product experience",
     title: "I build products from A to Z.",
     body: "Full-stack developer with a strong product sense, I've been working on Web3 and SaaS projects for 3 years. I love well-thought-out products, interfaces that don't apologize for existing, and code that lasts.",
@@ -186,7 +187,7 @@ export const en: Translations = {
       {
         icon: "♥",
         title: "Family",
-        body: "A wife, two children. My most important team. Everything else revolves around them — projects, ambitions, coding nights.",
+        body: "My wife, my two children. My backbone. Everything else revolves around them — projects, ambitions, coding nights.",
       },
       {
         icon: "⚽",
@@ -196,7 +197,7 @@ export const en: Translations = {
       {
         icon: "🍳",
         title: "Cooking",
-        body: "Not a hobby. A passion. Risotto, fresh pasta, summer barbecue. Cooking is management: timing, precision, improvisation — and the result makes people smile.",
+        body: "Not a hobby. A passion. Risotto, fresh pasta, summer barbecue. Cooking is also management: timing, precision, improvisation — and the result makes people happy.",
       },
       {
         icon: "🌍",
@@ -266,7 +267,7 @@ export const en: Translations = {
 
   // About page — CTA
   aboutCTA: {
-    quote: "I'm not looking for a position. I'm looking for a project worth building.",
+    quote: "I'm looking for projects that make sense.",
     ctaProjects: "View my projects →",
     ctaContact: "Contact me",
   },

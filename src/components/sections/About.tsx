@@ -32,7 +32,7 @@ export default function About() {
   const { t } = useLang();
   const STATS = [
     { value: "3", label: t.aboutSection.stat1Label },
-    { value: "3 ans", label: t.aboutSection.stat2Label },
+    { value: t.aboutSection.stat2Value, label: t.aboutSection.stat2Label },
   ];
   const sectionRef = useRef<HTMLElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
