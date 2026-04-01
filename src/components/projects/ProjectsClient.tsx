@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useRef } from "react";
 import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-motion";
-import { projects } from "@/lib/data/projects";
+import { projects, getProjectText } from "@/lib/data/projects";
 import type { Project } from "@/lib/data/projects";
 import ProjectsFilter from "./ProjectsFilter";
 import ProjectDeepDive from "./ProjectDeepDive";
@@ -29,7 +29,8 @@ function ProjectCard({
   const isInView = useInView(ref, { once: true, margin: "-60px" });
   const prefersReducedMotion = useReducedMotion();
   const [hovered, setHovered] = useState(false);
-  const { t } = useLang();
+  const { t, lang } = useLang();
+  const { tagline, description } = getProjectText(project, lang);
   const statusConfig = {
     production:  { label: t.status.production,  ...statusColors.production },
     prototype:   { label: t.status.prototype,   ...statusColors.prototype },
@@ -179,7 +180,7 @@ function ProjectCard({
               lineHeight: 1.5,
             }}
           >
-            {project.tagline}
+            {tagline}
           </p>
 
           {/* Tags */}

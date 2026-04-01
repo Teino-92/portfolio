@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import type { Project } from "@/lib/data/projects";
+import { getProjectText } from "@/lib/data/projects";
 import { useLang } from "@/lib/i18n/context";
 
 interface Props {
@@ -179,7 +180,7 @@ export default function ProjectDeepDive({ project, onClose }: Props) {
   const prefersReducedMotion = useReducedMotion();
   const [activeTab, setActiveTab] = useState<Tab>("business");
   const panelRef = useRef<HTMLDivElement>(null);
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const statusConfig = {
     production:  { label: t.status.production,  ...statusColors.production },
     prototype:   { label: t.status.prototype,   ...statusColors.prototype },
@@ -202,6 +203,9 @@ export default function ProjectDeepDive({ project, onClose }: Props) {
   }, [onClose]);
 
   if (!project) return null;
+
+  const { tagline, description, problem, metrics, decisions, techTooltips, codeCaption } =
+    getProjectText(project, lang);
 
   const status = statusConfig[project.status];
 
@@ -329,7 +333,7 @@ export default function ProjectDeepDive({ project, onClose }: Props) {
                       margin: "6px 0 0",
                     }}
                   >
-                    {project.tagline}
+                    {tagline}
                   </p>
                 </div>
                 <button
@@ -422,7 +426,7 @@ export default function ProjectDeepDive({ project, onClose }: Props) {
                           color: "var(--color-gray-dark)",
                         }}
                       >
-                        {project.problem}
+                        {problem}
                       </p>
                     </div>
 
@@ -438,10 +442,10 @@ export default function ProjectDeepDive({ project, onClose }: Props) {
                           marginBottom: "16px",
                         }}
                       >
-                        ● Résultats clés
+                        {t.projectDeepDive.keyResults}
                       </p>
                       <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                        {project.metrics.map((metric, i) => (
+                        {metrics.map((metric, i) => (
                           <div
                             key={i}
                             style={{
@@ -595,12 +599,12 @@ export default function ProjectDeepDive({ project, onClose }: Props) {
                           fontStyle: "italic",
                         }}
                       >
-                        Survolez les termes soulignés pour une explication simple
+                        {t.projectDeepDive.tooltipHint}
                       </p>
                       <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
                         {project.tags.map((tag) =>
-                          project.techTooltips[tag] ? (
-                            <Tooltip key={tag} text={project.techTooltips[tag]}>
+                          techTooltips[tag] ? (
+                            <Tooltip key={tag} text={techTooltips[tag]}>
                               {tag}
                             </Tooltip>
                           ) : (
@@ -631,10 +635,10 @@ export default function ProjectDeepDive({ project, onClose }: Props) {
                           marginBottom: "16px",
                         }}
                       >
-                        ● Décisions d&apos;architecture
+                        {t.projectDeepDive.archDecisions}
                       </p>
                       <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                        {project.decisions.map((decision, i) => (
+                        {decisions.map((decision, i) => (
                           <div
                             key={i}
                             style={{
@@ -702,12 +706,12 @@ export default function ProjectDeepDive({ project, onClose }: Props) {
                             marginBottom: "4px",
                           }}
                         >
-                          Ce snippet illustre une décision technique centrale du projet.
+                          {t.projectDeepDive.snippetHint}
                         </p>
                         <CodeBlock
                           code={project.codeSnippet.code}
                           language={project.codeSnippet.language}
-                          caption={project.codeSnippet.caption}
+                          caption={codeCaption ?? project.codeSnippet.caption}
                         />
                       </>
                     ) : (

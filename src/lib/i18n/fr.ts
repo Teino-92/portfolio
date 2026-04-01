@@ -255,6 +255,10 @@ export const fr = {
     copyCode: "Copier",
     codeCopied: "Copié ✓",
     ariaClose: "Fermer",
+    keyResults: "● Résultats clés",
+    tooltipHint: "Survolez les termes soulignés pour une explication simple",
+    archDecisions: "● Décisions d'architecture",
+    snippetHint: "Ce snippet illustre une décision technique centrale du projet.",
   },
 
   // About page — CTA

@@ -257,6 +257,10 @@ export const en: Translations = {
     copyCode: "Copy",
     codeCopied: "Copied ✓",
     ariaClose: "Close",
+    keyResults: "● Key results",
+    tooltipHint: "Hover over underlined terms for a plain-language explanation",
+    archDecisions: "● Architecture decisions",
+    snippetHint: "This snippet illustrates a central technical decision in the project.",
   },
 
   // About page — CTA

@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-motion";
 import { staggerContainer, fadeUp } from "@/lib/animations";
-import { projects, type Project } from "@/lib/data/projects";
+import { projects, getProjectText, type Project } from "@/lib/data/projects";
 import Tag from "@/components/ui/Tag";
 import { useLang } from "@/lib/i18n/context";
 
@@ -12,7 +12,7 @@ export default function Projects() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const prefersReducedMotion = useReducedMotion();
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const { t } = useLang();
+  const { t, lang } = useLang();
 
   const animate = !prefersReducedMotion && isInView ? "visible" : prefersReducedMotion ? "visible" : "hidden";
   // Homepage selection: izi-rh (large), merci-murphy + metrik as small cards
@@ -21,6 +21,7 @@ export default function Projects() {
   const featured = homepageProjects[0];
   const rest = homepageProjects.slice(1);
   const selectedProject = projects.find((p) => p.id === selectedId) ?? null;
+  const selectedText = selectedProject ? getProjectText(selectedProject, lang) : null;
 
   return (
     <>
@@ -219,7 +220,7 @@ export default function Projects() {
                     marginBottom: "24px",
                   }}
                 >
-                  {selectedProject.tagline}
+                  {selectedText?.tagline ?? selectedProject.tagline}
                 </p>
 
                 {/* Description */}
@@ -232,7 +233,7 @@ export default function Projects() {
                     marginBottom: "24px",
                   }}
                 >
-                  {selectedProject.description}
+                  {selectedText?.description ?? selectedProject.description}
                 </p>
 
                 {/* Tags */}
@@ -303,6 +304,8 @@ function ProjectCard({
   onSelect: (id: string) => void;
   details: string;
 }) {
+  const { lang } = useLang();
+  const { tagline, description } = getProjectText(project, lang);
   const linkHref = project.url ?? project.github ?? "#";
 
   const cardContent = (
@@ -340,7 +343,7 @@ function ProjectCard({
           letterSpacing: "0.05em",
         }}
       >
-        {project.tagline}
+        {tagline}
       </p>
 
       <p
@@ -352,7 +355,7 @@ function ProjectCard({
           color: "var(--color-text-secondary)",
         }}
       >
-        {project.description}
+        {description}
       </p>
 
       <div className="flex flex-wrap gap-2 mb-6">
