@@ -42,7 +42,7 @@ export const en: Translations = {
     stat2Value: "3 yrs",
     stat2Label: "of product experience",
     title: "I build products from A to Z.",
-    body: "Full-stack developer with a strong product sense, I've been working on Web3 and SaaS projects for 3 years. I love well-thought-out products, interfaces that don't apologize for existing, and code that lasts.",
+    body: "Full-stack developer with a strong product sense, I've been working on Web and SaaS projects for 3 years. I love well-thought-out products, interfaces that don't apologize for existing, and code that lasts.",
     cta: "Available for ambitious freelance missions — from design to production.",
   },
 
