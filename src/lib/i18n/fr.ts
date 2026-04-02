@@ -185,7 +185,7 @@ export const fr = {
       {
         icon: "♥",
         title: "La famille",
-        body: "Une femme, deux enfants. Mon équipe la plus importante. Tout le reste s'organise autour d'eux — les projets, les ambitions, les nuits de code.",
+        body: "Ma femme, mes deux enfants. Mon socle. Tout le reste s'organise autour d'eux — les projets, les ambitions, les nuits de code.",
       },
       {
         icon: "⚽",
@@ -265,7 +265,7 @@ export const fr = {
 
   // About page — CTA
   aboutCTA: {
-    quote: "Je ne cherche pas un poste. Je cherche un projet qui mérite d'être construit.",
+    quote: "Je cherche des projets qui qui ont sens.",
     ctaProjects: "Voir mes projets →",
     ctaContact: "Me contacter",
   },
