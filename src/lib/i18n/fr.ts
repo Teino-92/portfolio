@@ -195,7 +195,7 @@ export const fr = {
       {
         icon: "🍳",
         title: "La cuisine",
-        body: "Pas un hobby. Une passion. Risotto, pasta fraîche, barbecue d'été. La cuisine c'est du management : timing, précision, improvisation — et le résultat fait sourire les gens.",
+        body: "Pas un hobby. Une passion. Risotto, pasta fraîche, barbecue d'été. La cuisine c'est du management : timing, précision, improvisation — et le résultat rend les gens heureux.",
       },
       {
         icon: "🌍",
