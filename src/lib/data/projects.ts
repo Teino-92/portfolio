@@ -379,6 +379,7 @@ export async function getProductsByCategory(
     title: "Metrik",
     tagline: "Analytics produit privacy-first",
     tagline_en: "Privacy-first product analytics",
+    github: "https://github.com/Teino-92/metrik",
     description:
       "Alternative à Mixpanel sans cookies tiers. Tracking d'events, funnels, rétention. Stack serverless, données hébergées EU.",
     description_en:
