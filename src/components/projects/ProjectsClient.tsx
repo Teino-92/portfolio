@@ -56,15 +56,29 @@ function ProjectCard({
     const linkHref = project.url ?? project.github ?? null;
     return (
       <motion.div {...motionProps}>
-        <div
+        <button
+          onClick={onClick}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
           style={{
+            width: "100%",
+            textAlign: "left",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            padding: 0,
+            display: "block",
+          }}
+          aria-label={`Voir les détails de ${project.title}`}
+        >
+        <div
+          style={{
             backgroundColor: th.bg,
+            border: hovered ? (th.hoverBorder ?? "none") : (th.border ?? "none"),
             overflow: "hidden",
-            transition: "transform 0.2s ease, box-shadow 0.2s ease",
+            transition: "transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease",
             transform: hovered ? "translateY(-2px)" : "translateY(0)",
-            boxShadow: hovered ? `0 12px 32px rgba(0,0,0,0.12)` : "none",
+            boxShadow: hovered ? (th.hoverShadow ?? "0 12px 32px rgba(0,0,0,0.12)") : "none",
           }}
         >
           {/* Image zone */}
@@ -103,14 +117,14 @@ function ProjectCard({
               {project.tags.map((tag, i) => {
                 const tc = th.tagColors?.[i];
                 return (
-                  <span key={tag} style={{ fontFamily: "var(--font-mono)", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.06em", padding: "3px 10px", backgroundColor: tc?.bg ?? th.tagBg, color: tc?.text ?? th.tagText, border: tc ? `1px solid ${tc.border}` : "none", borderRadius: "9999px" }}>{tag}</span>
+                  <span key={tag} style={{ fontFamily: "var(--font-mono)", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.06em", padding: "3px 10px", backgroundColor: tc?.bg ?? th.tagBg, color: tc?.text ?? th.tagText, border: tc ? `1px solid ${tc.border}` : th.tagBorder ? `1px solid ${th.tagBorder}` : "none", borderRadius: "9999px" }}>{tag}</span>
                 );
               })}
             </div>
             <div style={{ borderTop: `1px solid ${th.accent}25`, paddingTop: "14px" }}>
               {linkHref ? (
-                <a href={linkHref} target="_blank" rel="noopener noreferrer" style={{ fontFamily: "var(--font-mono)", fontSize: "12px", fontWeight: 600, color: th.accent, textDecoration: "none" }}>
-                  Voir le site →
+                <a href={linkHref} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} style={{ fontFamily: "var(--font-mono)", fontSize: "12px", fontWeight: 600, color: th.accent, textDecoration: "none" }}>
+                  {project.url ? "Voir le site →" : "Voir le code →"}
                 </a>
               ) : (
                 <span style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: th.textMuted }}>Bientôt en ligne</span>
@@ -118,6 +132,7 @@ function ProjectCard({
             </div>
           </div>
         </div>
+        </button>
       </motion.div>
     );
   }

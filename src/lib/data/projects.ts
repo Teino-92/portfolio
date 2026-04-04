@@ -8,10 +8,14 @@ export type ProjectTheme = {
   accentText: string;
   tagBg: string;
   tagText: string;
+  tagBorder?: string;
   tagColors?: TagColor[];
   eyebrow?: string;
   eyebrow_en?: string;
   logo?: string;
+  border?: string;
+  hoverBorder?: string;
+  hoverShadow?: string;
   font?: {
     title?: string;
     body?: string;
@@ -377,9 +381,26 @@ export async function getProductsByCategory(
   {
     id: "saas-analytics",
     title: "Metrik",
-    tagline: "Analytics produit privacy-first",
-    tagline_en: "Privacy-first product analytics",
+    tagline: "Analytics · Privacy-first · RGPD",
+    tagline_en: "Analytics · Privacy-first · GDPR",
     github: "https://github.com/Teino-92/metrik",
+    image: "/images/preview-metrik.png",
+    theme: {
+      bg: "#111827",
+      text: "#F1F5F9",
+      textMuted: "#F1F5F9",
+      accent: "#6EE7B7",
+      accentText: "#111827",
+      tagBg: "rgba(110, 231, 183, 0.08)",
+      tagText: "#6EE7B7",
+      tagBorder: "rgba(110, 231, 183, 0.15)",
+      eyebrow: undefined,
+      eyebrow_en: undefined,
+      logo: undefined,
+      border: "1px solid #1F2937",
+      hoverBorder: "1px solid rgba(110, 231, 183, 0.25)",
+      hoverShadow: "0 0 20px rgba(110, 231, 183, 0.06)",
+    },
     description:
       "Alternative à Mixpanel sans cookies tiers. Tracking d'events, funnels, rétention. Stack serverless, données hébergées EU.",
     description_en:

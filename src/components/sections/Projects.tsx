@@ -304,11 +304,18 @@ function ProjectCard({
   onSelect: (id: string) => void;
   details: string;
 }) {
-  const { lang } = useLang();
+  const { lang, t } = useLang();
   const { tagline, description } = getProjectText(project, lang);
   const linkHref = project.url ?? project.github ?? "#";
   const [hovered, setHovered] = useState(false);
   const th = project.theme;
+  const statusConfig = {
+    production:  { label: t.status.production,  color: "#2D9B5A", bg: "rgba(45,155,90,0.12)" },
+    prototype:   { label: t.status.prototype,   color: "#F2A622", bg: "rgba(242,166,34,0.12)" },
+    archived:    { label: t.status.archived,    color: "#7A7870", bg: "rgba(122,120,112,0.12)" },
+    development: { label: t.status.development, color: "#4A90D9", bg: "rgba(74,144,217,0.12)" },
+  };
+  const status = statusConfig[project.status];
 
   if (th) {
     // Themed card — split layout: image top, light bottom
@@ -319,10 +326,11 @@ function ProjectCard({
         className="h-full flex flex-col"
         style={{
           backgroundColor: th.bg,
+          border: hovered ? (th.hoverBorder ?? "none") : (th.border ?? "none"),
           overflow: "hidden",
-          transition: "transform 0.2s ease, box-shadow 0.2s ease",
+          transition: "transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease",
           transform: hovered ? "translateY(-2px)" : "translateY(0)",
-          boxShadow: hovered ? `0 12px 32px rgba(0,0,0,0.12)` : "none",
+          boxShadow: hovered ? (th.hoverShadow ?? "0 12px 32px rgba(0,0,0,0.12)") : "none",
         }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -392,12 +400,17 @@ function ProjectCard({
             flex: 1,
           }}
         >
+          <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+            <span style={{ fontFamily: "var(--font-mono)", fontSize: "10px", color: status.color, backgroundColor: status.bg, padding: "2px 7px", textTransform: "uppercase" as const, letterSpacing: "0.06em" }}>
+              {status.label}
+            </span>
+          </div>
           <p style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: th.accent, letterSpacing: "0.05em", marginBottom: "8px" }}>
             {tagline}
           </p>
           <div style={{ width: "32px", height: "2px", backgroundColor: th.accent, marginBottom: "16px", opacity: 0.6 }} />
 
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", lineHeight: 1.65, color: "var(--color-text-secondary)", marginBottom: "20px", flex: 1 }}>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", lineHeight: 1.65, color: th.textMuted, marginBottom: "20px", flex: 1 }}>
             {description}
           </p>
 
@@ -405,7 +418,7 @@ function ProjectCard({
             {project.tags.map((tag, i) => {
               const tc = th.tagColors?.[i];
               return (
-                <span key={tag} style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.08em", textTransform: "uppercase" as const, backgroundColor: tc?.bg ?? th.tagBg, color: tc?.text ?? th.tagText, border: tc ? `1px solid ${tc.border}` : "none", padding: "4px 10px", borderRadius: "9999px" }}>
+                <span key={tag} style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.08em", textTransform: "uppercase" as const, backgroundColor: tc?.bg ?? th.tagBg, color: tc?.text ?? th.tagText, border: tc ? `1px solid ${tc.border}` : th.tagBorder ? `1px solid ${th.tagBorder}` : "none", padding: "4px 10px", borderRadius: "9999px" }}>
                   {tag}
                 </span>
               );
@@ -420,7 +433,7 @@ function ProjectCard({
                 rel="noopener noreferrer"
                 style={{ fontFamily: "var(--font-mono)", fontSize: "13px", fontWeight: 600, color: th.accent, textDecoration: "none" }}
               >
-                Voir le site →
+                {project.url ? "Voir le site →" : "Voir le code →"}
               </a>
             ) : (
               <span style={{ fontFamily: "var(--font-mono)", fontSize: "13px", color: th.textMuted }}>
@@ -436,17 +449,14 @@ function ProjectCard({
   // Default card
   const cardContent = (
     <>
-      <span
-        className="block mb-4"
-        style={{
-          fontFamily: "var(--font-mono)",
-          fontSize: "11px",
-          color: "var(--color-gray-light)",
-          letterSpacing: "0.1em",
-        }}
-      >
-        {project.year}
-      </span>
+      <div className="flex items-center gap-3 mb-4">
+        <span style={{ fontFamily: "var(--font-mono)", fontSize: "11px", color: "var(--color-gray-light)", letterSpacing: "0.1em" }}>
+          {project.year}
+        </span>
+        <span style={{ fontFamily: "var(--font-mono)", fontSize: "10px", color: status.color, backgroundColor: status.bg, padding: "2px 7px", textTransform: "uppercase" as const, letterSpacing: "0.06em" }}>
+          {status.label}
+        </span>
+      </div>
 
       <h3
         className="mb-2"
