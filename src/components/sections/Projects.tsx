@@ -320,7 +320,7 @@ function ProjectCard({
   if (th) {
     // Themed card — split layout: image top, light bottom
     const eyebrow = lang === "en" ? (th.eyebrow_en ?? th.eyebrow) : th.eyebrow;
-    const imageHeight = large ? "380px" : "180px";
+    const imageHeight = large ? "520px" : "180px";
     return (
       <article
         className="h-full flex flex-col"
