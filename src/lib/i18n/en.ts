@@ -30,7 +30,7 @@ export const en: Translations = {
   hero: {
     lines: ["Builder", "of apps", "that make sense.", "Web & SaaS."],
     sub1: "Rails · Next.js · Solidity · AI — from idea to product.",
-    sub2: "3 SaaS launched, hundreds of users, zero template.",
+    sub2: "I turn ideas into products running in production — not prototypes gathering dust on GitHub.",
     ctaProjects: "View projects",
     ctaContact: "Start a conversation",
   },
