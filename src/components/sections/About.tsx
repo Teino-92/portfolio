@@ -4,23 +4,9 @@ import { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 import AnimatedText from "@/components/ui/AnimatedText";
-import type { Variants, Transition } from "framer-motion";
 import { useLang } from "@/lib/i18n/context";
 
-const statVariants: Variants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.15,
-      duration: 0.7,
-      ease: [0.25, 0.46, 0.45, 0.94],
-    } as Transition,
-  }),
-};
-
-const textStagger: Variants = {
+const textStagger = {
   hidden: {},
   visible: {
     transition: { staggerChildren: 0.12, delayChildren: 0.3 },
@@ -30,16 +16,10 @@ const textStagger: Variants = {
 export default function About() {
   const shouldReduceMotion = useReducedMotion();
   const { t } = useLang();
-  const STATS = [
-    { value: "3", label: t.aboutSection.stat1Label },
-    { value: t.aboutSection.stat2Value, label: t.aboutSection.stat2Label },
-  ];
   const sectionRef = useRef<HTMLElement>(null);
-  const statsRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
 
   const sectionInView = useInView(sectionRef, { once: true, margin: "-80px" });
-  const statsInView = useInView(statsRef, { once: true, margin: "-60px" });
   const textInView = useInView(textRef, { once: true, margin: "-60px" });
 
   const animate = !shouldReduceMotion;
@@ -77,99 +57,54 @@ export default function About() {
       </motion.div>
 
       <div className="mx-auto max-w-7xl px-6 md:px-16">
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-24">
-          {/* Left — Stats */}
-          <motion.div
-            ref={statsRef}
-            initial={animate ? "hidden" : false}
-            animate={statsInView ? "visible" : "hidden"}
-            variants={animate ? staggerContainer : undefined}
-            className="flex flex-col justify-center gap-12"
+        <motion.div
+          ref={textRef}
+          initial={animate ? "hidden" : false}
+          animate={textInView ? "visible" : "hidden"}
+          variants={animate ? staggerContainer : undefined}
+          className="flex flex-col gap-10 max-w-3xl"
+        >
+          <AnimatedText
+            text={t.aboutSection.title}
+            el="p"
+            delay={0.2}
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "clamp(28px, 4vw, 42px)",
+              fontStyle: "italic",
+              lineHeight: 1.25,
+              color: "var(--color-white)",
+            }}
+          />
+
+          <motion.p
+            variants={animate ? fadeUp : undefined}
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "18px",
+              lineHeight: 1.75,
+              color: "rgba(253, 250, 244, 0.7)",
+              maxWidth: "60ch",
+            }}
           >
-            {STATS.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                custom={i}
-                variants={animate ? statVariants : undefined}
-                className="flex flex-col gap-2"
-              >
-                {stat.value && (
-                  <span
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: "clamp(72px, 10vw, 96px)",
-                      fontWeight: 800,
-                      lineHeight: 1,
-                      letterSpacing: "-0.03em",
-                      color: "var(--color-yellow)",
-                    }}
-                  >
-                    {stat.value}
-                  </span>
-                )}
-                <span
-                  style={{
-                    fontFamily: stat.value ? "var(--font-mono)" : "var(--font-serif)",
-                    fontSize: stat.value ? "13px" : "clamp(18px, 2.5vw, 24px)",
-                    fontWeight: 500,
-                    fontStyle: stat.value ? "normal" : "italic",
-                    textTransform: stat.value ? "uppercase" as const : "none" as const,
-                    letterSpacing: stat.value ? "0.08em" : "-0.01em",
-                    color: stat.value ? "rgba(253, 250, 244, 0.55)" : "var(--color-yellow)",
-                  }}
-                >
-                  {stat.label}
-                </span>
-              </motion.div>
-            ))}
-          </motion.div>
+            {t.aboutSection.body}
+          </motion.p>
 
-          {/* Right — Bio */}
-          <motion.div
-            ref={textRef}
-            initial={animate ? "hidden" : false}
-            animate={textInView ? "visible" : "hidden"}
-            variants={animate ? textStagger : undefined}
-            className="flex flex-col justify-center gap-8"
+          <motion.p
+            variants={animate ? fadeUp : undefined}
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontSize: "clamp(16px, 2vw, 20px)",
+              fontStyle: "italic",
+              lineHeight: 1.5,
+              color: "rgba(253, 250, 244, 0.45)",
+              borderLeft: "2px solid var(--color-yellow)",
+              paddingLeft: "20px",
+            }}
           >
-            <AnimatedText
-              text={t.aboutSection.title}
-              el="p"
-              delay={0.2}
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: "clamp(22px, 3vw, 28px)",
-                fontStyle: "italic",
-                lineHeight: 1.35,
-                color: "var(--color-white)",
-              }}
-            />
-
-            <motion.p
-              variants={animate ? fadeUp : undefined}
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "17px",
-                lineHeight: 1.7,
-                color: "rgba(253, 250, 244, 0.7)",
-              }}
-            >
-              {t.aboutSection.body}
-            </motion.p>
-
-            <motion.p
-              variants={animate ? fadeUp : undefined}
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "17px",
-                lineHeight: 1.7,
-                color: "rgba(253, 250, 244, 0.7)",
-              }}
-            >
-              {t.aboutSection.cta}
-            </motion.p>
-          </motion.div>
-        </div>
+            {t.aboutSection.cta}
+          </motion.p>
+        </motion.div>
       </div>
     </section>
   );

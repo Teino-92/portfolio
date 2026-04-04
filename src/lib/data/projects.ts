@@ -1,3 +1,5 @@
+export type TagColor = { bg: string; text: string; border: string };
+
 export type ProjectTheme = {
   bg: string;
   text: string;
@@ -6,6 +8,7 @@ export type ProjectTheme = {
   accentText: string;
   tagBg: string;
   tagText: string;
+  tagColors?: TagColor[];
   eyebrow?: string;
   eyebrow_en?: string;
   logo?: string;
@@ -81,8 +84,27 @@ export const projects: Project[] = [
   {
     id: "izi-rh",
     title: "Izi-RH",
-    tagline: "SIRH SaaS pour PME françaises",
-    tagline_en: "HRIS SaaS for French SMEs",
+    tagline: "SaaS · SIRH · PME françaises",
+    tagline_en: "SaaS · HRIS · French SMEs",
+    theme: {
+      bg: "#F8F9FF",
+      text: "#111827",
+      textMuted: "#6B7280",
+      accent: "#4F46E5",
+      accentText: "#ffffff",
+      tagBg: "#EEF2FF",
+      tagText: "#4338CA",
+      tagColors: [
+        { bg: "#ede9fe", text: "#6d28d9", border: "#ddd6fe" },
+        { bg: "#dcfce7", text: "#15803d", border: "#bbf7d0" },
+        { bg: "#ffedd5", text: "#c2410c", border: "#fed7aa" },
+        { bg: "#dbeafe", text: "#1d4ed8", border: "#bfdbfe" },
+        { bg: "#fce7f3", text: "#c6005c", border: "#fbcfe8" },
+      ],
+      eyebrow: undefined,
+      eyebrow_en: undefined,
+      logo: "/images/logo-izi-rh.svg",
+    },
     description:
       "Plateforme SIRH manager-centric intégrant les logiciels de paie existants. Gestion des congés, notes de frais, onboarding. Cible 30–300 collaborateurs.",
     description_en:
@@ -175,7 +197,7 @@ end`,
     tagline: "Boutique · Paris 9ème · Dog & Cat Wellness",
     tagline_en: "Boutique · Paris 9th · Dog & Cat Wellness",
     theme: {
-      bg: "#8B5A3A",
+      bg: "#B5A89A",
       text: "#1A1A1A",
       textMuted: "rgba(26, 26, 26, 0.6)",
       accent: "#8B5A3A",

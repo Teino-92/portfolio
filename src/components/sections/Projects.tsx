@@ -313,12 +313,12 @@ function ProjectCard({
   if (th) {
     // Themed card — split layout: image top, light bottom
     const eyebrow = lang === "en" ? (th.eyebrow_en ?? th.eyebrow) : th.eyebrow;
-    const imageHeight = large ? "260px" : "180px";
+    const imageHeight = large ? "380px" : "180px";
     return (
       <article
         className="h-full flex flex-col"
         style={{
-          backgroundColor: "#B5A89A",
+          backgroundColor: th.bg,
           overflow: "hidden",
           transition: "transform 0.2s ease, box-shadow 0.2s ease",
           transform: hovered ? "translateY(-2px)" : "translateY(0)",
@@ -354,7 +354,7 @@ function ProjectCard({
             style={{
               position: "absolute",
               inset: 0,
-              background: `linear-gradient(to bottom, transparent 40%, rgba(245,240,232,0.6) 75%, rgba(245,240,232,0.82) 100%)`,
+              background: `linear-gradient(to bottom, transparent 40%, ${th.bg}99 75%, ${th.bg}D0 100%)`,
             }}
           />
           {/* Eyebrow + logo at bottom of image zone */}
@@ -402,11 +402,14 @@ function ProjectCard({
           </p>
 
           <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "20px" }}>
-            {project.tags.map((tag) => (
-              <span key={tag} style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.08em", textTransform: "uppercase" as const, backgroundColor: th.tagBg, color: th.tagText, padding: "4px 10px", borderRadius: "9999px" }}>
-                {tag}
-              </span>
-            ))}
+            {project.tags.map((tag, i) => {
+              const tc = th.tagColors?.[i];
+              return (
+                <span key={tag} style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.08em", textTransform: "uppercase" as const, backgroundColor: tc?.bg ?? th.tagBg, color: tc?.text ?? th.tagText, border: tc ? `1px solid ${tc.border}` : "none", padding: "4px 10px", borderRadius: "9999px" }}>
+                  {tag}
+                </span>
+              );
+            })}
           </div>
 
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderTop: `1px solid ${th.accent}30`, paddingTop: "16px" }}>

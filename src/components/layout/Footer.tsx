@@ -5,6 +5,7 @@ import { useLang } from "@/lib/i18n/context";
 const externalLinks = [
   { label: "GitHub", href: "https://github.com/Teino-92" },
   { label: "LinkedIn", href: "https://linkedin.com/in/m-garbugli" },
+  { label: "Malt", href: "https://www.malt.fr/profile/matteogarbugli1" },
 ];
 
 const linkStyle: React.CSSProperties = {

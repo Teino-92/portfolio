@@ -40,7 +40,7 @@ export const en: Translations = {
     label: "04 — About",
     stat1Label: "SaaS launched",
     stat2Value: "",
-    stat2Label: "From luxury hospitality to B2B SaaS",
+    stat2Label: "From hospitality to retail, from hospitality to the web.",
     title: "I build products from A to Z.",
     body: "Full-stack developer with a strong product sense, I've been working on Web and SaaS projects for 3 years. I love well-thought-out products, interfaces that don't apologize for existing, and code that lasts.",
     cta: "Available for ambitious freelance missions — from design to production.",

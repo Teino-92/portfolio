@@ -60,7 +60,7 @@ function ProjectCard({
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
           style={{
-            backgroundColor: "#B5A89A",
+            backgroundColor: th.bg,
             overflow: "hidden",
             transition: "transform 0.2s ease, box-shadow 0.2s ease",
             transform: hovered ? "translateY(-2px)" : "translateY(0)",
@@ -75,7 +75,7 @@ function ProjectCard({
                 style={{ position: "absolute", inset: 0, backgroundImage: `url(${project.image})`, backgroundSize: "cover", backgroundPosition: "top center" }}
               />
             )}
-            <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: `linear-gradient(to bottom, transparent 40%, rgba(245,240,232,0.6) 75%, rgba(245,240,232,0.82) 100%)` }} />
+            <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: `linear-gradient(to bottom, transparent 40%, ${th.bg}99 75%, ${th.bg}D0 100%)` }} />
             <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "20px 24px" }}>
               {eyebrow && (
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
@@ -100,9 +100,12 @@ function ProjectCard({
             <p style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: th.accent, margin: "0 0 8px" }}>{tagline}</p>
             <div style={{ width: "28px", height: "2px", backgroundColor: th.accent, marginBottom: "14px", opacity: 0.6 }} />
             <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "16px" }}>
-              {project.tags.map((tag) => (
-                <span key={tag} style={{ fontFamily: "var(--font-mono)", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.06em", padding: "3px 10px", backgroundColor: th.tagBg, color: th.tagText, borderRadius: "9999px" }}>{tag}</span>
-              ))}
+              {project.tags.map((tag, i) => {
+                const tc = th.tagColors?.[i];
+                return (
+                  <span key={tag} style={{ fontFamily: "var(--font-mono)", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.06em", padding: "3px 10px", backgroundColor: tc?.bg ?? th.tagBg, color: tc?.text ?? th.tagText, border: tc ? `1px solid ${tc.border}` : "none", borderRadius: "9999px" }}>{tag}</span>
+                );
+              })}
             </div>
             <div style={{ borderTop: `1px solid ${th.accent}25`, paddingTop: "14px" }}>
               {linkHref ? (

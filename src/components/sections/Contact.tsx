@@ -13,6 +13,7 @@ type SocialLink = {
 const SOCIAL_LINKS: SocialLink[] = [
   { label: "GitHub", href: "https://github.com/Teino-92" },
   { label: "LinkedIn", href: "https://linkedin.com/in/m-garbugli" },
+  { label: "Malt", href: "https://www.malt.fr/profile/matteogarbugli1" },
 ];
 
 export default function Contact() {
