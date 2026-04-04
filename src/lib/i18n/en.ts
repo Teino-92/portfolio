@@ -39,8 +39,8 @@ export const en: Translations = {
   aboutSection: {
     label: "04 — About",
     stat1Label: "SaaS launched",
-    stat2Value: "3 yrs",
-    stat2Label: "of product experience",
+    stat2Value: "",
+    stat2Label: "From luxury hospitality to B2B SaaS",
     title: "I build products from A to Z.",
     body: "Full-stack developer with a strong product sense, I've been working on Web and SaaS projects for 3 years. I love well-thought-out products, interfaces that don't apologize for existing, and code that lasts.",
     cta: "Available for ambitious freelance missions — from design to production.",

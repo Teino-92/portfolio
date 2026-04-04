@@ -93,26 +93,29 @@ export default function About() {
                 variants={animate ? statVariants : undefined}
                 className="flex flex-col gap-2"
               >
+                {stat.value && (
+                  <span
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "clamp(72px, 10vw, 96px)",
+                      fontWeight: 800,
+                      lineHeight: 1,
+                      letterSpacing: "-0.03em",
+                      color: "var(--color-yellow)",
+                    }}
+                  >
+                    {stat.value}
+                  </span>
+                )}
                 <span
                   style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: "clamp(72px, 10vw, 96px)",
-                    fontWeight: 800,
-                    lineHeight: 1,
-                    letterSpacing: "-0.03em",
-                    color: "var(--color-yellow)",
-                  }}
-                >
-                  {stat.value}
-                </span>
-                <span
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "13px",
+                    fontFamily: stat.value ? "var(--font-mono)" : "var(--font-serif)",
+                    fontSize: stat.value ? "13px" : "clamp(18px, 2.5vw, 24px)",
                     fontWeight: 500,
-                    textTransform: "uppercase" as const,
-                    letterSpacing: "0.08em",
-                    color: "rgba(253, 250, 244, 0.55)",
+                    fontStyle: stat.value ? "normal" : "italic",
+                    textTransform: stat.value ? "uppercase" as const : "none" as const,
+                    letterSpacing: stat.value ? "0.08em" : "-0.01em",
+                    color: stat.value ? "rgba(253, 250, 244, 0.55)" : "var(--color-yellow)",
                   }}
                 >
                   {stat.label}

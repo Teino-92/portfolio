@@ -37,8 +37,8 @@ export const fr = {
   aboutSection: {
     label: "04 — À propos",
     stat1Label: "SaaS lancés",
-    stat2Value: "3 ans",
-    stat2Label: "d'expérience produit",
+    stat2Value: "",
+    stat2Label: "De l'hôtellerie de luxe au SaaS B2B",
     title: "Je construis des produits de A à Z.",
     body: "Développeur full-stack avec une sensibilité produit forte, je travaille sur des projets Web et SaaS depuis 3 ans. J'aime les produits bien pensés, les interfaces qui ne s'excusent pas d'exister, et le code qui dure.",
     cta: "Disponible pour des missions freelance ambitieuses — de la conception à la mise en production.",
