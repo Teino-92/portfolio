@@ -1,3 +1,21 @@
+export type ProjectTheme = {
+  bg: string;
+  text: string;
+  textMuted: string;
+  accent: string;
+  accentText: string;
+  tagBg: string;
+  tagText: string;
+  eyebrow?: string;
+  eyebrow_en?: string;
+  logo?: string;
+  font?: {
+    title?: string;
+    body?: string;
+    label?: string;
+  };
+};
+
 export type Project = {
   id: string;
   title: string;
@@ -12,6 +30,7 @@ export type Project = {
   image?: string;
   featured: boolean;
   status: "production" | "prototype" | "archived" | "development";
+  theme?: ProjectTheme;
   problem: string;
   problem_en?: string;
   metrics: string[];
@@ -153,13 +172,25 @@ end`,
   {
     id: "merci-murphy",
     title: "Merci Murphy",
-    tagline: "Boutique bien-être premium pour animaux — Paris 9e",
-    tagline_en: "Premium pet wellness boutique — Paris 9th",
+    tagline: "Boutique · Paris 9ème · Dog & Cat Wellness",
+    tagline_en: "Boutique · Paris 9th · Dog & Cat Wellness",
+    theme: {
+      bg: "#8B5A3A",
+      text: "#1A1A1A",
+      textMuted: "rgba(26, 26, 26, 0.6)",
+      accent: "#8B5A3A",
+      accentText: "#F5F0E8",
+      tagBg: "#8B5A3A",
+      tagText: "#F5F0E8",
+      eyebrow: undefined,
+      eyebrow_en: undefined,
+      logo: "/images/logo-merci-murphy.avif",
+    },
     description:
-      "Site vitrine et e-commerce pour un spa animalier parisien haut de gamme. Réservation en ligne, boutique eco-responsable, présence digitale cohérente avec un positionnement premium.",
+      "E-commerce premium pour chiens et chats à Paris. Design photographique, intégration Shopify Storefront API — luxe parisien accessible.",
     description_en:
-      "Showcase and e-commerce site for a high-end Parisian pet spa. Online booking, eco-friendly boutique, digital presence consistent with premium positioning.",
-    tags: ["Next.js", "TypeScript", "E-commerce", "Vercel"],
+      "Premium e-commerce for dogs and cats in Paris. Photographic design, Shopify Storefront API integration — accessible Parisian luxury.",
+    tags: ["Next.js", "Shopify", "Sanity", "E-commerce"],
     year: 2026,
     url: "https://merci-murphy.vercel.app",
     image: "/images/preview-merci-murphy.jpg",
@@ -215,15 +246,15 @@ end`,
     ],
     techTooltips: {
       "Next.js": "Framework React pour créer des sites web performants avec chargement ultra-rapide",
-      TypeScript: "JavaScript avec un système de types — réduit les bugs de 40% en détectant les erreurs avant l'exécution",
+      Shopify: "Plateforme e-commerce — gestion du catalogue, du panier et des paiements, connectée via Storefront API",
+      Sanity: "CMS headless — le contenu est géré depuis une interface simple, publié instantanément sur le site",
       "E-commerce": "Vente en ligne — le client peut parcourir les produits, les ajouter au panier et payer directement sur le site",
-      Vercel: "Plateforme d'hébergement spécialisée Next.js — déploiement instantané, CDN mondial, zéro configuration serveur",
     },
     techTooltips_en: {
       "Next.js": "React framework for building high-performance websites with ultra-fast loading",
-      TypeScript: "JavaScript with a type system — reduces bugs by 40% by catching errors before execution",
+      Shopify: "E-commerce platform — catalog, cart and payment management, connected via Storefront API",
+      Sanity: "Headless CMS — content is managed from a simple interface, published instantly to the site",
       "E-commerce": "Online sales — the client can browse products, add to cart and pay directly on the site",
-      Vercel: "Next.js specialized hosting platform — instant deployment, global CDN, zero server configuration",
     },
     codeSnippet: {
       language: "typescript",

@@ -307,7 +307,130 @@ function ProjectCard({
   const { lang } = useLang();
   const { tagline, description } = getProjectText(project, lang);
   const linkHref = project.url ?? project.github ?? "#";
+  const [hovered, setHovered] = useState(false);
+  const th = project.theme;
 
+  if (th) {
+    // Themed card — split layout: image top, light bottom
+    const eyebrow = lang === "en" ? (th.eyebrow_en ?? th.eyebrow) : th.eyebrow;
+    const imageHeight = large ? "260px" : "180px";
+    return (
+      <article
+        className="h-full flex flex-col"
+        style={{
+          backgroundColor: "#B5A89A",
+          overflow: "hidden",
+          transition: "transform 0.2s ease, box-shadow 0.2s ease",
+          transform: hovered ? "translateY(-2px)" : "translateY(0)",
+          boxShadow: hovered ? `0 12px 32px rgba(0,0,0,0.12)` : "none",
+        }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        {/* Image zone — screenshot, gradient to beige at bottom */}
+        <div
+          style={{
+            position: "relative",
+            height: imageHeight,
+            overflow: "hidden",
+            flexShrink: 0,
+          }}
+        >
+          {project.image && (
+            <div
+              aria-hidden="true"
+              style={{
+                position: "absolute",
+                inset: 0,
+                backgroundImage: `url(${project.image})`,
+                backgroundSize: "cover",
+                backgroundPosition: "top center",
+              }}
+            />
+          )}
+          {/* Gradient: transparent top → white-ish at bottom for logo readability */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: `linear-gradient(to bottom, transparent 40%, rgba(245,240,232,0.6) 75%, rgba(245,240,232,0.82) 100%)`,
+            }}
+          />
+          {/* Eyebrow + logo at bottom of image zone */}
+          <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: large ? "24px 32px" : "20px 24px" }}>
+            {eyebrow && (
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "10px" }}>
+                <div style={{ width: "24px", height: "1px", backgroundColor: th.accent }} />
+                <span style={{ fontFamily: "var(--font-mono)", fontSize: "10px", color: th.accent, letterSpacing: "0.18em", textTransform: "uppercase" as const }}>
+                  {eyebrow}
+                </span>
+              </div>
+            )}
+            {th.logo ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={th.logo}
+                alt={project.title}
+                style={{ height: large ? "44px" : "32px", width: "auto", objectFit: "contain", objectPosition: "left center" }}
+              />
+            ) : (
+              <h3 style={{ fontFamily: "var(--font-serif)", fontSize: large ? "clamp(24px, 3vw, 32px)" : "20px", color: th.text, lineHeight: 1.15 }}>
+                {project.title}
+              </h3>
+            )}
+          </div>
+        </div>
+
+        {/* Content zone */}
+        <div
+          style={{
+            backgroundColor: "transparent",
+            padding: large ? "28px 32px 32px" : "20px 24px 24px",
+            display: "flex",
+            flexDirection: "column",
+            flex: 1,
+          }}
+        >
+          <p style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: th.accent, letterSpacing: "0.05em", marginBottom: "8px" }}>
+            {tagline}
+          </p>
+          <div style={{ width: "32px", height: "2px", backgroundColor: th.accent, marginBottom: "16px", opacity: 0.6 }} />
+
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", lineHeight: 1.65, color: "var(--color-text-secondary)", marginBottom: "20px", flex: 1 }}>
+            {description}
+          </p>
+
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "20px" }}>
+            {project.tags.map((tag) => (
+              <span key={tag} style={{ fontFamily: "var(--font-mono)", fontSize: "10px", letterSpacing: "0.08em", textTransform: "uppercase" as const, backgroundColor: th.tagBg, color: th.tagText, padding: "4px 10px", borderRadius: "9999px" }}>
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderTop: `1px solid ${th.accent}30`, paddingTop: "16px" }}>
+            {linkHref !== "#" ? (
+              <a
+                href={linkHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ fontFamily: "var(--font-mono)", fontSize: "13px", fontWeight: 600, color: th.accent, textDecoration: "none" }}
+              >
+                Voir le site →
+              </a>
+            ) : (
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "13px", color: th.textMuted }}>
+                Bientôt en ligne
+              </span>
+            )}
+          </div>
+        </div>
+      </article>
+    );
+  }
+
+  // Default card
   const cardContent = (
     <>
       <span
@@ -403,8 +526,6 @@ function ProjectCard({
       </div>
     </>
   );
-
-  const [hovered, setHovered] = useState(false);
 
   return (
     <article

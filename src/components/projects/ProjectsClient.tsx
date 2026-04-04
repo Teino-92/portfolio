@@ -30,7 +30,7 @@ function ProjectCard({
   const prefersReducedMotion = useReducedMotion();
   const [hovered, setHovered] = useState(false);
   const { t, lang } = useLang();
-  const { tagline, description } = getProjectText(project, lang);
+  const { tagline } = getProjectText(project, lang);
   const statusConfig = {
     production:  { label: t.status.production,  ...statusColors.production },
     prototype:   { label: t.status.prototype,   ...statusColors.prototype },
@@ -38,18 +38,89 @@ function ProjectCard({
     development: { label: t.status.development, ...statusColors.development },
   };
   const status = statusConfig[project.status];
+  const th = project.theme;
+
+  const motionProps = {
+    ref,
+    initial: prefersReducedMotion ? false as const : { opacity: 0, y: 40 },
+    animate: isInView ? { opacity: 1, y: 0 } : {},
+    transition: {
+      duration: 0.5,
+      delay: prefersReducedMotion ? 0 : index * 0.08,
+      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
+    },
+  };
+
+  if (th) {
+    const eyebrow = lang === "en" ? (th.eyebrow_en ?? th.eyebrow) : th.eyebrow;
+    const linkHref = project.url ?? project.github ?? null;
+    return (
+      <motion.div {...motionProps}>
+        <div
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          style={{
+            backgroundColor: "#B5A89A",
+            overflow: "hidden",
+            transition: "transform 0.2s ease, box-shadow 0.2s ease",
+            transform: hovered ? "translateY(-2px)" : "translateY(0)",
+            boxShadow: hovered ? `0 12px 32px rgba(0,0,0,0.12)` : "none",
+          }}
+        >
+          {/* Image zone */}
+          <div style={{ position: "relative", height: "200px", overflow: "hidden" }}>
+            {project.image && (
+              <div
+                aria-hidden="true"
+                style={{ position: "absolute", inset: 0, backgroundImage: `url(${project.image})`, backgroundSize: "cover", backgroundPosition: "top center" }}
+              />
+            )}
+            <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: `linear-gradient(to bottom, transparent 40%, rgba(245,240,232,0.6) 75%, rgba(245,240,232,0.82) 100%)` }} />
+            <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "20px 24px" }}>
+              {eyebrow && (
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+                  <div style={{ width: "20px", height: "1px", backgroundColor: th.accent }} />
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: "10px", color: th.accent, letterSpacing: "0.18em", textTransform: "uppercase" as const }}>{eyebrow}</span>
+                </div>
+              )}
+              {th.logo ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={th.logo} alt={project.title} style={{ height: "32px", width: "auto", objectFit: "contain", objectPosition: "left center" }} />
+              ) : (
+                <h2 style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: "clamp(20px, 2.5vw, 26px)", color: th.text, margin: 0, lineHeight: 1.1 }}>{project.title}</h2>
+              )}
+            </div>
+          </div>
+
+          {/* Content zone */}
+          <div style={{ backgroundColor: "transparent", padding: "20px 24px 24px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "10px", color: status.color, backgroundColor: status.bg, padding: "2px 7px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{status.label}</span>
+            </div>
+            <p style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: th.accent, margin: "0 0 8px" }}>{tagline}</p>
+            <div style={{ width: "28px", height: "2px", backgroundColor: th.accent, marginBottom: "14px", opacity: 0.6 }} />
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "16px" }}>
+              {project.tags.map((tag) => (
+                <span key={tag} style={{ fontFamily: "var(--font-mono)", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.06em", padding: "3px 10px", backgroundColor: th.tagBg, color: th.tagText, borderRadius: "9999px" }}>{tag}</span>
+              ))}
+            </div>
+            <div style={{ borderTop: `1px solid ${th.accent}25`, paddingTop: "14px" }}>
+              {linkHref ? (
+                <a href={linkHref} target="_blank" rel="noopener noreferrer" style={{ fontFamily: "var(--font-mono)", fontSize: "12px", fontWeight: 600, color: th.accent, textDecoration: "none" }}>
+                  Voir le site →
+                </a>
+              ) : (
+                <span style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: th.textMuted }}>Bientôt en ligne</span>
+              )}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    );
+  }
 
   return (
-    <motion.div
-      ref={ref}
-      initial={prefersReducedMotion ? false : { opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{
-        duration: 0.5,
-        delay: prefersReducedMotion ? 0 : index * 0.08,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      }}
-    >
+    <motion.div {...motionProps}>
       <button
         onClick={onClick}
         onMouseEnter={() => setHovered(true)}
@@ -77,7 +148,6 @@ function ProjectCard({
             overflow: "hidden",
           }}
         >
-          {/* Background preview image */}
           {project.image && (
             <div
               aria-hidden="true"
@@ -93,7 +163,6 @@ function ProjectCard({
               }}
             />
           )}
-          {/* Gradient scrim — ensures text legibility over dark images */}
           {project.image && (
             <div
               aria-hidden="true"
@@ -106,103 +175,37 @@ function ProjectCard({
               }}
             />
           )}
-          {/* Card content — above background image */}
           <div style={{ position: "relative", zIndex: 1 }}>
-          {/* Top row */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-start",
-              marginBottom: "16px",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <span
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "11px",
-                  color: "var(--color-gray-mid)",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.08em",
-                }}
-              >
-                {project.year}
-              </span>
-              <span
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "10px",
-                  color: status.color,
-                  backgroundColor: status.bg,
-                  padding: "2px 7px",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.06em",
-                }}
-              >
-                {status.label}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "16px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <span style={{ fontFamily: "var(--font-mono)", fontSize: "11px", color: "var(--color-gray-mid)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                  {project.year}
+                </span>
+                <span style={{ fontFamily: "var(--font-mono)", fontSize: "10px", color: status.color, backgroundColor: status.bg, padding: "2px 7px", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+                  {status.label}
+                </span>
+              </div>
+              <span style={{ color: hovered ? "var(--color-red)" : "var(--color-gray-light)", fontSize: "18px", transition: "color 0.2s, transform 0.2s", transform: hovered ? "translate(2px, -2px)" : "none", display: "block" }}>
+                →
               </span>
             </div>
-            <span
-              style={{
-                color: hovered ? "var(--color-red)" : "var(--color-gray-light)",
-                fontSize: "18px",
-                transition: "color 0.2s, transform 0.2s",
-                transform: hovered ? "translate(2px, -2px)" : "none",
-                display: "block",
-              }}
-            >
-              →
-            </span>
+
+            <h2 style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: "clamp(22px, 3vw, 28px)", color: "var(--color-black)", margin: "0 0 8px", lineHeight: 1.1 }}>
+              {project.title}
+            </h2>
+
+            <p style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: project.image ? "var(--color-gray-dark)" : "var(--color-gray-mid)", margin: "0 0 20px", lineHeight: 1.5 }}>
+              {tagline}
+            </p>
+
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+              {project.tags.map((tag) => (
+                <span key={tag} style={{ fontFamily: "var(--font-mono)", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.06em", padding: "3px 8px", backgroundColor: "var(--color-yellow)", color: "var(--color-black)" }}>
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
-
-          {/* Title */}
-          <h2
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontStyle: "italic",
-              fontSize: "clamp(22px, 3vw, 28px)",
-              color: "var(--color-black)",
-              margin: "0 0 8px",
-              lineHeight: 1.1,
-            }}
-          >
-            {project.title}
-          </h2>
-
-          {/* Tagline */}
-          <p
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "12px",
-              color: project.image ? "var(--color-gray-dark)" : "var(--color-gray-mid)",
-              margin: "0 0 20px",
-              lineHeight: 1.5,
-            }}
-          >
-            {tagline}
-          </p>
-
-          {/* Tags */}
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-            {project.tags.map((tag) => (
-              <span
-                key={tag}
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "10px",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.06em",
-                  padding: "3px 8px",
-                  backgroundColor: "var(--color-yellow)",
-                  color: "var(--color-black)",
-                }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-          </div>{/* end content wrapper */}
         </div>
       </button>
     </motion.div>
