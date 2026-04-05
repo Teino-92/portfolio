@@ -320,6 +320,7 @@ function ProjectCard({
   if (th) {
     const eyebrow = lang === "en" ? (th.eyebrow_en ?? th.eyebrow) : th.eyebrow;
     const imageHeightClass = large ? "h-[100px] lg:h-[440px]" : "h-[100px]";
+    const defaultImageHeightClass = large ? "h-[200px] lg:h-[440px]" : "h-[200px]";
     return (
       <article
         className="h-full flex flex-col"
@@ -350,7 +351,7 @@ function ProjectCard({
           }}
         >
           {/* Screenshot zone */}
-          <div className={`relative overflow-hidden flex-shrink-0 ${imageHeightClass}`} style={{ position: "relative" }}>
+          <div className={`relative overflow-hidden flex-shrink-0 ${defaultImageHeightClass}`} style={{ position: "relative" }}>
             {project.image && (
               <div
                 aria-hidden="true"
