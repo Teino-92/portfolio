@@ -110,9 +110,9 @@ export const projects: Project[] = [
       logo: "/images/logo-izi-rh.svg",
     },
     description:
-      "Plateforme SIRH manager-centric intégrant les logiciels de paie existants. Gestion des congés, notes de frais, onboarding. Cible 30–300 collaborateurs.",
+      "Plateforme SIRH manager-centric intégrant les logiciels de paie existants. Gestion des congés, notes de frais, onboarding.",
     description_en:
-      "Manager-centric HRIS platform integrating existing payroll software. Leave management, expense reports, onboarding. Targets 30–300 employees.",
+      "Manager-centric HRIS platform integrating existing payroll software. Leave management, expense reports, onboarding.",
     tags: ["Rails 7", "Hotwire", "Tailwind", "SaaS", "B2B"],
     year: 2025,
     url: "https://izi-rh.com",

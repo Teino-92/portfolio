@@ -71,67 +71,115 @@ function ProjectCard({
           }}
           aria-label={`Voir les détails de ${project.title}`}
         >
-        <div
-          style={{
-            backgroundColor: th.bg,
-            border: hovered ? (th.hoverBorder ?? "none") : (th.border ?? "none"),
-            overflow: "hidden",
-            transition: "transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease",
-            transform: hovered ? "translateY(-2px)" : "translateY(0)",
-            boxShadow: hovered ? (th.hoverShadow ?? "0 12px 32px rgba(0,0,0,0.12)") : "none",
-          }}
-        >
-          {/* Image zone */}
-          <div style={{ position: "relative", height: "200px", overflow: "hidden" }}>
-            {project.image && (
-              <div
-                aria-hidden="true"
-                style={{ position: "absolute", inset: 0, backgroundImage: `url(${project.image})`, backgroundSize: "cover", backgroundPosition: "top center" }}
-              />
-            )}
-            <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: `linear-gradient(to bottom, transparent 40%, ${th.bg}99 75%, ${th.bg}D0 100%)` }} />
-            <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "20px 24px" }}>
-              {eyebrow && (
-                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
-                  <div style={{ width: "20px", height: "1px", backgroundColor: th.accent }} />
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: "10px", color: th.accent, letterSpacing: "0.18em", textTransform: "uppercase" as const }}>{eyebrow}</span>
+          <div
+            style={{
+              position: "relative",
+              overflow: "hidden",
+              transform: hovered ? "translateY(-2px)" : "translateY(0)",
+              boxShadow: hovered ? (th.hoverShadow ?? "0 12px 32px rgba(0,0,0,0.12)") : "none",
+              transition: "transform 0.35s ease, box-shadow 0.35s ease",
+            }}
+          >
+            {/* Default layer — standard card style */}
+            <div
+              style={{
+                position: "relative",
+                backgroundColor: "var(--color-bg-secondary)",
+                padding: "32px",
+                borderLeft: hovered ? "3px solid var(--color-red)" : "3px solid transparent",
+                transition: "opacity 0.35s ease, border-color 0.35s ease",
+                opacity: hovered ? 0 : 1,
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "16px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: "11px", color: "var(--color-gray-mid)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                    {project.year}
+                  </span>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: "10px", color: status.color, backgroundColor: status.bg, padding: "2px 7px", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+                    {status.label}
+                  </span>
                 </div>
-              )}
-              {th.logo ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={th.logo} alt={project.title} style={{ height: "32px", width: "auto", objectFit: "contain", objectPosition: "left center" }} />
-              ) : (
-                <h2 style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: "clamp(20px, 2.5vw, 26px)", color: th.text, margin: 0, lineHeight: 1.1 }}>{project.title}</h2>
-              )}
+                <span style={{ color: "var(--color-gray-light)", fontSize: "18px" }}>→</span>
+              </div>
+              <h2 style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: "clamp(22px, 3vw, 28px)", color: "var(--color-black)", margin: "0 0 8px", lineHeight: 1.1 }}>
+                {project.title}
+              </h2>
+              <p style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: "var(--color-gray-mid)", margin: "0 0 20px", lineHeight: 1.5 }}>
+                {tagline}
+              </p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                {project.tags.map((tag) => (
+                  <span key={tag} style={{ fontFamily: "var(--font-mono)", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.06em", padding: "3px 8px", backgroundColor: "var(--color-yellow)", color: "var(--color-black)" }}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Content zone */}
-          <div style={{ backgroundColor: "transparent", padding: "20px 24px 24px" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "10px", color: status.color, backgroundColor: status.bg, padding: "2px 7px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{status.label}</span>
-            </div>
-            <p style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: th.accent, margin: "0 0 8px" }}>{tagline}</p>
-            <div style={{ width: "28px", height: "2px", backgroundColor: th.accent, marginBottom: "14px", opacity: 0.6 }} />
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "16px" }}>
-              {project.tags.map((tag, i) => {
-                const tc = th.tagColors?.[i];
-                return (
-                  <span key={tag} style={{ fontFamily: "var(--font-mono)", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.06em", padding: "3px 10px", backgroundColor: tc?.bg ?? th.tagBg, color: tc?.text ?? th.tagText, border: tc ? `1px solid ${tc.border}` : th.tagBorder ? `1px solid ${th.tagBorder}` : "none", borderRadius: "9999px" }}>{tag}</span>
-                );
-              })}
-            </div>
-            <div style={{ borderTop: `1px solid ${th.accent}25`, paddingTop: "14px" }}>
-              {linkHref ? (
-                <a href={linkHref} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} style={{ fontFamily: "var(--font-mono)", fontSize: "12px", fontWeight: 600, color: th.accent, textDecoration: "none" }}>
-                  {project.url ? "Voir le site →" : "Voir le code →"}
-                </a>
-              ) : (
-                <span style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: th.textMuted }}>Bientôt en ligne</span>
-              )}
+            {/* Themed layer — revealed on hover */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                backgroundColor: th.bg,
+                border: th.border ?? "none",
+                opacity: hovered ? 1 : 0,
+                transition: "opacity 0.35s ease",
+                overflow: "hidden",
+              }}
+            >
+              {/* Image zone */}
+              <div style={{ position: "relative", height: "200px", overflow: "hidden" }}>
+                {project.image && (
+                  <div
+                    aria-hidden="true"
+                    style={{ position: "absolute", inset: 0, backgroundImage: `url(${project.image})`, backgroundSize: "cover", backgroundPosition: "top center" }}
+                  />
+                )}
+                <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: `linear-gradient(to bottom, transparent 40%, ${th.bg}99 75%, ${th.bg}D0 100%)` }} />
+                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "20px 24px" }}>
+                  {eyebrow && (
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+                      <div style={{ width: "20px", height: "1px", backgroundColor: th.accent }} />
+                      <span style={{ fontFamily: "var(--font-mono)", fontSize: "10px", color: th.accent, letterSpacing: "0.18em", textTransform: "uppercase" as const }}>{eyebrow}</span>
+                    </div>
+                  )}
+                  {th.logo ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={th.logo} alt={project.title} style={{ height: "32px", width: "auto", objectFit: "contain", objectPosition: "left center" }} />
+                  ) : (
+                    <h2 style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontSize: "clamp(20px, 2.5vw, 26px)", color: th.text, margin: 0, lineHeight: 1.1 }}>{project.title}</h2>
+                  )}
+                </div>
+              </div>
+              {/* Content zone */}
+              <div style={{ backgroundColor: "transparent", padding: "20px 24px 24px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: "10px", color: status.color, backgroundColor: status.bg, padding: "2px 7px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{status.label}</span>
+                </div>
+                <p style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: th.accent, margin: "0 0 8px" }}>{tagline}</p>
+                <div style={{ width: "28px", height: "2px", backgroundColor: th.accent, marginBottom: "14px", opacity: 0.6 }} />
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "16px" }}>
+                  {project.tags.map((tag, i) => {
+                    const tc = th.tagColors?.[i];
+                    return (
+                      <span key={tag} style={{ fontFamily: "var(--font-mono)", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.06em", padding: "3px 10px", backgroundColor: tc?.bg ?? th.tagBg, color: tc?.text ?? th.tagText, border: tc ? `1px solid ${tc.border}` : th.tagBorder ? `1px solid ${th.tagBorder}` : "none", borderRadius: "9999px" }}>{tag}</span>
+                    );
+                  })}
+                </div>
+                <div style={{ borderTop: `1px solid ${th.accent}25`, paddingTop: "14px" }}>
+                  {linkHref ? (
+                    <a href={linkHref} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} style={{ fontFamily: "var(--font-mono)", fontSize: "12px", fontWeight: 600, color: th.accent, textDecoration: "none" }}>
+                      {project.url ? "Voir le site →" : "Voir le code →"}
+                    </a>
+                  ) : (
+                    <span style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: th.textMuted }}>Bientôt en ligne</span>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
         </button>
       </motion.div>
     );
