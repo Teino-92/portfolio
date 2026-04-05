@@ -241,21 +241,15 @@ export default function AboutStory() {
     return d;
   }, []);
 
-  // Build path after Framer Motion animations settle, rebuild multiple times to be safe
+  // Build path once after mount, and again when section enters view
   useEffect(() => {
-    const timers = [
-      setTimeout(() => setPathD(buildPath()), 500),
-      setTimeout(() => setPathD(buildPath()), 1200),
-      setTimeout(() => setPathD(buildPath()), 2500),
-    ];
-    return () => timers.forEach(clearTimeout);
+    const timer = setTimeout(() => setPathD(buildPath()), 1000);
+    return () => clearTimeout(timer);
   }, [buildPath]);
 
-  // Rebuild when section comes into view (dots are at final positions)
   useEffect(() => {
     if (isInView) {
-      const timer = setTimeout(() => setPathD(buildPath()), 800);
-      return () => clearTimeout(timer);
+      requestAnimationFrame(() => setPathD(buildPath()));
     }
   }, [isInView, buildPath]);
 
@@ -317,22 +311,27 @@ export default function AboutStory() {
         trigger: container,
         start: "top 80%",
         end: "bottom 80%",
-        scrub: 2.5,
+        scrub: 1,
         onUpdate: (self) => {
           const progress = self.progress;
           const h = containerHeightRef.current * progress;
           clipRect.setAttribute("height", String(h));
 
-          // Activate dots when the clip rect has reached their y position
-          setActiveFlags(() =>
-            dotRefs.current.map((dot) => {
-              if (!dot) return false;
-              const cRect = container.getBoundingClientRect();
-              const dotRect = dot.getBoundingClientRect();
-              const dotY = dotRect.top + dotRect.height / 2 - cRect.top;
-              return h >= dotY;
-            })
-          );
+          // Only update state when a flag actually changes
+          const cRect = container.getBoundingClientRect();
+          const next = dotRefs.current.map((dot) => {
+            if (!dot) return false;
+            const dotRect = dot.getBoundingClientRect();
+            const dotY = dotRect.top + dotRect.height / 2 - cRect.top;
+            return h >= dotY;
+          });
+
+          setActiveFlags((prev) => {
+            for (let i = 0; i < next.length; i++) {
+              if (prev[i] !== next[i]) return next;
+            }
+            return prev;
+          });
         },
       });
       triggers.push(trig);
