@@ -184,11 +184,13 @@ function TimelineRow({
             position: "absolute",
             left: 0,
             top: "8px",
-            width: "10px",
-            height: "10px",
+            width: "12px",
+            height: "12px",
             borderRadius: "50%",
             backgroundColor: active ? "var(--color-red)" : "var(--color-border-strong)",
-            transition: "background-color 0.3s ease",
+            border: "2px solid var(--color-bg-secondary)",
+            transition: "background-color 0.3s ease, box-shadow 0.3s ease",
+            boxShadow: active ? "0 0 0 4px rgba(214,60,42,0.15)" : "none",
           }}
         />
         <TimelineCard item={item} />
@@ -450,11 +452,6 @@ export default function AboutStory() {
             />
           </svg>
 
-          {/* Mobile ghost line */}
-          <div
-            className="lg:hidden absolute left-[4px] top-[8px] bottom-0"
-            style={{ width: "1px", backgroundColor: "var(--color-border)" }}
-          />
           {/* Mobile animated line */}
           <div
             ref={lineMobileRef}
