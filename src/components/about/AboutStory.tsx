@@ -108,12 +108,7 @@ function TimelineRow({
   );
 
   return (
-    <motion.div
-      ref={rowRef}
-      initial={prefersReducedMotion ? false : { opacity: 0, x: isRight ? 40 : -40 }}
-      animate={isInView ? { opacity: 1, x: 0 } : undefined}
-      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
-    >
+    <div ref={rowRef}>
       {/* Desktop: 2-column with dot at inner edge */}
       <div
         className="hidden lg:grid"
@@ -134,9 +129,14 @@ function TimelineRow({
         >
           {!isRight && (
             <>
-              <div style={{ flex: 1 }}>
+              <motion.div
+                style={{ flex: 1 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, x: -40 }}
+                animate={isInView ? { opacity: 1, x: 0 } : undefined}
+                transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
+              >
                 <TimelineCard item={item} />
-              </div>
+              </motion.div>
               {dotEl}
             </>
           )}
@@ -153,16 +153,26 @@ function TimelineRow({
           {isRight && (
             <>
               {dotEl}
-              <div style={{ flex: 1 }}>
+              <motion.div
+                style={{ flex: 1 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, x: 40 }}
+                animate={isInView ? { opacity: 1, x: 0 } : undefined}
+                transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
+              >
                 <TimelineCard item={item} />
-              </div>
+              </motion.div>
             </>
           )}
         </div>
       </div>
 
       {/* Mobile */}
-      <div className="lg:hidden pb-10 pl-8 relative">
+      <motion.div
+        className="lg:hidden pb-10 pl-8 relative"
+        initial={prefersReducedMotion ? false : { opacity: 0, x: -20 }}
+        animate={isInView ? { opacity: 1, x: 0 } : undefined}
+        transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
+      >
         <div
           style={{
             position: "absolute",
@@ -176,8 +186,8 @@ function TimelineRow({
           }}
         />
         <TimelineCard item={item} />
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 }
 
