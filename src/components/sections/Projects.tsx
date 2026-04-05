@@ -344,7 +344,7 @@ function ProjectCard({
             display: "flex",
             flexDirection: "column",
             flex: 1,
-            minHeight: "420px",
+            minHeight: "480px",
             opacity: hovered ? 0 : 1,
             transition: "opacity 0.35s ease",
           }}
