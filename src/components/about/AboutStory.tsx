@@ -102,6 +102,7 @@ function TimelineRow({
         zIndex: 3,
         position: "relative" as const,
         flexShrink: 0,
+        marginTop: "10px",
       }}
     />
   );
@@ -240,11 +241,23 @@ export default function AboutStory() {
     return d;
   }, []);
 
-  // Build path after Framer Motion animations settle
+  // Build path after Framer Motion animations settle, rebuild multiple times to be safe
   useEffect(() => {
-    const timer = setTimeout(() => setPathD(buildPath()), 900);
-    return () => clearTimeout(timer);
+    const timers = [
+      setTimeout(() => setPathD(buildPath()), 500),
+      setTimeout(() => setPathD(buildPath()), 1200),
+      setTimeout(() => setPathD(buildPath()), 2500),
+    ];
+    return () => timers.forEach(clearTimeout);
   }, [buildPath]);
+
+  // Rebuild when section comes into view (dots are at final positions)
+  useEffect(() => {
+    if (isInView) {
+      const timer = setTimeout(() => setPathD(buildPath()), 800);
+      return () => clearTimeout(timer);
+    }
+  }, [isInView, buildPath]);
 
   // Rebuild on resize
   useEffect(() => {
@@ -302,20 +315,22 @@ export default function AboutStory() {
     if (clipRect && pathD) {
       const trig = ScrollTrigger.create({
         trigger: container,
-        start: "top 70%",
-        end: "bottom 70%",
-        scrub: 0.8,
+        start: "top 80%",
+        end: "bottom 80%",
+        scrub: 2.5,
         onUpdate: (self) => {
           const progress = self.progress;
           const h = containerHeightRef.current * progress;
           clipRect.setAttribute("height", String(h));
 
-          // Activate/deactivate dots bidirectionally
+          // Activate dots when the clip rect has reached their y position
           setActiveFlags(() =>
-            dotRefs.current.map((dot, i) => {
+            dotRefs.current.map((dot) => {
               if (!dot) return false;
-              const dotFraction = dotRefs.current.length <= 1 ? 0 : i / (dotRefs.current.length - 1);
-              return progress >= dotFraction - 0.02;
+              const cRect = container.getBoundingClientRect();
+              const dotRect = dot.getBoundingClientRect();
+              const dotY = dotRect.top + dotRect.height / 2 - cRect.top;
+              return h >= dotY;
             })
           );
         },
