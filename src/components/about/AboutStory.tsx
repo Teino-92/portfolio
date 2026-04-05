@@ -174,6 +174,12 @@ function TimelineRow({
         transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
       >
         <div
+          ref={(el) => {
+            // On mobile, set the dotRef so activeFlags work
+            if (typeof window !== "undefined" && window.innerWidth < 1024) {
+              dotRef(el);
+            }
+          }}
           style={{
             position: "absolute",
             left: 0,
@@ -356,6 +362,24 @@ export default function AboutStory() {
         scrub: 0.8,
         onUpdate: (self) => {
           gsap.set(lineMobile, { scaleY: self.progress });
+
+          // Activate mobile dots based on line progress
+          const cRect = container.getBoundingClientRect();
+          const lineY = cRect.height * self.progress;
+
+          const next = dotRefs.current.map((dot) => {
+            if (!dot) return false;
+            const dotRect = dot.getBoundingClientRect();
+            const dotY = dotRect.top + dotRect.height / 2 - cRect.top;
+            return lineY >= dotY;
+          });
+
+          setActiveFlags((prev) => {
+            for (let i = 0; i < next.length; i++) {
+              if (prev[i] !== next[i]) return next;
+            }
+            return prev;
+          });
         },
       });
       triggers.push(trig);
