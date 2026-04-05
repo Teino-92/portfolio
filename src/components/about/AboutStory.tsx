@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useLayoutEffect, useState, useCallback } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { fadeUp } from "@/lib/animations";
 import gsap from "gsap";
@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const EMOJIS = ["🇮🇹", "🏝️", "🌊", "🏖️", "🏪", "🏢", "💻"] as const;
 
-type TimelineItem = {
+type TimelineItemData = {
   period: string;
   emoji: string;
   title: string;
@@ -19,91 +19,7 @@ type TimelineItem = {
   description: string;
 };
 
-function TimelineItem({
-  item,
-  index,
-  dotRef,
-  active,
-}: {
-  item: TimelineItem;
-  index: number;
-  dotRef: (el: HTMLDivElement | null) => void;
-  active: boolean;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-60px" });
-  const prefersReducedMotion = useReducedMotion();
-  const isRight = index % 2 === 1;
-
-  const dotStyle = {
-    width: "14px",
-    height: "14px",
-    borderRadius: "50%",
-    backgroundColor: active ? "var(--color-red)" : "var(--color-border-strong)",
-    border: `2px solid var(--color-bg-secondary)`,
-    flexShrink: 0 as const,
-    marginTop: "8px",
-    transition: "background-color 0.3s ease, box-shadow 0.3s ease",
-    boxShadow: active ? "0 0 0 4px rgba(214,60,42,0.15)" : "none",
-    zIndex: 2,
-    position: "relative" as const,
-  };
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={prefersReducedMotion ? false : { opacity: 0, x: isRight ? 40 : -40 }}
-      animate={isInView ? { opacity: 1, x: 0 } : undefined}
-      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
-      className={`relative grid grid-cols-1 lg:grid-cols-2 gap-0 mb-0`}
-    >
-      {/* Desktop: alternating content */}
-      <div
-        className={`hidden lg:block ${isRight ? "order-2" : "order-1"}`}
-        style={{ padding: "0 3rem 3rem" }}
-      >
-        {!isRight && <TimelineCard item={item} />}
-      </div>
-
-      {/* Center line + dot */}
-      <div
-        className="hidden lg:flex flex-col items-center"
-        style={{ order: 1 }}
-      >
-        <div
-          ref={dotRef}
-          style={dotStyle}
-        />
-      </div>
-
-      <div
-        className={`hidden lg:block ${isRight ? "order-1" : "order-3"}`}
-        style={{ padding: "0 3rem 3rem" }}
-      >
-        {isRight && <TimelineCard item={item} />}
-      </div>
-
-      {/* Mobile: always full width */}
-      <div className="lg:hidden pb-10 pl-8 relative">
-        <div
-          style={{
-            position: "absolute",
-            left: 0,
-            top: "8px",
-            width: "10px",
-            height: "10px",
-            borderRadius: "50%",
-            backgroundColor: active ? "var(--color-red)" : "var(--color-border-strong)",
-            transition: "background-color 0.3s ease",
-          }}
-        />
-        <TimelineCard item={item} />
-      </div>
-    </motion.div>
-  );
-}
-
-function TimelineCard({ item }: { item: TimelineItem }) {
+function TimelineCard({ item }: { item: TimelineItemData }) {
   return (
     <div>
       <div className="flex items-center gap-3 mb-2">
@@ -156,12 +72,121 @@ function TimelineCard({ item }: { item: TimelineItem }) {
   );
 }
 
+function TimelineRow({
+  item,
+  index,
+  dotRef,
+  active,
+}: {
+  item: TimelineItemData;
+  index: number;
+  dotRef: (el: HTMLDivElement | null) => void;
+  active: boolean;
+}) {
+  const rowRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(rowRef, { once: true, margin: "-60px" });
+  const prefersReducedMotion = useReducedMotion();
+  const isRight = index % 2 === 1;
+
+  const dotEl = (
+    <div
+      ref={dotRef}
+      style={{
+        width: "14px",
+        height: "14px",
+        borderRadius: "50%",
+        backgroundColor: active ? "var(--color-red)" : "var(--color-border-strong)",
+        border: "2px solid var(--color-bg-secondary)",
+        transition: "background-color 0.3s ease, box-shadow 0.3s ease",
+        boxShadow: active ? "0 0 0 4px rgba(214,60,42,0.15)" : "none",
+        zIndex: 3,
+        position: "relative" as const,
+        flexShrink: 0,
+      }}
+    />
+  );
+
+  return (
+    <motion.div
+      ref={rowRef}
+      initial={prefersReducedMotion ? false : { opacity: 0, x: isRight ? 40 : -40 }}
+      animate={isInView ? { opacity: 1, x: 0 } : undefined}
+      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
+    >
+      {/* Desktop: 2-column with dot at inner edge */}
+      <div
+        className="hidden lg:grid"
+        style={{
+          gridTemplateColumns: "1fr 1fr",
+          paddingBottom: "3rem",
+          gap: "2rem",
+        }}
+      >
+        {/* Left column */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            gap: "1.5rem",
+            justifyContent: isRight ? "flex-end" : "flex-start",
+          }}
+        >
+          {!isRight && (
+            <>
+              <div style={{ flex: 1 }}>
+                <TimelineCard item={item} />
+              </div>
+              {dotEl}
+            </>
+          )}
+        </div>
+
+        {/* Right column */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            gap: "1.5rem",
+          }}
+        >
+          {isRight && (
+            <>
+              {dotEl}
+              <div style={{ flex: 1 }}>
+                <TimelineCard item={item} />
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Mobile */}
+      <div className="lg:hidden pb-10 pl-8 relative">
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            top: "8px",
+            width: "10px",
+            height: "10px",
+            borderRadius: "50%",
+            backgroundColor: active ? "var(--color-red)" : "var(--color-border-strong)",
+            transition: "background-color 0.3s ease",
+          }}
+        />
+        <TimelineCard item={item} />
+      </div>
+    </motion.div>
+  );
+}
+
 export default function AboutStory() {
-  const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
   const prefersReducedMotion = useReducedMotion();
   const { t } = useLang();
-  const TIMELINE: TimelineItem[] = t.aboutStory.items.map((item, i) => ({
+
+  const TIMELINE: TimelineItemData[] = t.aboutStory.items.map((item, i) => ({
     period: item.period,
     emoji: EMOJIS[i] ?? "📍",
     title: item.title,
@@ -169,58 +194,130 @@ export default function AboutStory() {
     description: item.body,
   }));
 
-  const timelineContainerRef = useRef<HTMLDivElement>(null);
-  const lineDesktopRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
+  const pathRef = useRef<SVGPathElement>(null);
+  const clipRectRef = useRef<SVGRectElement>(null);
   const lineMobileRef = useRef<HTMLDivElement>(null);
   const dotRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const containerHeightRef = useRef(0);
+
   const [activeFlags, setActiveFlags] = useState<boolean[]>(() =>
     Array(TIMELINE.length).fill(false)
   );
+  const [pathD, setPathD] = useState("");
 
-  const addDotRef = useCallback((el: HTMLDivElement | null, index: number) => {
+  const setDotRef = useCallback((el: HTMLDivElement | null, index: number) => {
     dotRefs.current[index] = el;
   }, []);
 
+  // Build SVG path — S-curves through each dot
+  const buildPath = useCallback(() => {
+    const container = containerRef.current;
+    if (!container || dotRefs.current.length === 0) return "";
+
+    const cRect = container.getBoundingClientRect();
+    const points = dotRefs.current
+      .filter((d): d is HTMLDivElement => d !== null)
+      .map((dot) => {
+        const r = dot.getBoundingClientRect();
+        return {
+          x: r.left + r.width / 2 - cRect.left,
+          y: r.top + r.height / 2 - cRect.top,
+        };
+      });
+
+    if (points.length < 2) return "";
+
+    let d = `M ${points[0].x} ${points[0].y}`;
+    for (let i = 0; i < points.length - 1; i++) {
+      const curr = points[i];
+      const next = points[i + 1];
+      const midY = (curr.y + next.y) / 2;
+      // S-curve: control points stay at curr.x then next.x at the midpoint height
+      d += ` C ${curr.x} ${midY}, ${next.x} ${midY}, ${next.x} ${next.y}`;
+    }
+    return d;
+  }, []);
+
+  // Build path after Framer Motion animations settle
+  useEffect(() => {
+    const timer = setTimeout(() => setPathD(buildPath()), 900);
+    return () => clearTimeout(timer);
+  }, [buildPath]);
+
+  // Rebuild on resize
+  useEffect(() => {
+    const handleResize = () => setPathD(buildPath());
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [buildPath]);
+
+  // Immediately set clip rect to 0 height before browser paints
+  useLayoutEffect(() => {
+    const clipRect = clipRectRef.current;
+    if (!pathD || !clipRect) return;
+    clipRect.setAttribute("height", "0");
+  }, [pathD]);
+
+  // Keep SVG sized to container
+  useEffect(() => {
+    const svg = svgRef.current;
+    const container = containerRef.current;
+    if (!svg || !container) return;
+    const sync = () => {
+      const w = container.offsetWidth;
+      const h = container.offsetHeight;
+      containerHeightRef.current = h;
+      svg.setAttribute("width", String(w));
+      svg.setAttribute("height", String(h));
+      svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+      if (clipRectRef.current) {
+        clipRectRef.current.setAttribute("width", String(w + 100));
+      }
+    };
+    sync();
+    const ro = new ResizeObserver(sync);
+    ro.observe(container);
+    return () => ro.disconnect();
+  }, []);
+
+  // Scroll-driven animation
   useEffect(() => {
     if (prefersReducedMotion) {
       setActiveFlags(Array(TIMELINE.length).fill(true));
+      if (clipRectRef.current) {
+        clipRectRef.current.setAttribute("height", String(containerHeightRef.current + 100));
+      }
       return;
     }
-    const container = timelineContainerRef.current;
-    const lineDesktop = lineDesktopRef.current;
+
+    const clipRect = clipRectRef.current;
+    const container = containerRef.current;
     const lineMobile = lineMobileRef.current;
     if (!container) return;
 
     const triggers: ScrollTrigger[] = [];
 
-    const updateDots = (progress: number) => {
-      const containerRect = container.getBoundingClientRect();
-      const containerTop = containerRect.top + window.scrollY;
-      const containerHeight = containerRect.height;
-      const lineY = containerTop + progress * containerHeight;
-
-      setActiveFlags((prev) => {
-        const next = [...prev];
-        dotRefs.current.forEach((dot, i) => {
-          if (!dot) return;
-          const dotRect = dot.getBoundingClientRect();
-          const dotY = dotRect.top + window.scrollY + dotRect.height / 2;
-          if (!next[i] && dotY <= lineY) next[i] = true;
-        });
-        return next;
-      });
-    };
-
-    if (lineDesktop) {
-      gsap.set(lineDesktop, { scaleY: 0, transformOrigin: "top center" });
+    if (clipRect && pathD) {
       const trig = ScrollTrigger.create({
         trigger: container,
         start: "top 70%",
         end: "bottom 70%",
         scrub: 0.8,
         onUpdate: (self) => {
-          gsap.set(lineDesktop, { scaleY: self.progress });
-          updateDots(self.progress);
+          const progress = self.progress;
+          const h = containerHeightRef.current * progress;
+          clipRect.setAttribute("height", String(h));
+
+          // Activate/deactivate dots bidirectionally
+          setActiveFlags(() =>
+            dotRefs.current.map((dot, i) => {
+              if (!dot) return false;
+              const dotFraction = dotRefs.current.length <= 1 ? 0 : i / (dotRefs.current.length - 1);
+              return progress >= dotFraction - 0.02;
+            })
+          );
         },
       });
       triggers.push(trig);
@@ -235,24 +332,22 @@ export default function AboutStory() {
         scrub: 0.8,
         onUpdate: (self) => {
           gsap.set(lineMobile, { scaleY: self.progress });
-          updateDots(self.progress);
         },
       });
       triggers.push(trig);
     }
 
     return () => triggers.forEach((t) => t.kill());
-  }, [prefersReducedMotion, TIMELINE.length]);
+  }, [prefersReducedMotion, TIMELINE.length, pathD]);
 
   return (
     <section
       id="parcours"
-      ref={ref}
+      ref={sectionRef}
       className="py-24 px-6 md:px-16 lg:px-24"
       style={{ backgroundColor: "var(--color-bg-secondary)" }}
     >
       <div className="max-w-[1400px] mx-auto">
-        {/* Label */}
         <motion.p
           initial={prefersReducedMotion ? false : "hidden"}
           animate={isInView ? "visible" : "hidden"}
@@ -263,7 +358,6 @@ export default function AboutStory() {
           <span style={{ color: "var(--color-red)" }}>●</span> {t.aboutStory.label}
         </motion.p>
 
-        {/* Title */}
         <motion.h2
           initial={prefersReducedMotion ? false : "hidden"}
           animate={isInView ? "visible" : "hidden"}
@@ -280,33 +374,40 @@ export default function AboutStory() {
           {t.aboutStory.title}
         </motion.h2>
 
-        {/* Timeline */}
-        <div className="relative" ref={timelineContainerRef}>
-
-          {/* Desktop — ghost line */}
-          <div
-            className="hidden lg:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2"
-            style={{ width: "1px", backgroundColor: "var(--color-border)" }}
-          />
-          {/* Desktop — animated red progress line */}
-          <div
-            ref={lineDesktopRef}
-            className="hidden lg:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2"
+        <div className="relative" ref={containerRef}>
+          {/* Desktop SVG path */}
+          <svg
+            ref={svgRef}
+            className="hidden lg:block absolute inset-0"
             style={{
-              width: "2px",
-              backgroundColor: "var(--color-red)",
-              transformOrigin: "top center",
+              overflow: "visible",
               pointerEvents: "none",
               zIndex: 1,
             }}
-          />
+          >
+            <defs>
+              <clipPath id="timeline-clip">
+                <rect ref={clipRectRef} x="-50" y="0" width="0" height="0" />
+              </clipPath>
+            </defs>
+            <path
+              ref={pathRef}
+              d={pathD}
+              fill="none"
+              stroke="var(--color-red)"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeDasharray="12 8"
+              clipPath="url(#timeline-clip)"
+            />
+          </svg>
 
-          {/* Mobile — ghost line */}
+          {/* Mobile ghost line */}
           <div
             className="lg:hidden absolute left-[4px] top-[8px] bottom-0"
             style={{ width: "1px", backgroundColor: "var(--color-border)" }}
           />
-          {/* Mobile — animated red progress line */}
+          {/* Mobile animated line */}
           <div
             ref={lineMobileRef}
             className="lg:hidden absolute left-[4px] top-[8px] bottom-0"
@@ -320,11 +421,11 @@ export default function AboutStory() {
           />
 
           {TIMELINE.map((item, index) => (
-            <TimelineItem
+            <TimelineRow
               key={item.title}
               item={item}
               index={index}
-              dotRef={(el) => addDotRef(el, index)}
+              dotRef={(el) => setDotRef(el, index)}
               active={activeFlags[index]}
             />
           ))}
