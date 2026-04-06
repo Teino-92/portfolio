@@ -217,7 +217,9 @@ export default function AboutStory() {
   const svgRef = useRef<SVGSVGElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const clipRectRef = useRef<SVGRectElement>(null);
-  const lineMobileRef = useRef<HTMLDivElement>(null);
+  const lineMobileSvgRef = useRef<SVGSVGElement>(null);
+  const clipRectMobileRef = useRef<SVGRectElement>(null);
+  const [mobileLineHeight, setMobileLineHeight] = useState(0);
   const dotRefs = useRef<(HTMLDivElement | null)[]>([]);
   const containerHeightRef = useRef(0);
 
@@ -278,12 +280,33 @@ export default function AboutStory() {
     return () => window.removeEventListener("resize", handleResize);
   }, [buildPath]);
 
-  // Immediately set clip rect to 0 height before browser paints
+  // Immediately set clip rects to 0 height before browser paints
   useLayoutEffect(() => {
     const clipRect = clipRectRef.current;
-    if (!pathD || !clipRect) return;
-    clipRect.setAttribute("height", "0");
-  }, [pathD]);
+    if (pathD && clipRect) clipRect.setAttribute("height", "0");
+    const clipRectMobile = clipRectMobileRef.current;
+    if (clipRectMobile) clipRectMobile.setAttribute("height", "0");
+  }, [pathD, mobileLineHeight]);
+
+  // Compute mobile line height: from first dot to last dot
+  useEffect(() => {
+    const computeMobileHeight = () => {
+      const container = containerRef.current;
+      if (!container || typeof window === "undefined" || window.innerWidth >= 1024) return;
+      const dots = dotRefs.current.filter((d): d is HTMLDivElement => d !== null);
+      if (dots.length < 2) return;
+      const cRect = container.getBoundingClientRect();
+      const firstDotY = dots[0].getBoundingClientRect().top + dots[0].getBoundingClientRect().height / 2 - cRect.top;
+      const lastDotY = dots[dots.length - 1].getBoundingClientRect().top + dots[dots.length - 1].getBoundingClientRect().height / 2 - cRect.top;
+      setMobileLineHeight(lastDotY - firstDotY);
+    };
+    const timer = setTimeout(computeMobileHeight, 1000);
+    window.addEventListener("resize", computeMobileHeight);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", computeMobileHeight);
+    };
+  }, []);
 
   // Keep SVG sized to container
   useEffect(() => {
@@ -314,12 +337,14 @@ export default function AboutStory() {
       if (clipRectRef.current) {
         clipRectRef.current.setAttribute("height", String(containerHeightRef.current + 100));
       }
+      if (clipRectMobileRef.current) {
+        clipRectMobileRef.current.setAttribute("height", String(mobileLineHeight + 10));
+      }
       return;
     }
 
     const clipRect = clipRectRef.current;
     const container = containerRef.current;
-    const lineMobile = lineMobileRef.current;
     if (!container) return;
 
     const triggers: ScrollTrigger[] = [];
@@ -355,25 +380,28 @@ export default function AboutStory() {
       triggers.push(trig);
     }
 
-    if (lineMobile) {
-      gsap.set(lineMobile, { scaleY: 0, transformOrigin: "top center" });
+    const clipRectMobile = clipRectMobileRef.current;
+    if (clipRectMobile && mobileLineHeight > 0) {
       const trig = ScrollTrigger.create({
         trigger: container,
         start: "top 70%",
         end: "bottom 70%",
         scrub: 0.8,
         onUpdate: (self) => {
-          gsap.set(lineMobile, { scaleY: self.progress });
+          const h = mobileLineHeight * self.progress;
+          clipRectMobile.setAttribute("height", String(h));
 
           // Activate mobile dots based on line progress
           const cRect = container.getBoundingClientRect();
-          const lineY = cRect.height * self.progress;
+          const dots = dotRefs.current.filter((d): d is HTMLDivElement => d !== null);
+          if (dots.length === 0) return;
+          const firstDotY = dots[0].getBoundingClientRect().top + dots[0].getBoundingClientRect().height / 2 - cRect.top;
 
           const next = dotRefs.current.map((dot) => {
             if (!dot) return false;
             const dotRect = dot.getBoundingClientRect();
-            const dotY = dotRect.top + dotRect.height / 2 - cRect.top;
-            return lineY >= dotY;
+            const dotY = dotRect.top + dotRect.height / 2 - cRect.top - firstDotY;
+            return h >= dotY;
           });
 
           setActiveFlags((prev) => {
@@ -388,7 +416,7 @@ export default function AboutStory() {
     }
 
     return () => triggers.forEach((t) => t.kill());
-  }, [prefersReducedMotion, TIMELINE.length, pathD]);
+  }, [prefersReducedMotion, TIMELINE.length, pathD, mobileLineHeight]);
 
   return (
     <section
@@ -452,18 +480,39 @@ export default function AboutStory() {
             />
           </svg>
 
-          {/* Mobile animated line */}
-          <div
-            ref={lineMobileRef}
-            className="lg:hidden absolute left-[4px] top-[8px] bottom-0"
-            style={{
-              width: "2px",
-              backgroundColor: "var(--color-red)",
-              transformOrigin: "top center",
-              pointerEvents: "none",
-              zIndex: 1,
-            }}
-          />
+          {/* Mobile dashed line */}
+          {mobileLineHeight > 0 && (
+            <svg
+              ref={lineMobileSvgRef}
+              className="lg:hidden absolute"
+              style={{
+                left: "5px",
+                top: "14px",
+                width: "2px",
+                height: `${mobileLineHeight}px`,
+                overflow: "visible",
+                pointerEvents: "none",
+                zIndex: 1,
+              }}
+            >
+              <defs>
+                <clipPath id="timeline-clip-mobile">
+                  <rect ref={clipRectMobileRef} x="-1" y="0" width="4" height="0" />
+                </clipPath>
+              </defs>
+              <line
+                x1="1"
+                y1="0"
+                x2="1"
+                y2={mobileLineHeight}
+                stroke="var(--color-red)"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeDasharray="12 8"
+                clipPath="url(#timeline-clip-mobile)"
+              />
+            </svg>
+          )}
 
           {TIMELINE.map((item, index) => (
             <TimelineRow
