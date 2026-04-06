@@ -319,7 +319,7 @@ function ProjectCard({
 
   if (th) {
     const eyebrow = lang === "en" ? (th.eyebrow_en ?? th.eyebrow) : th.eyebrow;
-    const imageHeightClass = large ? "h-[100px] lg:h-[440px]" : "h-[100px]";
+    const imageHeightClass = large ? "h-[100px] lg:h-[500px]" : "h-[100px] lg:h-[160px]";
     const defaultImageHeightClass = large ? "h-[200px] lg:h-[440px]" : "h-[200px]";
     return (
       <article
@@ -429,14 +429,14 @@ function ProjectCard({
             </div>
           </div>
           {/* Content zone */}
-          <div style={{ backgroundColor: "transparent", padding: large ? "28px 32px 32px" : "20px 24px 24px", display: "flex", flexDirection: "column", flex: 1 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+          <div style={{ backgroundColor: "transparent", padding: large ? "20px 32px 24px" : "14px 24px 18px", display: "flex", flexDirection: "column", flex: 1 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
               <span style={{ fontFamily: "var(--font-mono)", fontSize: "10px", color: status.color, backgroundColor: status.bg, padding: "2px 7px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{status.label}</span>
             </div>
-            <p style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: th.accent, letterSpacing: "0.05em", marginBottom: "8px" }}>{tagline}</p>
-            <div style={{ width: "32px", height: "2px", backgroundColor: th.accent, marginBottom: "16px", opacity: 0.6 }} />
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", lineHeight: 1.65, color: th.textMuted, marginBottom: "20px", flex: 1 }}>{description}</p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "20px" }}>
+            <p style={{ fontFamily: "var(--font-mono)", fontSize: "12px", color: th.accent, letterSpacing: "0.05em", marginBottom: "6px" }}>{tagline}</p>
+            <div style={{ width: "32px", height: "2px", backgroundColor: th.accent, marginBottom: "10px", opacity: 0.6 }} />
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "15px", lineHeight: 1.65, color: th.textMuted, marginBottom: "10px", flex: 1 }}>{description}</p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "12px" }}>
               {project.tags.map((tag, i) => {
                 const tc = th.tagColors?.[i];
                 return (
@@ -446,7 +446,7 @@ function ProjectCard({
                 );
               })}
             </div>
-            <div style={{ borderTop: `1px solid ${th.accent}30`, paddingTop: "16px" }}>
+            <div style={{ borderTop: `1px solid ${th.accent}30`, paddingTop: "10px" }}>
               {linkHref !== "#" ? (
                 <a href={linkHref} target="_blank" rel="noopener noreferrer" style={{ fontFamily: "var(--font-mono)", fontSize: "13px", fontWeight: 600, color: th.accent, textDecoration: "none" }}>
                   {project.url ? "Voir le site →" : "Voir le code →"}
