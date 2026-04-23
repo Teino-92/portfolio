@@ -1,13 +1,14 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "fs/promises";
+import { join } from "path";
 
 export const size = { width: 64, height: 64 };
 export const contentType = "image/png";
 
 export default async function Icon() {
-  const syneRes = await fetch(
-    "https://fonts.gstatic.com/s/syne/v22/8vIS7w4qzmVxsWxjBZRjr0FKM_04uT6k.woff"
+  const syne = await readFile(
+    join(process.cwd(), "public/fonts/Syne-Bold.ttf")
   );
-  const syne = await syneRes.arrayBuffer();
 
   return new ImageResponse(
     (
