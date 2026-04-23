@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 import AnimatedText from "@/components/ui/AnimatedText";
+import ScrollHint from "@/components/ui/ScrollHint";
 import { useLang } from "@/lib/i18n/context";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -28,6 +29,7 @@ export default function About() {
   const textInView = useInView(textRef, { once: true, margin: "-60px" });
 
   const animate = !shouldReduceMotion;
+  const [activeStep, setActiveStep] = useState(0);
 
   useEffect(() => {
     if (shouldReduceMotion) return;
@@ -48,6 +50,14 @@ export default function About() {
             snapTo: "labels",
             duration: { min: 0.3, max: 0.7 },
             ease: "power2.inOut",
+          },
+          onUpdate: (self) => {
+            const p = self.progress;
+            if (p < 0.18) setActiveStep(0);
+            else if (p < 0.38) setActiveStep(1);
+            else if (p < 0.58) setActiveStep(2);
+            else if (p < 0.78) setActiveStep(3);
+            else setActiveStep(4);
           },
         },
       });
@@ -90,7 +100,7 @@ export default function About() {
         ref={stickyRef}
         id="about"
         style={{ backgroundColor: "var(--color-bg-accent)" }}
-        className="w-full h-screen flex flex-col justify-start pt-16 md:pt-20 overflow-hidden"
+        className="relative w-full h-screen flex flex-col justify-start pt-16 md:pt-20 overflow-hidden"
       >
         <motion.div
           ref={labelRef}
@@ -249,6 +259,7 @@ export default function About() {
             </div>
           </div>
         </div>
+        <ScrollHint visible={activeStep === 0} />
       </div>
     </div>
   );
