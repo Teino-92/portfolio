@@ -58,9 +58,31 @@ export default function Footer() {
               color: "var(--color-gray-mid)",
               textTransform: "uppercase" as const,
               letterSpacing: "0.04em",
+              marginBottom: "0.5rem",
             }}
           >
             {t.footer.tagline}
+          </p>
+          <p
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.6875rem",
+              color: "var(--color-gray-mid)",
+              letterSpacing: "0.04em",
+            }}
+          >
+            <a
+              href="/developpeur-suresnes"
+              style={linkStyle}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.color = "var(--color-white)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.color = "var(--color-gray-mid)";
+              }}
+            >
+              Développeur web freelance basé à Suresnes (92) — interventions Paris &amp; Hauts-de-Seine
+            </a>
           </p>
         </div>
 
