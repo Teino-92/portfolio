@@ -95,6 +95,7 @@ export default function AboutPersonal() {
                   fontSize: "15px",
                   lineHeight: 1.7,
                   color: "rgba(253, 250, 244, 0.7)",
+                  whiteSpace: "pre-line",
                 }}
               >
                 {card.body}

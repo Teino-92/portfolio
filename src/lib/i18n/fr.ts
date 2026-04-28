@@ -200,7 +200,7 @@ export const fr = {
       {
         icon: "🌍",
         title: "Les langues",
-        body: "Français · Italiano · English · Español. Quatre langues, quatre façons de penser. « If you talk to a man in a language he understands, that goes to his head. If you talk to him in his own language, that goes to his heart. » — Nelson Mandela",
+        body: "Français · Italiano · English · Español. Quatre langues, quatre façons de penser.\n« If you talk to a man in a language he understands, that goes to his head. If you talk to him in his own language, that goes to his heart. » — Nelson Mandela",
       },
     ],
   },
@@ -265,7 +265,7 @@ export const fr = {
 
   // About page — CTA
   aboutCTA: {
-    quote: "Je cherche des projets qui qui ont sens.",
+    quote: "Je cherche des projets qui ont du sens.",
     ctaProjects: "Voir mes projets →",
     ctaContact: "Me contacter",
   },

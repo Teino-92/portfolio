@@ -202,7 +202,7 @@ export const en: Translations = {
       {
         icon: "🌍",
         title: "Languages",
-        body: "Français · Italiano · English · Español. Four languages, four ways of thinking. « If you talk to a man in a language he understands, that goes to his head. If you talk to him in his own language, that goes to his heart. » — Nelson Mandela",
+        body: "Français · Italiano · English · Español. Four languages, four ways of thinking.\n« If you talk to a man in a language he understands, that goes to his head. If you talk to him in his own language, that goes to his heart. » — Nelson Mandela",
       },
     ],
   },
