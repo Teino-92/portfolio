@@ -81,7 +81,7 @@ export default function Footer() {
                 (e.currentTarget as HTMLAnchorElement).style.color = "var(--color-gray-mid)";
               }}
             >
-              Développeur web freelance basé à Suresnes (92) — interventions Paris &amp; Hauts-de-Seine
+              Suresnes (92) · Paris
             </a>
           </p>
         </div>
