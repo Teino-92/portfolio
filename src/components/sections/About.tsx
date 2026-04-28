@@ -3,8 +3,8 @@
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, useInView, useReducedMotion } from "framer-motion";
-import { fadeUp, staggerContainer } from "@/lib/animations";
-import AnimatedText from "@/components/ui/AnimatedText";
+import { staggerContainer } from "@/lib/animations";
+import TypewriterText from "@/components/ui/TypewriterText";
 import ScrollHint from "@/components/ui/ScrollHint";
 import { useLang } from "@/lib/i18n/context";
 import gsap from "gsap";
@@ -30,6 +30,8 @@ export default function About() {
 
   const animate = !shouldReduceMotion;
   const [activeStep, setActiveStep] = useState(0);
+  const [titleDone, setTitleDone] = useState(false);
+  const [bodyDone, setBodyDone] = useState(false);
 
   useEffect(() => {
     if (shouldReduceMotion) return;
@@ -137,10 +139,12 @@ export default function About() {
               variants={animate ? staggerContainer : undefined}
               className="flex flex-col gap-8 lg:flex-1"
             >
-              <AnimatedText
+              <TypewriterText
                 text={t.aboutSection.title}
                 el="p"
-                delay={0.2}
+                startDelayMs={200}
+                caretColor="var(--color-white)"
+                onDone={() => setTitleDone(true)}
                 style={{
                   fontFamily: "var(--font-serif)",
                   fontSize: "clamp(28px, 4vw, 42px)",
@@ -150,33 +154,42 @@ export default function About() {
                 }}
               />
 
-              <motion.p
-                variants={animate ? fadeUp : undefined}
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "17px",
-                  lineHeight: 1.75,
-                  color: "rgba(253, 250, 244, 0.7)",
-                  maxWidth: "52ch",
-                }}
-              >
-                {t.aboutSection.body}
-              </motion.p>
+              {titleDone && (
+                <TypewriterText
+                  text={t.aboutSection.body}
+                  el="p"
+                  startWhenVisible={false}
+                  startDelayMs={150}
+                  caretColor="rgba(253, 250, 244, 0.7)"
+                  onDone={() => setBodyDone(true)}
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "17px",
+                    lineHeight: 1.75,
+                    color: "rgba(253, 250, 244, 0.7)",
+                    maxWidth: "52ch",
+                  }}
+                />
+              )}
 
-              <motion.p
-                variants={animate ? fadeUp : undefined}
-                style={{
-                  fontFamily: "var(--font-serif)",
-                  fontSize: "clamp(15px, 1.8vw, 18px)",
-                  fontStyle: "italic",
-                  lineHeight: 1.5,
-                  color: "rgba(253, 250, 244, 0.45)",
-                  borderLeft: "2px solid var(--color-yellow)",
-                  paddingLeft: "20px",
-                }}
-              >
-                {t.aboutSection.cta}
-              </motion.p>
+              {bodyDone && (
+                <motion.p
+                  initial={animate ? { opacity: 0, y: 12 } : false}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  style={{
+                    fontFamily: "var(--font-serif)",
+                    fontSize: "clamp(15px, 1.8vw, 18px)",
+                    fontStyle: "italic",
+                    lineHeight: 1.5,
+                    color: "rgba(253, 250, 244, 0.45)",
+                    borderLeft: "2px solid var(--color-yellow)",
+                    paddingLeft: "20px",
+                  }}
+                >
+                  {t.aboutSection.cta}
+                </motion.p>
+              )}
             </motion.div>
 
             {/* Scène 4 SVGs */}

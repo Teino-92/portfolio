@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { fadeIn } from "@/lib/animations";
 import { useLang } from "@/lib/i18n/context";
+import AnimatedLogo from "@/components/layout/AnimatedLogo";
 
 interface NavLink {
   label: string;
@@ -94,16 +95,13 @@ export default function Header() {
             href="/"
             aria-label="MG — Retour à l'accueil"
             style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 800,
-              fontSize: "1.375rem",
-              letterSpacing: "-0.03em",
-              color: "var(--color-black)",
+              display: "inline-flex",
+              alignItems: "center",
               textDecoration: "none",
               lineHeight: 1,
             }}
           >
-            MG
+            <AnimatedLogo />
           </a>
 
           {/* Desktop nav */}
