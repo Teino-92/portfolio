@@ -15,7 +15,7 @@ export default function LocalBusinessSchema() {
     image: `${SITE_URL}/og-image.png`,
     logo: `${SITE_URL}/icon`,
     telephone: "+33678064662",
-    email: "garbugli.matteo92@gmail.com",
+    email: "info@matteogarbugli.com",
     priceRange: "€€€",
     address: {
       "@type": "PostalAddress",

@@ -94,7 +94,7 @@ export default function Contact() {
           className="mb-12"
         >
           <a
-            href="mailto:matteo.garbugli@yahoo.it"
+            href="mailto:info@matteogarbugli.com"
             style={{
               display: "inline-block",
               backgroundColor: "var(--color-white)",

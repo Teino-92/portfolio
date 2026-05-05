@@ -251,7 +251,7 @@ export default function ContactClient() {
           >
             {/* Email — CTA principal */}
             <a
-              href="mailto:matteo.garbugli@yahoo.it"
+              href="mailto:info@matteogarbugli.com"
               style={{
                 fontFamily: "var(--font-display)",
                 fontWeight: 700,
@@ -266,7 +266,7 @@ export default function ContactClient() {
               onMouseEnter={(e) => (e.currentTarget.style.borderColor = "var(--color-white)")}
               onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(253,250,244,0.4)")}
             >
-              matteo.garbugli@yahoo.it
+              info@matteogarbugli.com
             </a>
 
             {/* Social links */}
