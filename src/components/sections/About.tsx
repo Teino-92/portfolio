@@ -35,6 +35,7 @@ export default function About() {
 
   useEffect(() => {
     if (shouldReduceMotion) return;
+    if (typeof window !== "undefined" && window.matchMedia("(max-width: 1023px)").matches) return;
 
     const svgs = [bureauRef.current, matteoRef.current, macRef.current, decoRef.current];
 
@@ -97,12 +98,12 @@ export default function About() {
   }, [shouldReduceMotion]);
 
   return (
-    <div ref={wrapperRef} style={{ height: "600vh" }}>
+    <div ref={wrapperRef} className="lg:h-[600vh]">
       <div
         ref={stickyRef}
         id="about"
         style={{ backgroundColor: "var(--color-bg-accent)" }}
-        className="relative w-full h-screen flex flex-col justify-start pt-16 md:pt-20 overflow-hidden"
+        className="relative w-full lg:h-screen flex flex-col justify-start pt-16 md:pt-20 pb-16 lg:pb-0 overflow-hidden"
       >
         <motion.div
           ref={labelRef}
@@ -193,7 +194,7 @@ export default function About() {
             </motion.div>
 
             {/* Scène 4 SVGs */}
-            <div className="lg:flex-shrink-0 lg:w-[360px] xl:w-[420px]">
+            <div className="hidden lg:block lg:flex-shrink-0 lg:w-[360px] xl:w-[420px]">
               <div className="relative" style={{ paddingBottom: "140%" }}>
                 {/* Matteo — derrière bureau */}
                 <div
