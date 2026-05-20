@@ -54,7 +54,7 @@ export default function AboutCTA() {
           className="flex flex-wrap gap-4 justify-center"
         >
           <a
-            href="/#projets"
+            href="/projects"
             style={{
               display: "inline-block",
               backgroundColor: "var(--color-white)",

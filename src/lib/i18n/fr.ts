@@ -53,6 +53,60 @@ export const fr = {
     details: "Détails →",
   },
 
+  // Pricing section (homepage)
+  pricingSection: {
+    label: "02 — Prestations",
+    titleLine1: "Ce que",
+    titleLine2: "je construis.",
+    from: "à partir de",
+    tags: {
+      landing: "Landing page",
+      showcase: "Site vitrine",
+      premium: "Premium",
+    },
+    names: {
+      essential: "Essentiel",
+      studio: "Studio",
+      signature: "Signature",
+    },
+    descriptions: {
+      essential: "Une page percutante pour exister en ligne. Design épuré, responsive, formulaire de contact.",
+      studio: "3 à 4 pages soignées avec animations et identité visuelle forte.",
+      signature: "Expérience digitale haut de gamme. CMS, animations avancées, intégrations sur-mesure.",
+    },
+    items: {
+      essential: [
+        "1 page responsive",
+        "Design custom",
+        "Formulaire de contact",
+        "Déploiement inclus",
+      ],
+      studio: [
+        "3–4 pages",
+        "Animations Framer Motion",
+        "Design system custom",
+        "SEO on-page",
+      ],
+      signature: [
+        "Site multi-pages",
+        "GSAP / R3F",
+        "CMS Sanity",
+        "Intégrations API",
+      ],
+    },
+    ctas: {
+      start: "Démarrer",
+      learnMore: "En savoir plus",
+      talk: "Parlons-en",
+    },
+    complex: {
+      label: "SaaS · App native",
+      title: "Projet complexe ?",
+      cta: "Sur devis",
+    },
+    seeExample: "Voir le projet",
+  },
+
   // Stack section (homepage)
   stackSection: {
     label: "03 — Stack technique",
@@ -103,6 +157,14 @@ export const fr = {
     formLabel: "● Ou écrivez-moi directement",
     formName: "Nom",
     formEmail: "Email",
+    formFormula: "Formule",
+    formFormulaPlaceholder: "— Sélectionnez une formule —",
+    formFormulas: {
+      essential: "Essentiel — Landing page (700 €)",
+      studio: "Studio — Site vitrine (2 000 €)",
+      signature: "Signature — Premium (5 000 €)",
+      custom: "Sur devis — SaaS / App native",
+    },
     formMessage: "Message",
     formNamePlaceholder: "Votre nom",
     formEmailPlaceholder: "votre@email.com",

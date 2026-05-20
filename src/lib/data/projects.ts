@@ -116,7 +116,7 @@ export const projects: Project[] = [
     tags: ["Rails 7", "Hotwire", "Tailwind", "SaaS", "B2B"],
     year: 2025,
     url: "https://izi-rh.com",
-    image: "/images/preview-izi-rh.jpg",
+    image: "/images/preview-izi-rh.png",
     featured: true,
     status: "production",
     problem:
@@ -229,12 +229,12 @@ end`,
     metrics: [
       "Réservations en ligne intégrées — zéro friction pour le client",
       "Boutique e-commerce avec produits éco-responsables et artisanaux",
-      "Couverture médiatique TF1 et presse — la visibilité digitale suit",
+      "Dashboard analytics custom — suivi du CA (eco-shop + boutique), clients et leads en temps réel",
     ],
     metrics_en: [
       "Online bookings integrated — zero friction for the client",
       "E-commerce boutique with eco-friendly and artisan products",
-      "TF1 and press coverage — digital visibility follows",
+      "Custom analytics dashboard — real-time tracking of revenue (eco-shop + boutique), customers and leads",
     ],
     decisions: [
       {
@@ -307,75 +307,104 @@ export async function getProductsByCategory(
     },
   },
   {
-    id: "makeup-portfolio",
-    title: "Portfolio MUA",
-    tagline: "Portfolio digital pour make-up artist — Cannes, Fashion Week, pubs & films",
-    tagline_en: "Digital portfolio for makeup artist — Cannes, Fashion Week, ads & films",
+    id: "tiffany-salomon",
+    title: "Tiffany Salomon",
+    tagline: "Site vitrine · Consultante Relation Client",
+    tagline_en: "Showcase site · Customer Relations Consultant",
+    theme: {
+      bg: "#F0E6D2",
+      text: "#1A2540",
+      textMuted: "rgba(26, 37, 64, 0.7)",
+      accent: "#A8312A",
+      accentText: "#F0E6D2",
+      tagBg: "rgba(168, 49, 42, 0.08)",
+      tagText: "#A8312A",
+      tagBorder: "rgba(168, 49, 42, 0.25)",
+      eyebrow: "Site vitrine · Live",
+      eyebrow_en: "Showcase site · Live",
+      logo: undefined,
+    },
     description:
-      "Site portfolio pour une make-up artiste travaillant sur les plus grands événements (Festival de Cannes, Fashion Week Paris) et productions (publicités photo, TV et cinéma). Direction artistique en cours.",
+      "Site vitrine pour Tiffany Salomon, consultante en expérience client et closer. Identité visuelle élégante (beige sable + bordeaux + script doré), animations soignées, optimisation SEO pour référencement local.",
     description_en:
-      "Portfolio site for a makeup artist working on major events (Cannes Film Festival, Paris Fashion Week) and productions (photo ads, TV and cinema). Art direction in progress.",
-    tags: ["Next.js", "TypeScript", "Framer Motion"],
+      "Showcase site for Tiffany Salomon, customer experience consultant and closer. Elegant visual identity (sand beige + burgundy + gold script), refined animations, SEO optimization for local search.",
+    tags: ["Next.js", "React", "Tailwind", "Framer Motion", "SEO on-page"],
     year: 2026,
+    url: "https://www.tiffanysalomon.com/",
+    image: "/images/preview-tiffany-salomon.png",
     featured: false,
-    status: "development",
+    status: "production",
     problem:
-      "Une make-up artiste de ce niveau mérite une vitrine digitale à la hauteur de son travail — pas un PDF envoyé par email. L'enjeu : présenter des visuels forts dans un environnement qui ne leur fait pas concurrence.",
+      "Une consultante senior en relation client n'avait pas de vitrine digitale alignée avec son positionnement haut de gamme. Besoin d'un site élégant qui inspire confiance dès la première seconde et convertit les visiteurs en prospects qualifiés.",
     problem_en:
-      "A makeup artist of this caliber deserves a digital showcase worthy of her work — not a PDF sent by email. The challenge: presenting strong visuals in an environment that doesn't compete with them.",
+      "A senior customer relations consultant lacked a digital showcase aligned with her premium positioning. Need for an elegant site that builds trust from the first second and converts visitors into qualified prospects.",
     metrics: [
-      "Portfolio de projets classés par univers (cinéma, mode, publicité)",
-      "Direction artistique en cours de définition",
-      "Déploiement prévu 2026",
+      "Site vitrine 4 pages — Accueil, À propos, Missions, Contact",
+      "Identité visuelle premium — typographie script + palette beige/bordeaux",
+      "SEO on-page optimisé — balises meta, schema, performance Lighthouse",
     ],
     metrics_en: [
-      "Project portfolio organized by universe (cinema, fashion, advertising)",
-      "Art direction currently being defined",
-      "Deployment planned 2026",
+      "4-page showcase site — Home, About, Missions, Contact",
+      "Premium visual identity — script typography + beige/burgundy palette",
+      "Optimized on-page SEO — meta tags, schema, Lighthouse performance",
     ],
     decisions: [
       {
-        technical: "Next.js avec optimisation images next/image",
+        technical: "Next.js App Router avec SSG",
         plainLanguage:
-          "→ Les photos haute résolution se chargent instantanément sans sacrifier la qualité — crucial quand l'image est le produit",
+          "→ Pages pré-rendues et déployées sur edge — chargement instantané, crucial pour ne pas perdre un prospect haut de gamme dès l'arrivée",
       },
       {
-        technical: "Framer Motion pour les transitions entre projets",
+        technical: "Tailwind CSS pour le design system",
         plainLanguage:
-          "→ La navigation entre les projets est fluide et cinématique — cohérent avec l'univers du cinéma et de la mode",
+          "→ Cohérence visuelle stricte (espacements, typographies, couleurs) sans CSS spaghetti — site maintenable et évolutif",
       },
       {
-        technical: "Direction artistique custom — pas de template",
+        technical: "Framer Motion sur révélations au scroll",
         plainLanguage:
-          "→ Chaque choix de couleur, typographie et mise en page sera pensé pour refléter l'identité de l'artiste, pas un moule générique",
+          "→ Animations discrètes et élégantes qui guident l'œil sans distraire — cohérent avec le positionnement premium",
+      },
+      {
+        technical: "SEO on-page : metadata, schema.org, sitemap, OG tags",
+        plainLanguage:
+          "→ Le site est indexable et partageable proprement sur Google et les réseaux — fondation pour attirer des prospects qualifiés en organique",
       },
     ],
     decisions_en: [
       {
-        technical: "Next.js with next/image optimization",
+        technical: "Next.js App Router with SSG",
         plainLanguage:
-          "→ High-resolution photos load instantly without sacrificing quality — crucial when the image is the product",
+          "→ Pre-rendered pages deployed on edge — instant loading, crucial to avoid losing a high-end prospect on arrival",
       },
       {
-        technical: "Framer Motion for project transitions",
+        technical: "Tailwind CSS for the design system",
         plainLanguage:
-          "→ Navigation between projects is smooth and cinematic — consistent with the cinema and fashion universe",
+          "→ Strict visual consistency (spacing, typography, colors) without spaghetti CSS — maintainable, scalable site",
       },
       {
-        technical: "Custom art direction — no template",
+        technical: "Framer Motion on scroll reveals",
         plainLanguage:
-          "→ Every color choice, typography and layout will be designed to reflect the artist's identity, not a generic mold",
+          "→ Discreet, elegant animations that guide the eye without distracting — consistent with the premium positioning",
+      },
+      {
+        technical: "On-page SEO: metadata, schema.org, sitemap, OG tags",
+        plainLanguage:
+          "→ Site is properly indexable and shareable on Google and social networks — foundation to attract qualified organic prospects",
       },
     ],
     techTooltips: {
       "Next.js": "Framework React pour créer des sites web performants avec chargement ultra-rapide",
-      TypeScript: "JavaScript avec un système de types — réduit les bugs de 40% en détectant les erreurs avant l'exécution",
+      React: "Bibliothèque pour construire des interfaces utilisateur dynamiques et réactives",
+      Tailwind: "Framework CSS utility-first qui accélère le développement sans sacrifier la cohérence visuelle",
       "Framer Motion": "Bibliothèque d'animations React — permet des transitions fluides et des interactions mémorables",
+      "SEO on-page": "Optimisation technique des pages (balises, structure, performance) pour bien se positionner sur Google",
     },
     techTooltips_en: {
       "Next.js": "React framework for building high-performance websites with ultra-fast loading",
-      TypeScript: "JavaScript with a type system — reduces bugs by 40% by catching errors before execution",
+      React: "Library for building dynamic and reactive user interfaces",
+      Tailwind: "Utility-first CSS framework that speeds up development without sacrificing visual consistency",
       "Framer Motion": "React animation library — enables smooth transitions and memorable interactions",
+      "SEO on-page": "Technical page optimization (tags, structure, performance) to rank well on Google",
     },
   },
   {

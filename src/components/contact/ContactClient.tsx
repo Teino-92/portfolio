@@ -1,9 +1,12 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useReducedMotion, AnimatePresence } from "framer-motion";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 import { useLang } from "@/lib/i18n/context";
+
+type FormulaKey = "" | "essential" | "studio" | "signature" | "custom";
+const FORMULA_KEYS: ReadonlyArray<Exclude<FormulaKey, "">> = ["essential", "studio", "signature", "custom"];
 
 const SOCIAL_LINKS = [
   { label: "GitHub", href: "https://github.com/Teino-92" },
@@ -14,11 +17,28 @@ type FormState = "idle" | "sending" | "sent" | "error";
 
 function ContactForm() {
   const [state, setState] = useState<FormState>("idle");
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState<{ name: string; email: string; formula: FormulaKey; message: string }>({
+    name: "",
+    email: "",
+    formula: "",
+    message: "",
+  });
   const prefersReducedMotion = useReducedMotion();
   const { t } = useLang();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  // Pré-sélection via ?formula=studio venant des cards Pricing
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const f = params.get("formula");
+    if (f && (FORMULA_KEYS as ReadonlyArray<string>).includes(f)) {
+      setForm((prev) => ({ ...prev, formula: f as FormulaKey }));
+    }
+  }, []);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -137,6 +157,35 @@ function ContactForm() {
                   onBlur={(e) => (e.currentTarget.style.borderColor = "var(--color-border-strong)")}
                 />
               </div>
+            </div>
+
+            <div>
+              <label htmlFor="formula" style={labelStyle}>{t.contactPage.formFormula}</label>
+              <select
+                id="formula"
+                name="formula"
+                required
+                value={form.formula}
+                onChange={handleChange}
+                style={{
+                  ...inputStyle,
+                  appearance: "none",
+                  backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%231A1A18' d='M6 8L0 0h12z'/></svg>")`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "right 16px center",
+                  paddingRight: "40px",
+                  cursor: "pointer",
+                }}
+                onFocus={(e) => (e.currentTarget.style.borderColor = "var(--color-black)")}
+                onBlur={(e) => (e.currentTarget.style.borderColor = "var(--color-border-strong)")}
+              >
+                <option value="" disabled>{t.contactPage.formFormulaPlaceholder}</option>
+                {FORMULA_KEYS.map((key) => (
+                  <option key={key} value={key}>
+                    {t.contactPage.formFormulas[key]}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div>

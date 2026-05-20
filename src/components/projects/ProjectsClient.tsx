@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useRef } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { motion, AnimatePresence, useInView, useReducedMotion } from "framer-motion";
 import { projects, getProjectText } from "@/lib/data/projects";
 import type { Project } from "@/lib/data/projects";
@@ -285,6 +285,16 @@ export default function ProjectsClient() {
   const heroRef = useRef<HTMLDivElement>(null);
   const isHeroInView = useInView(heroRef, { once: true });
   const { t } = useLang();
+
+  // Ouvre deep dive via ?project=<id> (lien depuis cards Pricing)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("project");
+    if (!id) return;
+    const target = projects.find((p) => p.id === id);
+    if (target) setSelectedProject(target);
+  }, []);
 
   // Collect all unique tags
   const allTags = useMemo(() => {

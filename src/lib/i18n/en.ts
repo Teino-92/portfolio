@@ -55,6 +55,60 @@ export const en: Translations = {
     details: "Details →",
   },
 
+  // Pricing section (homepage)
+  pricingSection: {
+    label: "02 — Services",
+    titleLine1: "What",
+    titleLine2: "I build.",
+    from: "starting at",
+    tags: {
+      landing: "Landing page",
+      showcase: "Showcase site",
+      premium: "Premium",
+    },
+    names: {
+      essential: "Essential",
+      studio: "Studio",
+      signature: "Signature",
+    },
+    descriptions: {
+      essential: "A punchy page to exist online. Clean design, responsive, contact form.",
+      studio: "3 to 4 polished pages with animations and strong visual identity.",
+      signature: "High-end digital experience. CMS, advanced animations, custom integrations.",
+    },
+    items: {
+      essential: [
+        "1 responsive page",
+        "Custom design",
+        "Contact form",
+        "Deployment included",
+      ],
+      studio: [
+        "3–4 pages",
+        "Framer Motion animations",
+        "Custom design system",
+        "On-page SEO",
+      ],
+      signature: [
+        "Multi-page site",
+        "GSAP / R3F",
+        "Sanity CMS",
+        "API integrations",
+      ],
+    },
+    ctas: {
+      start: "Get started",
+      learnMore: "Learn more",
+      talk: "Let's talk",
+    },
+    complex: {
+      label: "SaaS · Native app",
+      title: "Complex project?",
+      cta: "Custom quote",
+    },
+    seeExample: "See the project",
+  },
+
   // Stack section (homepage)
   stackSection: {
     label: "03 — Tech stack",
@@ -105,6 +159,14 @@ export const en: Translations = {
     formLabel: "● Or write to me directly",
     formName: "Name",
     formEmail: "Email",
+    formFormula: "Plan",
+    formFormulaPlaceholder: "— Select a plan —",
+    formFormulas: {
+      essential: "Essential — Landing page (€700)",
+      studio: "Studio — Showcase site (€2,000)",
+      signature: "Signature — Premium (€5,000)",
+      custom: "Custom quote — SaaS / Native app",
+    },
     formMessage: "Message",
     formNamePlaceholder: "Your name",
     formEmailPlaceholder: "your@email.com",
