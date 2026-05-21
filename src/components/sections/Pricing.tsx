@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useLang } from "@/lib/i18n/context";
 
@@ -100,7 +100,7 @@ const themes: Record<Variant, Theme> = {
     tagBg: "rgba(253,250,244,0.12)",
     tagBorder: "var(--color-bg-primary)",
     tagText: "var(--color-bg-primary)",
-    name: "var(--color-bg-primary)",
+    name: "var(--color-yellow)",
     price: "var(--color-bg-primary)",
     from: "rgba(253,250,244,0.6)",
     divider: "rgba(253,250,244,0.18)",
@@ -147,8 +147,17 @@ export default function Pricing() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const prefersReducedMotion = useReducedMotion();
   const [hovered, setHovered] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const { t } = useLang();
   const p = t.pricingSection;
+
+  useEffect(() => {
+    const mql = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mql.matches);
+    update();
+    mql.addEventListener("change", update);
+    return () => mql.removeEventListener("change", update);
+  }, []);
 
   const animate = prefersReducedMotion ? "visible" : isInView ? "visible" : "hidden";
 
@@ -229,6 +238,7 @@ export default function Pricing() {
                   boxShadow: hovered === i ? "0 12px 32px rgba(0,0,0,0.18)" : "none",
                   position: "relative",
                   overflow: "hidden",
+                  textAlign: isMobile ? "center" : "left",
                 }}
               >
                 {/* Tier number */}
@@ -344,6 +354,7 @@ export default function Pricing() {
                         borderBottom: `1px solid ${th.itemBorder}`,
                         display: "flex",
                         alignItems: "center",
+                        justifyContent: isMobile ? "center" : "flex-start",
                         gap: 8,
                       }}
                     >
@@ -420,7 +431,7 @@ export default function Pricing() {
           transition={{ delay: 0.7, duration: 0.6 }}
           style={{
             marginTop: 2,
-            backgroundColor: "var(--color-black)",
+            backgroundColor: "var(--color-yellow)",
             padding: "28px 36px",
             display: "flex",
             alignItems: "center",
@@ -436,7 +447,7 @@ export default function Pricing() {
                 fontSize: 11,
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                color: "rgba(253,250,244,0.35)",
+                color: "rgba(26,26,24,0.55)",
                 fontWeight: 500,
                 display: "block",
                 marginBottom: 4,
@@ -449,7 +460,7 @@ export default function Pricing() {
                 fontFamily: "var(--font-display)",
                 fontSize: 20,
                 fontWeight: 800,
-                color: "var(--color-bg-primary)",
+                color: "var(--color-black)",
                 letterSpacing: "-0.02em",
                 textTransform: "uppercase",
               }}
@@ -461,7 +472,7 @@ export default function Pricing() {
             href="/contact?formula=custom"
             style={{
               padding: "14px 32px",
-              backgroundColor: "var(--color-red)",
+              backgroundColor: "var(--color-black)",
               color: "var(--color-bg-primary)",
               border: "none",
               fontFamily: "var(--font-mono)",
