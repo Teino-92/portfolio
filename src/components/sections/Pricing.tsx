@@ -280,12 +280,13 @@ export default function Pricing() {
                 <h3
                   style={{
                     fontFamily: "var(--font-display)",
-                    fontSize: 32,
+                    fontSize: "clamp(22px, 5.5vw, 32px)",
                     fontWeight: 800,
                     textTransform: "uppercase",
                     letterSpacing: "-0.02em",
                     color: th.name,
                     margin: "0 0 8px 0",
+                    whiteSpace: "nowrap",
                   }}
                 >
                   {p.names[plan.nameKey]}
@@ -295,7 +296,7 @@ export default function Pricing() {
                 <div
                   style={{
                     fontFamily: "var(--font-display)",
-                    fontSize: 48,
+                    fontSize: "clamp(36px, 9vw, 48px)",
                     fontWeight: 800,
                     color: th.price,
                     letterSpacing: "-0.04em",
