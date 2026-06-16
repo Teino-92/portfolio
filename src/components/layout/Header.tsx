@@ -93,7 +93,7 @@ export default function Header() {
           {/* Logo */}
           <a
             href="/"
-            aria-label="MG — Retour à l'accueil"
+            aria-label="MG, Retour à l'accueil"
             style={{
               display: "inline-flex",
               alignItems: "center",

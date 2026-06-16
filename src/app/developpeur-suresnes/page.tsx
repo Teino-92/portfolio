@@ -6,14 +6,14 @@ const SITE_URL = "https://matteogarbugli.com";
 const PAGE_URL = `${SITE_URL}/developpeur-suresnes`;
 
 export const metadata: Metadata = {
-  title: "Développeur Web Freelance à Suresnes (92) — Sites, SaaS, Web3",
+  title: "Développeur Web Freelance à Suresnes (92), Sites, SaaS, Web3",
   description:
     "Développeur web freelance basé à Suresnes (Hauts-de-Seine). Création de sites internet, SaaS et applications Web3 pour TPE, PME et startups. Interventions Paris, La Défense, Puteaux.",
   alternates: {
     canonical: PAGE_URL,
   },
   openGraph: {
-    title: "Développeur Web Freelance à Suresnes (92) — Matteo Garbugli",
+    title: "Développeur Web Freelance à Suresnes (92), Matteo Garbugli",
     description:
       "Création de sites, SaaS et applications Web3 à Suresnes et dans tout le 92. Devis sous 48h.",
     url: PAGE_URL,
@@ -125,7 +125,7 @@ export default function DeveloppeurSuresnesPage() {
             className="mb-8 text-xs tracking-[0.22em] uppercase"
             style={{ fontFamily: "var(--font-mono)", color: "var(--color-gray-mid)" }}
           >
-            <span style={{ color: "var(--color-red)" }}>●</span> Suresnes — Hauts-de-Seine (92)
+            <span style={{ color: "var(--color-red)" }}>●</span> Suresnes, Hauts-de-Seine (92)
           </p>
 
           <h1
@@ -332,7 +332,7 @@ export default function DeveloppeurSuresnesPage() {
               Travailler avec un développeur freelance basé à Suresnes plutôt qu'avec une
               agence offshore ou un prestataire à 800 km, c'est avant tout une question de
               qualité de relation. Un appel rapide, un café à La Défense, une réunion sur
-              site — la proximité raccourcit les boucles de feedback et fait gagner des
+              site, la proximité raccourcit les boucles de feedback et fait gagner des
               semaines sur un projet.
             </p>
             <p>

@@ -11,8 +11,8 @@ const SITE_URL = "https://matteogarbugli.com";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Développeur Web Freelance Suresnes (92) — Matteo Garbugli",
-    template: "%s | Matteo Garbugli — Développeur Web Suresnes",
+    default: "Développeur Web Freelance Suresnes (92), Matteo Garbugli",
+    template: "%s | Matteo Garbugli, Développeur Web Suresnes",
   },
   description:
     "Développeur web freelance à Suresnes (92). Création de sites, SaaS et applications Web3. Interventions Paris, La Défense, Puteaux, Hauts-de-Seine.",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     canonical: SITE_URL,
   },
   openGraph: {
-    title: "Développeur Web Freelance Suresnes (92) — Matteo Garbugli",
+    title: "Développeur Web Freelance Suresnes (92), Matteo Garbugli",
     description:
       "Développeur full-stack basé à Suresnes. Sites web, SaaS, Web3. Missions Paris et Hauts-de-Seine.",
     url: SITE_URL,
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Développeur Web Freelance Suresnes (92) — Matteo Garbugli",
+    title: "Développeur Web Freelance Suresnes (92), Matteo Garbugli",
     description:
       "Développeur full-stack basé à Suresnes. Sites web, SaaS, Web3. Missions Paris et Hauts-de-Seine.",
   },

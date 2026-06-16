@@ -137,49 +137,49 @@ export const projects: Project[] = [
       {
         technical: "Ruby on Rails 7 avec Hotwire (Turbo + Stimulus)",
         plainLanguage:
-          "→ L'interface se met à jour en temps réel sans recharger la page — comme une app mobile, mais dans le navigateur",
+          "→ L'interface se met à jour en temps réel sans recharger la page, comme une app mobile, mais dans le navigateur",
       },
       {
         technical: "Architecture multi-tenant avec row-level security PostgreSQL",
         plainLanguage:
-          "→ Chaque entreprise a ses données complètement isolées — comme des appartements dans un même immeuble sécurisé",
+          "→ Chaque entreprise a ses données complètement isolées, comme des appartements dans un même immeuble sécurisé",
       },
       {
         technical: "Webhooks entrants pour sync bidirectionnelle avec les logiciels de paie",
         plainLanguage:
-          "→ Les données se synchronisent automatiquement entre Izi-RH et le logiciel de paie existant — zéro double saisie",
+          "→ Les données se synchronisent automatiquement entre Izi-RH et le logiciel de paie existant, zéro double saisie",
       },
     ],
     decisions_en: [
       {
         technical: "Ruby on Rails 7 with Hotwire (Turbo + Stimulus)",
         plainLanguage:
-          "→ The interface updates in real time without reloading the page — like a mobile app, but in the browser",
+          "→ The interface updates in real time without reloading the page, like a mobile app, but in the browser",
       },
       {
         technical: "Multi-tenant architecture with PostgreSQL row-level security",
         plainLanguage:
-          "→ Each company's data is completely isolated — like apartments in a secure building",
+          "→ Each company's data is completely isolated, like apartments in a secure building",
       },
       {
         technical: "Inbound webhooks for bidirectional sync with payroll software",
         plainLanguage:
-          "→ Data syncs automatically between Izi-RH and the existing payroll software — zero double entry",
+          "→ Data syncs automatically between Izi-RH and the existing payroll software, zero double entry",
       },
     ],
     techTooltips: {
-      "Rails 7": "Framework web complet en Ruby — permet de construire une application solide 3x plus vite qu'en partant de zéro",
-      Hotwire: "Technologie qui rend les pages web réactives sans JavaScript complexe — résultat : une app rapide et fluide",
-      Tailwind: "Système de design CSS — permet de créer des interfaces cohérentes et belles rapidement",
-      SaaS: "Software as a Service — l'application est hébergée en ligne, accessible depuis n'importe quel navigateur, sans installation",
-      B2B: "Business to Business — le produit est vendu à des entreprises, pas au grand public",
+      "Rails 7": "Framework web complet en Ruby, permet de construire une application solide 3x plus vite qu'en partant de zéro",
+      Hotwire: "Technologie qui rend les pages web réactives sans JavaScript complexe, résultat : une app rapide et fluide",
+      Tailwind: "Système de design CSS, permet de créer des interfaces cohérentes et belles rapidement",
+      SaaS: "Software as a Service, l'application est hébergée en ligne, accessible depuis n'importe quel navigateur, sans installation",
+      B2B: "Business to Business, le produit est vendu à des entreprises, pas au grand public",
     },
     techTooltips_en: {
-      "Rails 7": "Full web framework in Ruby — build a solid application 3x faster than from scratch",
-      Hotwire: "Technology that makes web pages reactive without complex JavaScript — result: a fast, fluid app",
-      Tailwind: "CSS design system — create consistent, beautiful interfaces quickly",
-      SaaS: "Software as a Service — the app is hosted online, accessible from any browser, no installation",
-      B2B: "Business to Business — the product is sold to companies, not to the general public",
+      "Rails 7": "Full web framework in Ruby, build a solid application 3x faster than from scratch",
+      Hotwire: "Technology that makes web pages reactive without complex JavaScript, result: a fast, fluid app",
+      Tailwind: "CSS design system, create consistent, beautiful interfaces quickly",
+      SaaS: "Software as a Service, the app is hosted online, accessible from any browser, no installation",
+      B2B: "Business to Business, the product is sold to companies, not to the general public",
     },
     codeSnippet: {
       language: "ruby",
@@ -191,8 +191,8 @@ class PayrollSyncJob < ApplicationJob
                   .push_employee(payload)
   end
 end`,
-      caption: "Job de synchronisation asynchrone — s'exécute en arrière-plan pour ne pas bloquer l'interface",
-      caption_en: "Asynchronous sync job — runs in background to avoid blocking the interface",
+      caption: "Job de synchronisation asynchrone, s'exécute en arrière-plan pour ne pas bloquer l'interface",
+      caption_en: "Asynchronous sync job, runs in background to avoid blocking the interface",
     },
   },
   {
@@ -213,9 +213,9 @@ end`,
       logo: "/images/logo-merci-murphy.avif",
     },
     description:
-      "E-commerce premium pour chiens et chats à Paris. Design photographique, intégration Shopify Storefront API — luxe parisien accessible.",
+      "E-commerce premium pour chiens et chats à Paris. Design photographique, intégration Shopify Storefront API, luxe parisien accessible.",
     description_en:
-      "Premium e-commerce for dogs and cats in Paris. Photographic design, Shopify Storefront API integration — accessible Parisian luxury.",
+      "Premium e-commerce for dogs and cats in Paris. Photographic design, Shopify Storefront API integration, accessible Parisian luxury.",
     tags: ["Next.js", "Shopify", "Sanity", "E-commerce"],
     year: 2026,
     url: "https://mercimurphy.com",
@@ -227,60 +227,60 @@ end`,
     problem_en:
       "Merci Murphy offered premium services (spa, hydrotherapy, dog training) but lacked a digital presence to match. Bookings were done by phone, the eco-friendly boutique was invisible online.",
     metrics: [
-      "Réservations en ligne intégrées — zéro friction pour le client",
+      "Réservations en ligne intégrées, zéro friction pour le client",
       "Boutique e-commerce avec produits éco-responsables et artisanaux",
-      "Dashboard analytics custom — suivi du CA (eco-shop + boutique), clients et leads en temps réel",
+      "Dashboard analytics custom, suivi du CA (eco-shop + boutique), clients et leads en temps réel",
     ],
     metrics_en: [
-      "Online bookings integrated — zero friction for the client",
+      "Online bookings integrated, zero friction for the client",
       "E-commerce boutique with eco-friendly and artisan products",
-      "Custom analytics dashboard — real-time tracking of revenue (eco-shop + boutique), customers and leads",
+      "Custom analytics dashboard, real-time tracking of revenue (eco-shop + boutique), customers and leads",
     ],
     decisions: [
       {
         technical: "Next.js avec rendu statique (SSG) et déploiement Vercel",
         plainLanguage:
-          "→ Le site se charge en moins d'une seconde partout dans le monde — crucial pour convertir un visiteur mobile en client",
+          "→ Le site se charge en moins d'une seconde partout dans le monde, crucial pour convertir un visiteur mobile en client",
       },
       {
         technical: "Architecture orientée contenu avec sections modulaires",
         plainLanguage:
-          "→ Chaque service (spa, éducation, garde) a sa propre page — le référencement Google cible précisément chaque intention de recherche",
+          "→ Chaque service (spa, éducation, garde) a sa propre page, le référencement Google cible précisément chaque intention de recherche",
       },
       {
         technical: "Intégration système de réservation tiers via embed",
         plainLanguage:
-          "→ Les clients réservent directement depuis le site sans quitter la page — le taux de conversion est 3x supérieur au téléphone",
+          "→ Les clients réservent directement depuis le site sans quitter la page, le taux de conversion est 3x supérieur au téléphone",
       },
     ],
     decisions_en: [
       {
         technical: "Next.js with static rendering (SSG) and Vercel deployment",
         plainLanguage:
-          "→ The site loads in under a second anywhere in the world — crucial for converting a mobile visitor into a customer",
+          "→ The site loads in under a second anywhere in the world, crucial for converting a mobile visitor into a customer",
       },
       {
         technical: "Content-oriented architecture with modular sections",
         plainLanguage:
-          "→ Each service (spa, training, boarding) has its own page — Google SEO targets each search intent precisely",
+          "→ Each service (spa, training, boarding) has its own page, Google SEO targets each search intent precisely",
       },
       {
         technical: "Third-party booking system integration via embed",
         plainLanguage:
-          "→ Clients book directly from the site without leaving the page — conversion rate is 3x higher than phone",
+          "→ Clients book directly from the site without leaving the page, conversion rate is 3x higher than phone",
       },
     ],
     techTooltips: {
       "Next.js": "Framework React pour créer des sites web performants avec chargement ultra-rapide",
-      Shopify: "Plateforme e-commerce — gestion du catalogue, du panier et des paiements, connectée via Storefront API",
-      Sanity: "CMS headless — le contenu est géré depuis une interface simple, publié instantanément sur le site",
-      "E-commerce": "Vente en ligne — le client peut parcourir les produits, les ajouter au panier et payer directement sur le site",
+      Shopify: "Plateforme e-commerce, gestion du catalogue, du panier et des paiements, connectée via Storefront API",
+      Sanity: "CMS headless, le contenu est géré depuis une interface simple, publié instantanément sur le site",
+      "E-commerce": "Vente en ligne, le client peut parcourir les produits, les ajouter au panier et payer directement sur le site",
     },
     techTooltips_en: {
       "Next.js": "React framework for building high-performance websites with ultra-fast loading",
-      Shopify: "E-commerce platform — catalog, cart and payment management, connected via Storefront API",
-      Sanity: "Headless CMS — content is managed from a simple interface, published instantly to the site",
-      "E-commerce": "Online sales — the client can browse products, add to cart and pay directly on the site",
+      Shopify: "E-commerce platform, catalog, cart and payment management, connected via Storefront API",
+      Sanity: "Headless CMS, content is managed from a simple interface, published instantly to the site",
+      "E-commerce": "Online sales, the client can browse products, add to cart and pay directly on the site",
     },
     codeSnippet: {
       language: "typescript",
@@ -302,8 +302,8 @@ export async function getProductsByCategory(
     (p) => p.category === category && p.inStock
   );
 }`,
-      caption: "Catalogue produits avec typage strict — chaque produit est catégorisé, son stock vérifié, le tout optimisé pour le référencement",
-      caption_en: "Typed product catalog with stock management — each product is categorized, stock verified, all SEO-optimized",
+      caption: "Catalogue produits avec typage strict, chaque produit est catégorisé, son stock vérifié, le tout optimisé pour le référencement",
+      caption_en: "Typed product catalog with stock management, each product is categorized, stock verified, all SEO-optimized",
     },
   },
   {
@@ -339,71 +339,71 @@ export async function getProductsByCategory(
     problem_en:
       "A senior customer relations consultant lacked a digital showcase aligned with her premium positioning. Need for an elegant site that builds trust from the first second and converts visitors into qualified prospects.",
     metrics: [
-      "Site vitrine 4 pages — Accueil, À propos, Missions, Contact",
-      "Identité visuelle premium — typographie script + palette beige/bordeaux",
-      "SEO on-page optimisé — balises meta, schema, performance Lighthouse",
+      "Site vitrine 4 pages, Accueil, À propos, Missions, Contact",
+      "Identité visuelle premium, typographie script + palette beige/bordeaux",
+      "SEO on-page optimisé, balises meta, schema, performance Lighthouse",
     ],
     metrics_en: [
-      "4-page showcase site — Home, About, Missions, Contact",
-      "Premium visual identity — script typography + beige/burgundy palette",
-      "Optimized on-page SEO — meta tags, schema, Lighthouse performance",
+      "4-page showcase site, Home, About, Missions, Contact",
+      "Premium visual identity, script typography + beige/burgundy palette",
+      "Optimized on-page SEO, meta tags, schema, Lighthouse performance",
     ],
     decisions: [
       {
         technical: "Next.js App Router avec SSG",
         plainLanguage:
-          "→ Pages pré-rendues et déployées sur edge — chargement instantané, crucial pour ne pas perdre un prospect haut de gamme dès l'arrivée",
+          "→ Pages pré-rendues et déployées sur edge, chargement instantané, crucial pour ne pas perdre un prospect haut de gamme dès l'arrivée",
       },
       {
         technical: "Tailwind CSS pour le design system",
         plainLanguage:
-          "→ Cohérence visuelle stricte (espacements, typographies, couleurs) sans CSS spaghetti — site maintenable et évolutif",
+          "→ Cohérence visuelle stricte (espacements, typographies, couleurs) sans CSS spaghetti, site maintenable et évolutif",
       },
       {
         technical: "Framer Motion sur révélations au scroll",
         plainLanguage:
-          "→ Animations discrètes et élégantes qui guident l'œil sans distraire — cohérent avec le positionnement premium",
+          "→ Animations discrètes et élégantes qui guident l'œil sans distraire, cohérent avec le positionnement premium",
       },
       {
         technical: "SEO on-page : metadata, schema.org, sitemap, OG tags",
         plainLanguage:
-          "→ Le site est indexable et partageable proprement sur Google et les réseaux — fondation pour attirer des prospects qualifiés en organique",
+          "→ Le site est indexable et partageable proprement sur Google et les réseaux, fondation pour attirer des prospects qualifiés en organique",
       },
     ],
     decisions_en: [
       {
         technical: "Next.js App Router with SSG",
         plainLanguage:
-          "→ Pre-rendered pages deployed on edge — instant loading, crucial to avoid losing a high-end prospect on arrival",
+          "→ Pre-rendered pages deployed on edge, instant loading, crucial to avoid losing a high-end prospect on arrival",
       },
       {
         technical: "Tailwind CSS for the design system",
         plainLanguage:
-          "→ Strict visual consistency (spacing, typography, colors) without spaghetti CSS — maintainable, scalable site",
+          "→ Strict visual consistency (spacing, typography, colors) without spaghetti CSS, maintainable, scalable site",
       },
       {
         technical: "Framer Motion on scroll reveals",
         plainLanguage:
-          "→ Discreet, elegant animations that guide the eye without distracting — consistent with the premium positioning",
+          "→ Discreet, elegant animations that guide the eye without distracting, consistent with the premium positioning",
       },
       {
         technical: "On-page SEO: metadata, schema.org, sitemap, OG tags",
         plainLanguage:
-          "→ Site is properly indexable and shareable on Google and social networks — foundation to attract qualified organic prospects",
+          "→ Site is properly indexable and shareable on Google and social networks, foundation to attract qualified organic prospects",
       },
     ],
     techTooltips: {
       "Next.js": "Framework React pour créer des sites web performants avec chargement ultra-rapide",
       React: "Bibliothèque pour construire des interfaces utilisateur dynamiques et réactives",
       Tailwind: "Framework CSS utility-first qui accélère le développement sans sacrifier la cohérence visuelle",
-      "Framer Motion": "Bibliothèque d'animations React — permet des transitions fluides et des interactions mémorables",
+      "Framer Motion": "Bibliothèque d'animations React, permet des transitions fluides et des interactions mémorables",
       "SEO on-page": "Optimisation technique des pages (balises, structure, performance) pour bien se positionner sur Google",
     },
     techTooltips_en: {
       "Next.js": "React framework for building high-performance websites with ultra-fast loading",
       React: "Library for building dynamic and reactive user interfaces",
       Tailwind: "Utility-first CSS framework that speeds up development without sacrificing visual consistency",
-      "Framer Motion": "React animation library — enables smooth transitions and memorable interactions",
+      "Framer Motion": "React animation library, enables smooth transitions and memorable interactions",
       "SEO on-page": "Technical page optimization (tags, structure, performance) to rank well on Google",
     },
   },
@@ -439,9 +439,9 @@ export async function getProductsByCategory(
     featured: false,
     status: "prototype",
     problem:
-      "Les outils d'analytics comme Google Analytics ou Mixpanel collectent massivement les données des visiteurs — souvent illégalement en Europe (RGPD). Metrik track ce qui compte, sans espionner les utilisateurs.",
+      "Les outils d'analytics comme Google Analytics ou Mixpanel collectent massivement les données des visiteurs, souvent illégalement en Europe (RGPD). Metrik track ce qui compte, sans espionner les utilisateurs.",
     problem_en:
-      "Analytics tools like Google Analytics or Mixpanel massively collect visitor data — often illegally in Europe (GDPR). Metrik tracks what matters, without spying on users.",
+      "Analytics tools like Google Analytics or Mixpanel massively collect visitor data, often illegally in Europe (GDPR). Metrik tracks what matters, without spying on users.",
     metrics: [
       "Conforme RGPD sans bannière cookies",
       "Données hébergées en Europe (Frankfurt)",
@@ -456,47 +456,47 @@ export async function getProductsByCategory(
       {
         technical: "ClickHouse comme base de données analytique colonnaire",
         plainLanguage:
-          "→ ClickHouse peut analyser des milliards d'événements en moins d'une seconde — une base de données classique mettrait des minutes",
+          "→ ClickHouse peut analyser des milliards d'événements en moins d'une seconde, une base de données classique mettrait des minutes",
       },
       {
         technical: "Edge functions Vercel pour l'ingestion d'events",
         plainLanguage:
-          "→ Les données sont traitées au plus près de l'utilisateur, dans le pays le plus proche — ça réduit la latence et garantit la conformité RGPD",
+          "→ Les données sont traitées au plus près de l'utilisateur, dans le pays le plus proche, ça réduit la latence et garantit la conformité RGPD",
       },
       {
         technical: "Fingerprinting sans cookies via hachage IP + User-Agent",
         plainLanguage:
-          "→ On identifie les visiteurs uniques sans stocker de cookies — légalement propre, statistiquement précis",
+          "→ On identifie les visiteurs uniques sans stocker de cookies, légalement propre, statistiquement précis",
       },
     ],
     decisions_en: [
       {
         technical: "ClickHouse as columnar analytics database",
         plainLanguage:
-          "→ ClickHouse can analyze billions of events in under a second — a standard database would take minutes",
+          "→ ClickHouse can analyze billions of events in under a second, a standard database would take minutes",
       },
       {
         technical: "Vercel Edge functions for event ingestion",
         plainLanguage:
-          "→ Data is processed closest to the user, in the nearest country — reduces latency and guarantees GDPR compliance",
+          "→ Data is processed closest to the user, in the nearest country, reduces latency and guarantees GDPR compliance",
       },
       {
         technical: "Cookieless fingerprinting via IP + User-Agent hash",
         plainLanguage:
-          "→ Unique visitors are identified without storing cookies — legally clean, statistically accurate",
+          "→ Unique visitors are identified without storing cookies, legally clean, statistically accurate",
       },
     ],
     techTooltips: {
       "Next.js": "Framework React pour créer des sites web performants avec chargement ultra-rapide",
-      TypeScript: "JavaScript avec un système de types — réduit les bugs de 40% en détectant les erreurs avant l'exécution",
+      TypeScript: "JavaScript avec un système de types, réduit les bugs de 40% en détectant les erreurs avant l'exécution",
       Clickhouse: "Base de données ultra-rapide spécialisée dans l'analyse de grandes quantités de données",
-      SaaS: "Software as a Service — l'application est hébergée en ligne, accessible depuis n'importe quel navigateur, sans installation",
+      SaaS: "Software as a Service, l'application est hébergée en ligne, accessible depuis n'importe quel navigateur, sans installation",
     },
     techTooltips_en: {
       "Next.js": "React framework for building high-performance websites with ultra-fast loading",
-      TypeScript: "JavaScript with a type system — reduces bugs by 40% by catching errors before execution",
+      TypeScript: "JavaScript with a type system, reduces bugs by 40% by catching errors before execution",
       Clickhouse: "Ultra-fast database specialized in analyzing large amounts of data",
-      SaaS: "Software as a Service — the app is hosted online, accessible from any browser, no installation",
+      SaaS: "Software as a Service, the app is hosted online, accessible from any browser, no installation",
     },
     codeSnippet: {
       language: "typescript",
@@ -512,8 +512,8 @@ export async function trackEvent(event: AnalyticsEvent) {
     values: [{ ...event, visitor_id: visitorId, ts: Date.now() }],
   });
 }`,
-      caption: "Identification des visiteurs uniques sans cookies — conforme RGPD, zéro bannière de consentement",
-      caption_en: "Unique visitor identification without cookies — GDPR compliant, zero consent banner",
+      caption: "Identification des visiteurs uniques sans cookies, conforme RGPD, zéro bannière de consentement",
+      caption_en: "Unique visitor identification without cookies, GDPR compliant, zero consent banner",
     },
   },
   // — Archivés —
@@ -531,9 +531,9 @@ export async function trackEvent(event: AnalyticsEvent) {
     featured: false,
     status: "archived",
     problem:
-      "Les créateurs qui vendent leurs œuvres numériques (NFTs) ne reçoivent pas de commission sur les reventes — une fois vendu, c'est terminé. Vault Protocol automatise ces royalties directement dans le contrat.",
+      "Les créateurs qui vendent leurs œuvres numériques (NFTs) ne reçoivent pas de commission sur les reventes, une fois vendu, c'est terminé. Vault Protocol automatise ces royalties directement dans le contrat.",
     problem_en:
-      "Creators selling their digital works (NFTs) don't receive a commission on resales — once sold, that's it. Vault Protocol automates these royalties directly into the contract.",
+      "Creators selling their digital works (NFTs) don't receive a commission on resales, once sold, that's it. Vault Protocol automates these royalties directly into the contract.",
     metrics: [
       "200+ collections créées en 3 mois",
       "Royalties versées automatiquement à chaque revente",
@@ -553,12 +553,12 @@ export async function trackEvent(event: AnalyticsEvent) {
       {
         technical: "Smart contracts upgradeable via proxy pattern (EIP-1967)",
         plainLanguage:
-          "→ Le contrat peut être mis à jour sans perdre les données existantes — comme mettre à jour une app sans effacer son contenu",
+          "→ Le contrat peut être mis à jour sans perdre les données existantes, comme mettre à jour une app sans effacer son contenu",
       },
       {
         technical: "Indexation des events on-chain via The Graph",
         plainLanguage:
-          "→ Toutes les transactions blockchain sont indexées et consultables instantanément — comme Google pour la blockchain",
+          "→ Toutes les transactions blockchain sont indexées et consultables instantanément, comme Google pour la blockchain",
       },
     ],
     decisions_en: [
@@ -570,26 +570,26 @@ export async function trackEvent(event: AnalyticsEvent) {
       {
         technical: "Upgradeable smart contracts via proxy pattern (EIP-1967)",
         plainLanguage:
-          "→ The contract can be updated without losing existing data — like updating an app without deleting its content",
+          "→ The contract can be updated without losing existing data, like updating an app without deleting its content",
       },
       {
         technical: "On-chain event indexing via The Graph",
         plainLanguage:
-          "→ All blockchain transactions are indexed and queryable instantly — like Google for the blockchain",
+          "→ All blockchain transactions are indexed and queryable instantly, like Google for the blockchain",
       },
     ],
     techTooltips: {
-      Solidity: "Le langage pour écrire des contrats intelligents sur la blockchain — du code qui s'exécute automatiquement sans intermédiaire",
+      Solidity: "Le langage pour écrire des contrats intelligents sur la blockchain, du code qui s'exécute automatiquement sans intermédiaire",
       "Next.js": "Framework React pour créer des sites web performants avec chargement ultra-rapide",
       Wagmi: "Bibliothèque qui connecte une application web à un wallet crypto (MetaMask, Coinbase Wallet...)",
-      Base: "Blockchain créée par Coinbase — même sécurité qu'Ethereum mais 10x moins chère à utiliser",
+      Base: "Blockchain créée par Coinbase, même sécurité qu'Ethereum mais 10x moins chère à utiliser",
       Web3: "La nouvelle génération d'applications internet où les utilisateurs contrôlent leurs propres données et actifs",
     },
     techTooltips_en: {
-      Solidity: "The language for writing smart contracts on the blockchain — code that executes automatically without intermediaries",
+      Solidity: "The language for writing smart contracts on the blockchain, code that executes automatically without intermediaries",
       "Next.js": "React framework for building high-performance websites with ultra-fast loading",
       Wagmi: "Library that connects a web app to a crypto wallet (MetaMask, Coinbase Wallet...)",
-      Base: "Blockchain created by Coinbase — same security as Ethereum but 10x cheaper to use",
+      Base: "Blockchain created by Coinbase, same security as Ethereum but 10x cheaper to use",
       Web3: "The new generation of internet applications where users control their own data and assets",
     },
     codeSnippet: {
@@ -603,8 +603,8 @@ function royaltyInfo(
     amount = (salePrice * info.percentage) / 10000;
     return (info.creator, amount);
 }`,
-      caption: "Standard ERC-2981 — calcule et verse automatiquement les royalties au créateur original à chaque revente",
-      caption_en: "ERC-2981 standard — automatically calculates and pays royalties to the original creator on each resale",
+      caption: "Standard ERC-2981, calcule et verse automatiquement les royalties au créateur original à chaque revente",
+      caption_en: "ERC-2981 standard, automatically calculates and pays royalties to the original creator on each resale",
     },
   },
   {
@@ -621,9 +621,9 @@ function royaltyInfo(
     featured: false,
     status: "archived",
     problem:
-      "Les organisations décentralisées (DAOs) ont du mal à faire voter leurs membres — interfaces complexes, frais de transaction élevés, manque de transparence sur les résultats. Quorum rend la gouvernance accessible.",
+      "Les organisations décentralisées (DAOs) ont du mal à faire voter leurs membres, interfaces complexes, frais de transaction élevés, manque de transparence sur les résultats. Quorum rend la gouvernance accessible.",
     problem_en:
-      "Decentralized organizations (DAOs) struggle to get members to vote — complex interfaces, high transaction fees, lack of transparency on results. Quorum makes governance accessible.",
+      "Decentralized organizations (DAOs) struggle to get members to vote, complex interfaces, high transaction fees, lack of transparency on results. Quorum makes governance accessible.",
     metrics: [
       "3 DAOs actives avec 1 200+ membres au total",
       "Taux de participation aux votes x2.4 vs outils existants",
@@ -638,48 +638,48 @@ function royaltyInfo(
       {
         technical: "Vote off-chain via Snapshot + exécution on-chain via Gnosis Safe",
         plainLanguage:
-          "→ Le vote est gratuit (off-chain), mais l'exécution de la décision est sécurisée sur la blockchain — le meilleur des deux mondes",
+          "→ Le vote est gratuit (off-chain), mais l'exécution de la décision est sécurisée sur la blockchain, le meilleur des deux mondes",
       },
       {
         technical: "Délégation de tokens avec ERC-20Votes",
         plainLanguage:
-          "→ Un membre peut déléguer son droit de vote à quelqu'un de confiance — comme une procuration, mais automatique et révocable à tout moment",
+          "→ Un membre peut déléguer son droit de vote à quelqu'un de confiance, comme une procuration, mais automatique et révocable à tout moment",
       },
       {
         technical: "Indexation temps réel avec The Graph subgraph",
         plainLanguage:
-          "→ Tous les votes et proposals sont consultables instantanément depuis n'importe quelle interface — la blockchain devient une base de données lisible",
+          "→ Tous les votes et proposals sont consultables instantanément depuis n'importe quelle interface, la blockchain devient une base de données lisible",
       },
     ],
     decisions_en: [
       {
         technical: "Off-chain voting via Snapshot + on-chain execution via Gnosis Safe",
         plainLanguage:
-          "→ Voting is free (off-chain), but execution of the decision is secured on the blockchain — the best of both worlds",
+          "→ Voting is free (off-chain), but execution of the decision is secured on the blockchain, the best of both worlds",
       },
       {
         technical: "Token delegation with ERC-20Votes",
         plainLanguage:
-          "→ A member can delegate their voting right to someone they trust — like a proxy, but automatic and revocable at any time",
+          "→ A member can delegate their voting right to someone they trust, like a proxy, but automatic and revocable at any time",
       },
       {
         technical: "Real-time indexing with The Graph subgraph",
         plainLanguage:
-          "→ All votes and proposals are queryable instantly from any interface — the blockchain becomes a readable database",
+          "→ All votes and proposals are queryable instantly from any interface, the blockchain becomes a readable database",
       },
     ],
     techTooltips: {
-      Solidity: "Le langage pour écrire des contrats intelligents sur la blockchain — du code qui s'exécute automatiquement sans intermédiaire",
+      Solidity: "Le langage pour écrire des contrats intelligents sur la blockchain, du code qui s'exécute automatiquement sans intermédiaire",
       React: "Bibliothèque JavaScript pour créer des interfaces utilisateur réactives et dynamiques",
-      "The Graph": "Service qui indexe les données blockchain pour les rendre consultables instantanément — comme Google pour la blockchain",
-      DAO: "Organisation Autonome Décentralisée — une organisation dont les règles sont écrites dans du code et dont les décisions sont prises par vote collectif",
+      "The Graph": "Service qui indexe les données blockchain pour les rendre consultables instantanément, comme Google pour la blockchain",
+      DAO: "Organisation Autonome Décentralisée, une organisation dont les règles sont écrites dans du code et dont les décisions sont prises par vote collectif",
       Web3: "La nouvelle génération d'applications internet où les utilisateurs contrôlent leurs propres données et actifs",
     },
     techTooltips_en: {
-      Solidity: "The language for writing smart contracts on the blockchain — code that executes automatically without intermediaries",
+      Solidity: "The language for writing smart contracts on the blockchain, code that executes automatically without intermediaries",
       React: "JavaScript library for building reactive and dynamic user interfaces",
-      "The Graph": "Service that indexes blockchain data to make it instantly queryable — like Google for the blockchain",
-      DAO: "Decentralized Autonomous Organization — an organization whose rules are written in code and whose decisions are made by collective vote",
+      "The Graph": "Service that indexes blockchain data to make it instantly queryable, like Google for the blockchain",
+      DAO: "Decentralized Autonomous Organization, an organization whose rules are written in code and whose decisions are made by collective vote",
       Web3: "The new generation of internet applications where users control their own data and assets",
     },
     codeSnippet: {
@@ -693,8 +693,8 @@ function delegate(address delegatee) public override {
     emit DelegateChanged(msg.sender, currentDelegate, delegatee);
     _moveVotingPower(currentDelegate, delegatee, delegatorBalance);
 }`,
-      caption: "Délégation de vote — un membre peut confier son pouvoir de vote à quelqu'un de confiance, révocable à tout moment",
-      caption_en: "Vote delegation — a member can entrust their voting power to someone they trust, revocable at any time",
+      caption: "Délégation de vote, un membre peut confier son pouvoir de vote à quelqu'un de confiance, révocable à tout moment",
+      caption_en: "Vote delegation, a member can entrust their voting power to someone they trust, revocable at any time",
     },
   },
 ];

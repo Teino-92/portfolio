@@ -7,7 +7,7 @@ export default function LocalBusinessSchema() {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "@id": `${SITE_URL}/#business`,
-    name: "Matteo Garbugli — Développeur Web Freelance",
+    name: "Matteo Garbugli, Développeur Web Freelance",
     alternateName: "Matteo Garbugli",
     description:
       "Développeur web freelance à Suresnes (92). Création de sites, SaaS et applications Web3. Interventions Paris, La Défense, Puteaux, Hauts-de-Seine.",

@@ -149,7 +149,7 @@ export default function AboutSkills() {
                       style={{ color: domain.accent, fontSize: "10px", flexShrink: 0 }}
                       aria-hidden="true"
                     >
-                      —
+                     ,
                     </span>
                     {skill}
                   </li>

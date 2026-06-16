@@ -6,7 +6,7 @@ import AboutSkills from "@/components/about/AboutSkills";
 import AboutCTA from "@/components/about/AboutCTA";
 
 export const metadata: Metadata = {
-  title: "À propos — Matteo Garbugli",
+  title: "À propos, Matteo Garbugli",
   description:
     "Milan, la Grèce, la Norvège, Punta Cana, Paris. Dix ans d'opérations, un bootcamp, et maintenant je construis. Le parcours de Matteo Garbugli.",
 };
